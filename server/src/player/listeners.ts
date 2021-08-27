@@ -20,15 +20,6 @@ export const addPlayerListeners = (
       : socket.emit(ServerEvent.PLAYER_NOT_FOUND);
   });
 
-  socket.on(ClientEvent.MAKE_VOTE, (gameId, playerId, vote) => {
-    const game = makeVote(gameId, playerId, vote);
-    const allVoted = haveAllVoted(game);
-    if (allVoted) {
-      game.status = GameStatus.COMPLETE;
-    }
-    io.emit(ServerEvent.GAME_UPDATED, game.id, game);
-  });
-
   socket.on(ClientEvent.UPDATE_PLAYER, (gameId, playerData) => {
     const [player, game] = updatePlayer(gameId, playerData);
     socket.emit(ServerEvent.PLAYER_UPDATED, player.socketId, player);

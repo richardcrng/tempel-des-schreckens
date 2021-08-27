@@ -1,4 +1,4 @@
-import { GameBase, GameStatus, Player, Vote } from "../../types/game.types";
+import { GameBase, GameStatus, Player } from "../../types/game.types";
 import GameComplete from "../organisms/GameComplete";
 import GameLobby from "../organisms/GameLobby";
 import GameOngoing from "../organisms/GameOngoing";
@@ -6,7 +6,7 @@ import GameOngoing from "../organisms/GameOngoing";
 interface Props {
   game: GameBase;
   handleStartGame(customProbability?: number): void;
-  handleVote(vote: Vote | null): void;
+  handleVote(vote: null): void;
   players: Player[];
   player: Player;
 }

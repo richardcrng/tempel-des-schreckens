@@ -16,7 +16,7 @@ function GameRoute() {
   const game = useGame(gameId);
   const player = usePlayer(socket.id, socketAliases);
 
-  if (game.data?.status === GameStatus.STARTED && !player.data) {
+  if (game.data?.status === GameStatus.ONGOING && !player.data) {
     return <p>Can't join a game that is underway - sorry</p>;
   } else if (!player.loading && !player.data?.name) {
     return (
@@ -55,17 +55,16 @@ function GameRoute() {
             handleStartGame={(customProbability) => {
               socket.emit(
                 ClientEvent.START_GAME,
-                game.data!.id,
-                customProbability
+                game.data!.id
               );
             }}
             handleVote={(vote) => {
-              socket.emit(
-                ClientEvent.MAKE_VOTE,
-                game.data!.id,
-                player.data?.socketId || "",
-                vote
-              );
+              // socket.emit(
+              //   ClientEvent.MAKE_VOTE,
+              //   game.data!.id,
+              //   player.data?.socketId || "",
+              //   vote
+              // );
             }}
             players={Object.values(game.data.players)}
             player={player.data}

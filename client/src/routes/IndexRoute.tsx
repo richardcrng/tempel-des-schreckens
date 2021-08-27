@@ -30,10 +30,17 @@ function IndexRoute() {
 
   return (
     <>
-      <h1>🤫 Conspiracy</h1>
+      <h1>👹 Tempel des Schreckens</h1>
+      <h3>A quick-playing bluffing game for 3-10 players.</h3>
       <p>
-        A social game of deception, deduction and paranoia for three or more
-        players.
+        You've finally reached the Temple of Secrets with its immense treasure
+        of gold — but what awaits you here? Fabulous wealth or total
+        destruction? The proud and mysterious temple guards who are hiding
+        amongst the adventurers are trying to lure them onto the wrong track in
+        order to protect their gold. Skillfully and with a deceitful tongue,
+        they try to convince you to open the grave chambers behind which lies a
+        dangerous fire trap. Can you trust anyone in the group when you don't
+        know whether they're friend or foe?
       </p>
       {isLoading ? (
         <>
@@ -42,7 +49,10 @@ function IndexRoute() {
             <Message.Content>
               <Message.Header>Please wait</Message.Header>
               <p>We're loading the game for you.</p>
-              <p>(This can take up to 30-40s when you are starting a new game for the first time in a while - sorry! Thanks for your patience.)</p>
+              <p>
+                (This can take up to 30-40s when you are starting a new game for
+                the first time in a while - sorry! Thanks for your patience.)
+              </p>
             </Message.Content>
           </Message>
         </>

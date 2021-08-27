@@ -19,9 +19,7 @@ const generateConspiracyState = (
   const isConspiracy = Math.random() < probabilityOfConspiracy;
   if (isConspiracy) {
     const conspiracyTarget = sample(players)!;
-    game.conspiracyTarget = conspiracyTarget.socketId;
   } else {
-    game.conspiracyTarget = null;
   }
 };
 
@@ -38,6 +36,11 @@ export const createGame = (data: CreateGameEvent): GameBase => {
       },
     },
     status: GameStatus.LOBBY,
+    deck: {
+      cards: {},
+      dealt: [],
+      stacked: []
+    }
   };
   games[gameId] = game;
   return game;
@@ -47,8 +50,6 @@ export const resetGame = (gameId: string): GameBase => {
   const game = getGameById(gameId);
   if (game) {
     game.status = GameStatus.LOBBY;
-    delete game.conspiracyTarget;
-    delete game.votes;
     return game
   } else {
     throw new Error("Couldn't find game")
@@ -61,7 +62,7 @@ export const startGame = (
 ): GameBase => {
   const game = getGameById(gameId);
   if (game) {
-    game.status = GameStatus.STARTED;
+    game.status = GameStatus.ONGOING;
     generateConspiracyState(game, customProbability);
     return game;
   } else {

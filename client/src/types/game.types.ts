@@ -62,6 +62,7 @@ export interface GameBase {
     [playerName: string]: Player;
   };
   deck: Deck;
+  status: GameStatus;
 }
 
 export interface GameInLobby extends GameBase {

@@ -5,13 +5,13 @@ import {
   hasVoted,
   isConspiracyMember,
 } from "../../models/game";
-import { Game, Player, Vote } from "../../types/game.types";
+import { Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
 
 interface Props {
   game: Game;
   player: Player;
-  handleVote(vote: Vote | null): void;
+  handleVote(vote: null): void;
 }
 
 function GameOngoing({ game, player, handleVote }: Props) {
@@ -58,10 +58,10 @@ function GameOngoing({ game, player, handleVote }: Props) {
           "🤔 You have not voted"
         )}
       </p>
-      <Button color="red" onClick={() => handleVote(Vote.CONSPIRACY)}>
+      <Button color="red">
         Vote: Conspiracy
       </Button>
-      <Button color="green" onClick={() => handleVote(Vote.NO_CONSPIRACY)}>
+      <Button color="green">
         Vote: No Conspiracy
       </Button>
       <Button onClick={() => handleVote(null)}>Clear vote</Button>

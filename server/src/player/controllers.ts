@@ -3,7 +3,6 @@ import {
   GameBase,
   GameStatus,
   Player,
-  Vote,
 } from "../../../client/src/types/game.types";
 import { getGameById, getPlayer } from "../db";
 
@@ -27,16 +26,13 @@ export const joinPlayerToGame = (
 export const makeVote = (
   gameId: string,
   playerId: string,
-  vote: Vote | null
+  vote: null
 ): Game => {
   const game = getGameById(gameId);
   if (game?.status === GameStatus.COMPLETE) return game;
   if (game) {
-    game.votes ||= {};
     if (vote) {
-      game.votes[playerId] = vote;
     } else {
-      delete game.votes[playerId];
     }
     return game;
   } else {
