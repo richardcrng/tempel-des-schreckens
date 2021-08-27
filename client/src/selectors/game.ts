@@ -100,6 +100,10 @@ export const getFlippedCardsInRound = (game: Game): Card[] => {
   }, [] as Card[])
 }
 
+export const getAllFlippedCards = (game: Game): Card[] => {
+  return Object.values(game.deck.cards).filter(card => card.isFlipped)
+}
+
 export const getKeyholder = (game: Game): Player => {
   const lastTurn = getLastTurn(game.rounds);
   const keyholderId = lastTurn
