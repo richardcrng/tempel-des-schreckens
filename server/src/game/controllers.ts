@@ -1,6 +1,5 @@
-import { sample } from "lodash";
 import randomColor from 'randomColor';
-import { getCurrentRound, getKeyholder } from "../../../client/src/selectors/game";
+import { getCurrentRound } from "../../../client/src/selectors/game";
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
   Card,
@@ -50,7 +49,7 @@ export const dealCards = (game: GameBase): void => {
 }
 
 export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): void => {
-  const currentRound = getCurrentRound(game.rounds);
+  const currentRound = getCurrentRound(game);
   const turnCreated: Turn = {
     keyholderId,
     selected: {

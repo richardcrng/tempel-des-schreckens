@@ -1,4 +1,5 @@
 import { last } from 'lodash';
+import { createSelector } from 'reselect';
 import { Card, CardType, Game, GameBase, Player, Round, Turn } from "../types/game.types";
 
 export interface RoleCount {
@@ -81,60 +82,82 @@ export const generateCardCount = (nPlayers: number): CardCount => {
   }
 };
 
-export const getCurrentRound = (rounds: Round[]): Round => {
-  const currentRound = last(rounds);
+export const getGameCards = (game: Game): Record<number, Card> => game.deck.cards
+export const getGameRounds = (game: Game) => game.rounds;
+export const getGamePlayers = (game: Game) => game.players;
+
+export const getCurrentRound = createSelector(
+  getGameRounds,
+  (rounds) => {
+    const currentRound = last(rounds);
   if (currentRound) {
     return currentRound;
   } else {
     throw new Error("No round to get")
   }
-}
+  }
+)
 
-export const getFlippedCardsInRound = (game: Game): Card[] => {
-  const currentRound = getCurrentRound(game.rounds);
+export const getFlippedCardsInRound = createSelector(
+  getCurrentRound,
+  getGameCards,
+  (currentRound, cards) => {
   return currentRound.turns.reduce((acc, curr) => {
     const cardIdsChosenFrom = currentRound.cardsDealt[curr.selected.playerId];
     const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
-    const selectedCard = game.deck.cards[chosenCardId];
+    const selectedCard = cards[chosenCardId];
     return [...acc, selectedCard]
   }, [] as Card[])
 }
+)
 
-export const getAllFlippedCards = (game: Game): Card[] => {
-  return Object.values(game.deck.cards).filter(card => card.isFlipped)
-}
+export const getAllFlippedCards = createSelector(
+  getGameCards,
+  (cards) => Object.values(cards).filter(card => card.isFlipped)
+)
 
-export const getKeyholder = (game: Game): Player => {
-  const lastTurn = getLastTurn(game.rounds);
-  const keyholderId = lastTurn
+export const getLastTurn = createSelector(
+  getGameRounds,
+  getCurrentRound,
+  (rounds, currentRound) => {
+    const isLastTurnInCurrentRound = currentRound.turns.length > 0;
+  if (isLastTurnInCurrentRound) {
+      return last(currentRound.turns);
+    } else if (rounds.length >= 2) {
+      const previousRound = rounds[rounds.length - 2];
+      return last(previousRound.turns);
+    } else {
+      // there is no previous turn
+      return undefined;
+  }
+  }
+)
+
+export const getKeyholder = createSelector(
+  getLastTurn,
+  getGamePlayers,
+  (lastTurn, players) => {
+    const keyholderId = lastTurn
     ? lastTurn.selected.playerId
       // first player by socketId alphabetised (random-esque but stable)
-    : Object.keys(game.players).sort((a, b) => a < b ? -1 : 1)[0];
-  return game.players[keyholderId]
-}
-
-export const getLastTurn = (rounds: Game['rounds']): Turn | undefined => {
-  const currentRound = getCurrentRound(rounds);
-  const isLastTurnInCurrentRound = currentRound.turns.length > 0;
-  if (isLastTurnInCurrentRound) {
-    return last(currentRound.turns)
-  } else if (rounds.length >= 2) {
-    const previousRound = rounds[rounds.length - 2];
-    return last(previousRound.turns)
-  } else {
-    // there is no previous turn
-    return undefined
+    : Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
+  return players[keyholderId]
   }
-}
+)
 
-export const getPlayerCardsInRound = (game: Game): Record<string, Card[]> => {
-  const currentRound = getCurrentRound(game.rounds);
-  const cardEntries = Object.entries(currentRound.cardsDealt).map(([playerId, cardIds]) => [
-    playerId,
-    cardIds.map(cardId => game.deck.cards[cardId])
-  ])
-  return Object.fromEntries(cardEntries);
-}
+
+
+export const getPlayerCardsInRound = createSelector(
+  getCurrentRound,
+  getGameCards,
+  (currentRound, cards) => {
+    const cardEntries: [string, Card[]][] = Object.entries(currentRound.cardsDealt).map(([playerId, cardIds]) => [
+      playerId,
+      cardIds.map(cardId => cards[cardId])
+    ])
+    return Object.fromEntries(cardEntries) as Record<string, Card[]>;
+  }
+)
 
 export const countCardType = (cards: Card[], cardType: CardType): number => cards.reduce((acc, curr) => curr.type === cardType ? acc + 1 : acc, 0)
 

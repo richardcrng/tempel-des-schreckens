@@ -49,7 +49,7 @@ function GameArea({ game, player, onCardClick }: Props): JSX.Element {
       >
         <Header content={`${cardFlipModal.flipper} opened ${cardFlipModal.flippee} ${cardFlipModal.type}!`} />
         <Modal.Content>
-          <Image src={`/assets/tds-${cardFlipModal.type}.jpeg`} size='small' />
+          <Image src={`/assets/tds-${cardFlipModal.type}.jpeg`} size='medium' />
         </Modal.Content>
       </Modal>
       <Message info>

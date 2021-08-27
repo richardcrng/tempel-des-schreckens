@@ -39,7 +39,7 @@ function GameOngoing({ game, player, onCardClick }: Props) {
   }
   
   if (view === SectionView.GAME_STATS) {
-    const currentRound = getCurrentRound(game.rounds);
+    const currentRound = getCurrentRound(game);
     const roundFlippedCards = getFlippedCardsInRound(game);
     const allFlippedCards = getAllFlippedCards(game);
     const nPlayers = Object.keys(game.players).length;
