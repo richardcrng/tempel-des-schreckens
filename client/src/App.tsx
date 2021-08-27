@@ -5,11 +5,23 @@ import IndexRoute from "./routes/IndexRoute";
 function App() {
   return (
     <Router>
-      <main style={{ margin: "5px" }}>
-        <Switch>
-          <Route exact path="/game/:gameId" component={GameRoute} />
-          <Route path="/" component={IndexRoute} />
-        </Switch>
+      <main
+        style={{
+          height: "100vh",
+          width: "100vw",
+          backgroundImage: "url('/assets/tds-main.jpeg')",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          padding: "5px",
+        }}
+      >
+        <div style={{ backgroundColor: 'white', opacity: '0.8' }}>
+          <Switch>
+            <Route exact path="/game/:gameId" component={GameRoute} />
+            <Route path="/" component={IndexRoute} />
+          </Switch>
+        </div>
       </main>
     </Router>
   );
