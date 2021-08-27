@@ -3,13 +3,16 @@ import { Button, Input } from "semantic-ui-react";
 
 interface Props {
   handleSetName(name: string): void;
+  takenNames: string[];
 }
 
-function PlayerNamer({ handleSetName }: Props) {
+function PlayerNamer({ handleSetName, takenNames }: Props) {
   const [inputText, setInputText] = useState("");
 
   const handleSetClick = () => {
-    if (inputText.length > 0) {
+    if (takenNames.includes(inputText)) {
+      window.alert("Somebody is already using that name")
+    } else if (inputText.length > 0) {
       handleSetName(inputText);
     } else {
       window.alert("Can't have an empty player name");

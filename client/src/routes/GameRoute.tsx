@@ -42,6 +42,7 @@ function GameRoute() {
               });
             }
           }}
+          takenNames={Object.values(game.data?.players ?? {}).map(player => player.name!)}
         />
       </>
     );
