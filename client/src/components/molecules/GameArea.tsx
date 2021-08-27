@@ -25,7 +25,7 @@ function GameArea({ game, player }: Props): JSX.Element {
           key={playerId}
           cards={cards}
           player={game.players[playerId]}
-          isKeyholder={isKeyholder}
+          isKeyholder={keyholder.socketId === playerId}
         />
       ))}
     </>
