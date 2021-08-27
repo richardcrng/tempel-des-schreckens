@@ -21,6 +21,7 @@ export enum ClientEvent {
   GET_PLAYER = "get-player",
   JOIN_GAME = "join",
   FLIP_CARD = "flip-card",
+  NEXT_ROUND = "next-round",
   RESET_GAME = 'reset-game',
   START_GAME = "start-game",
   SHOW_RESULTS = "show-results",
@@ -40,7 +41,7 @@ export enum ServerEvent {
   PLAYER_UPDATED = "player-updated",
   REDIRECT_TO_LOBBY = "redirect-to-lobby",
   RESULTS_SHOWN = "results-shown",
-  ROUND_COMPLETE = 'round-complete'
+  ROUND_STARTED = 'round-started'
 }
 
 /**
@@ -56,6 +57,7 @@ export type ClientEventListeners = {
     aliasIds: string[]
   ) => void;
   [ClientEvent.JOIN_GAME]: (gameId: string, player: Player) => void;
+  [ClientEvent.NEXT_ROUND]: (gameId: string) => void;
   [ClientEvent.RESET_GAME]: (gameId: string) => void;
   [ClientEvent.SHOW_RESULTS]: (gameId: string) => void;
   [ClientEvent.START_GAME]: (gameId: string,) => void;
@@ -84,7 +86,7 @@ export type ServerEventListeners = {
   [ServerEvent.PLAYER_NOT_FOUND]: () => void;
   [ServerEvent.REDIRECT_TO_LOBBY]: () => void;
   [ServerEvent.RESULTS_SHOWN]: (gameId: string) => void;
-  [ServerEvent.ROUND_COMPLETE]: (gameId: string) => void;
+  [ServerEvent.ROUND_STARTED]: (gameId: string) => void;
 };
 
 export interface GameCreatedEvent extends GameBase {}

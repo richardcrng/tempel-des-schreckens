@@ -70,6 +70,12 @@ function GameRoute() {
                 card
               )
             }}
+            onNextRound={() => {
+              socket.emit(
+                ClientEvent.NEXT_ROUND,
+                game.data!.id
+              )
+            }}
             players={Object.values(game.data.players)}
             player={player.data}
           />

@@ -56,6 +56,15 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
     }
   );
 
+  useSocketListener(
+    ServerEvent.ROUND_STARTED,
+    (gameId) => {
+      if (gameId === game.id) {
+        setView(SectionView.GAME_STATS)
+      }
+    }
+  )
+
   return (
     <>
       <Modal

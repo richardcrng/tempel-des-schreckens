@@ -7,6 +7,7 @@ interface Props {
   game: GameBase;
   handleStartGame(): void;
   onCardClick?: (card: Card, idx: number, player: Player) => void;
+  onNextRound?: () => void;
   players: Player[];
   player: Player;
 }
@@ -15,6 +16,7 @@ function GamePage({
   game,
   handleStartGame,
   onCardClick,
+  onNextRound,
   players,
   player,
 }: Props) {
@@ -23,7 +25,7 @@ function GamePage({
   } else if (game.status === GameStatus.COMPLETE) {
     return <GameComplete {...{ game, player, players }} />;
   } else {
-    return <GameOngoing {...{ game, player, onCardClick }} />;
+    return <GameOngoing {...{ game, player, onCardClick, onNextRound }} />;
   }
 }
 

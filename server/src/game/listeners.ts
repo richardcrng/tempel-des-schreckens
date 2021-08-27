@@ -18,6 +18,7 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.FLIP_CARD, (gameId, keyholderId, playerId, cardIdx, card) => {
     const game = getGameById(gameId);
     if (game) {
+      flipCard(game, { card, cardIdx, keyholderId, playerId });
       io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, playerId, cardIdx, card);
       io.emit(ServerEvent.GAME_UPDATED, game.id, game)
     }
@@ -36,6 +37,14 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
     io.emit(ServerEvent.PLAYER_UPDATED, playerData.socketId, player);
   });
 
+  socket.on(ClientEvent.NEXT_ROUND, (gameId) => {
+    const game = getGameById(gameId);
+    if (game) {
+      dealCards(game);
+      io.emit(ServerEvent.ROUND_STARTED, game.id);
+      io.emit(ServerEvent.GAME_UPDATED, game.id, game);
+    }
+  });
   socket.on(ClientEvent.RESET_GAME, (gameId) => {
     const game = resetGame(gameId)
     io.emit(ServerEvent.GAME_UPDATED, game.id, game)
