@@ -64,6 +64,11 @@ export type ClientEventListeners = {
  * Listeners for `ServerEvent`s
  */
 export type ServerEventListeners = {
+  [ServerEvent.CARD_FLIPPED]: (
+    gameId: string,
+    targetPlayerId: string,
+    cardIdx: string
+  ) => void;
   [ServerEvent.GAME_CREATED]: (e: GameCreatedEvent) => void;
   [ServerEvent.GAME_GOTTEN]: (gameId: string, game: GameBase) => void;
   [ServerEvent.GAME_JOINED]: (e: GameJoinedEvent) => void;
