@@ -1,5 +1,5 @@
 import { Message } from "semantic-ui-react";
-import { countCardType, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
+import { countCardType, getIsRoundComplete, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
 
@@ -26,7 +26,8 @@ function GameArea({ game, player, onCardClick }: Props): JSX.Element {
   return (
     <>
       <Message info>
-        <p>{isKeyholder ? "You have" : `${keyholder.name} has`} the key</p>
+        <p><strong>{isKeyholder ? "You have" : `${keyholder.name} has`} the key.</strong></p>
+        <p>{getIsRoundComplete(game) ? player.isHost ? "Please start the next round." : "Waiting for host to start the next round." : "The round is ongoing." }</p>
       </Message>
       {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
         <PlayerCards

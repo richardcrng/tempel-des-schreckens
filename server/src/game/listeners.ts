@@ -18,16 +18,8 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.FLIP_CARD, (gameId, keyholderId, playerId, cardIdx, card) => {
     const game = getGameById(gameId);
     if (game) {
-      const nTurns = flipCard(game, { card, cardIdx, keyholderId, playerId });
       io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, playerId, cardIdx, card);
       io.emit(ServerEvent.GAME_UPDATED, game.id, game)
-      
-      // can't use selector since reference is identical
-      if (nTurns === Object.keys(game.players).length) {
-        io.emit(ServerEvent.ROUND_COMPLETE, game.id)
-        // dealCards(game);
-        // io.emit(ServerEvent.GAME_UPDATED, game.id, game);
-      }
     }
   })
 

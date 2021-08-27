@@ -9,11 +9,8 @@ interface Props {
 }
 
 function GameStats({ game, onBackToGame }: Props): JSX.Element {
-  const nPlayers = getNumberOfPlayers(game);
-  const currentRound = getCurrentRound(game);
   const roundFlippedCards = getFlippedCardsInRound(game);
   const allFlippedCards = getAllFlippedCards(game);
-  const { nGold, nFire, nEmpty } = generateCardCount(nPlayers);
 
   return (
     <>

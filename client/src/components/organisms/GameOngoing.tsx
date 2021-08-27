@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
-import { getNumberOfPlayers } from '../../selectors/game';
+import { getIsRoundComplete, getNumberOfPlayers } from '../../selectors/game';
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
@@ -12,6 +12,7 @@ interface Props {
   game: Game;
   player: Player;
   onCardClick?: (card: Card, idx: number, player: Player) => void;
+  onNextRound?: () => void;
 }
 
 enum SectionView {
@@ -20,9 +21,10 @@ enum SectionView {
   MAIN_GAME = 'main-game'
 }
 
-function GameOngoing({ game, player, onCardClick }: Props) {
+function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
   const handleBackToGame = () => setView(SectionView.MAIN_GAME)
+  const isRoundComplete = getIsRoundComplete(game);
 
   const [cardFlipModal, setCardFlipModal] = useState<{
     isOpen: boolean;
@@ -33,16 +35,6 @@ function GameOngoing({ game, player, onCardClick }: Props) {
 
   const handleCloseModal = () =>
     setCardFlipModal((prev) => ({ ...prev, isOpen: false }));
-
-  useSocketListener(
-    ServerEvent.ROUND_COMPLETE,
-    (gameId) => {
-      console.log("Round is complete!")
-      if (gameId === game.id) {
-        setView(SectionView.GAME_STATS)
-      }
-    }
-  )
 
   useSocketListener(
     ServerEvent.CARD_FLIPPED,
@@ -92,7 +84,7 @@ function GameOngoing({ game, player, onCardClick }: Props) {
       )}
       {view === SectionView.MAIN_GAME && (
         <>
-          <GameArea game={game} player={player} onCardClick={onCardClick} />
+          <GameArea game={game} player={player} onCardClick={isRoundComplete ? () => window.alert("This round is complete - the host needs to start the next round first") : onCardClick} />
           <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)}>
             Round stats
           </Button>
@@ -102,6 +94,9 @@ function GameOngoing({ game, player, onCardClick }: Props) {
             onClick={() => setView(SectionView.DISTRIBUTION)}
           >
             Game setup
+          </Button>
+          <Button fluid color='green' disabled={!(player.isHost && isRoundComplete)} onClick={onNextRound}>
+            Next round
           </Button>
         </>
       )}
