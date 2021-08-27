@@ -1,6 +1,6 @@
 import { Socket as TClientSocket } from "socket.io-client";
 import { Socket as TServerSocket, Server as TServer } from "socket.io";
-import { GameBase, Player, Vote } from "./game.types";
+import { GameBase, Player } from "./game.types";
 
 export type ClientSocket = TClientSocket<
   ServerEventListeners,
@@ -20,7 +20,7 @@ export enum ClientEvent {
   GET_GAME = "get-game",
   GET_PLAYER = "get-player",
   JOIN_GAME = "join",
-  MAKE_VOTE = "make-vote",
+  FLIP_CARD = "flip-card",
   RESET_GAME = 'reset-game',
   START_GAME = "start-game",
   SHOW_RESULTS = "show-results",
@@ -28,6 +28,7 @@ export enum ClientEvent {
 }
 
 export enum ServerEvent {
+  CARD_FLIPPED = 'card-picked',
   GAME_CREATED = "game-created",
   GAME_GOTTEN = "game-gotten",
   GAME_JOINED = "game-joined",
@@ -45,6 +46,7 @@ export enum ServerEvent {
  */
 export type ClientEventListeners = {
   [ClientEvent.CREATE_GAME]: (e: CreateGameEvent) => void;
+  [ClientEvent.FLIP_CARD]: (gameId: string, targetPlayerId: string, cardIdx: string) => void;
   [ClientEvent.GET_GAME]: (gameId: string) => void;
   [ClientEvent.GET_PLAYER]: (
     gameId: string,
@@ -52,17 +54,9 @@ export type ClientEventListeners = {
     aliasIds: string[]
   ) => void;
   [ClientEvent.JOIN_GAME]: (gameId: string, player: Player) => void;
-  [ClientEvent.MAKE_VOTE]: (
-    gameId: string,
-    playerId: string,
-    vote: Vote | null
-  ) => void;
   [ClientEvent.RESET_GAME]: (gameId: string) => void;
   [ClientEvent.SHOW_RESULTS]: (gameId: string) => void;
-  [ClientEvent.START_GAME]: (
-    gameId: string,
-    conspiracyProbability?: number
-  ) => void;
+  [ClientEvent.START_GAME]: (gameId: string,) => void;
   [ClientEvent.UPDATE_PLAYER]: (gameId: string, player: Player) => void;
 };
 
