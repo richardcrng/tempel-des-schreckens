@@ -12,6 +12,8 @@ function GameArea({ game, player }: Props): JSX.Element {
 
   const isKeyholder = keyholder.socketId === player.socketId;
 
+  const { [player.socketId]: ownCards, ...otherPlayerCards } = getPlayerCardsInRound(game);
+
   return (
     <>
       <p>
@@ -20,7 +22,7 @@ function GameArea({ game, player }: Props): JSX.Element {
           : `${keyholder.name} has`}{" "}
         the key
       </p>
-      {Object.entries(getPlayerCardsInRound(game)).map(([playerId, cards]) => (
+      {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
         <PlayerCards
           key={playerId}
           cards={cards}
@@ -28,6 +30,8 @@ function GameArea({ game, player }: Props): JSX.Element {
           isKeyholder={keyholder.socketId === playerId}
         />
       ))}
+      <hr />
+      <PlayerCards cards={ownCards} player={player} isKeyholder={isKeyholder} />
     </>
   );
 }
