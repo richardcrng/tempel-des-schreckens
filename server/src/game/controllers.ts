@@ -49,11 +49,10 @@ export const dealCards = (game: GameBase): void => {
   game.rounds.push(nextRound);
 }
 
-export const flipCard = (game: Game, { card, cardIdx, playerId }: { card: Card, cardIdx: number, playerId: string }): void => {
+export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): void => {
   const currentRound = getCurrentRound(game.rounds);
-  const currentKeyholder = getKeyholder(game);
   const turnCreated: Turn = {
-    keyholderId: currentKeyholder.socketId,
+    keyholderId,
     selected: {
       playerId,
       cardIdx

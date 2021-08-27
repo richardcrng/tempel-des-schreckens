@@ -14,11 +14,11 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
     socket.emit(ServerEvent.GAME_CREATED, createdGame);
   });
 
-  socket.on(ClientEvent.FLIP_CARD, (gameId, playerId, cardIdx, card) => {
+  socket.on(ClientEvent.FLIP_CARD, (gameId, keyholderId, playerId, cardIdx, card) => {
     const game = getGameById(gameId);
     if (game) {
-      flipCard(game, { card, cardIdx, playerId });
-      io.emit(ServerEvent.CARD_FLIPPED, gameId, playerId, cardIdx, card);
+      flipCard(game, { card, cardIdx, keyholderId, playerId });
+      io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, playerId, cardIdx, card);
       io.emit(ServerEvent.GAME_UPDATED, game.id, game)
     }
   })

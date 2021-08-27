@@ -47,7 +47,7 @@ export enum ServerEvent {
  */
 export type ClientEventListeners = {
   [ClientEvent.CREATE_GAME]: (e: CreateGameEvent) => void;
-  [ClientEvent.FLIP_CARD]: (gameId: string, targetPlayerId: string, cardIdx: number, card: Card) => void;
+  [ClientEvent.FLIP_CARD]: (gameId: string, keyholderId: string, targetPlayerId: string, cardIdx: number, card: Card) => void;
   [ClientEvent.GET_GAME]: (gameId: string) => void;
   [ClientEvent.GET_PLAYER]: (
     gameId: string,
@@ -67,6 +67,7 @@ export type ClientEventListeners = {
 export type ServerEventListeners = {
   [ServerEvent.CARD_FLIPPED]: (
     gameId: string,
+    keyholderId: string,
     targetPlayerId: string,
     cardIdx: number,
     card: Card

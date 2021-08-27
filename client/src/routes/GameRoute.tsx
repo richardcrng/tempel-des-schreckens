@@ -4,6 +4,7 @@ import GamePage from "../components/pages/GamePage";
 import useGame from "../hooks/useGame";
 import usePlayer from "../hooks/usePlayer";
 import useSocketAliases from "../hooks/useSocketAliases";
+import { getKeyholder } from "../selectors/game";
 import { useSocket } from "../socket";
 import { ClientEvent } from "../types/event.types";
 import { GameStatus } from "../types/game.types";
@@ -63,6 +64,7 @@ function GameRoute() {
               socket.emit(
                 ClientEvent.FLIP_CARD,
                 game.data!.id,
+                getKeyholder(game.data!).socketId,
                 player.socketId,
                 idx,
                 card
