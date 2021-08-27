@@ -33,7 +33,7 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
       >
         Copy game join link
       </a>
-      <PlayerList players={players} />
+      <PlayerList players={players} ownPlayerId={player.socketId} />
       {player.isHost ? (
         <>
           <Button

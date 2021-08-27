@@ -2,13 +2,15 @@ import { PropsWithChildren } from "react";
 import { Player } from "../../types/game.types";
 
 interface Props {
+  ownPlayerId?: string;
   players: Player[];
   listParent?: React.FunctionComponent<PropsWithChildren<{}>>;
   listItemParent?: React.FunctionComponent<PropsWithChildren<{}>>;
-  renderPlayer?(player: Player): JSX.Element;
+  renderPlayer?(player: Player, ownPlayerId?: string): JSX.Element;
 }
 
 function PlayerList({
+  ownPlayerId,
   players,
   listParent: List = DefaultListParent,
   listItemParent: ListItem = DefaultListItem,
@@ -17,7 +19,7 @@ function PlayerList({
   return (
     <List>
       {players.map((player) => (
-        <ListItem key={player.socketId}>{renderPlayer(player)}</ListItem>
+        <ListItem key={player.socketId}>{renderPlayer(player, ownPlayerId)}</ListItem>
       ))}
     </List>
   );
@@ -31,9 +33,10 @@ function DefaultListItem({ children }: PropsWithChildren<{}>) {
   return <li>{children}</li>;
 }
 
-const defaultRenderPlayer = (player: Player): JSX.Element => (
+const defaultRenderPlayer = (player: Player, ownPlayerId?: string): JSX.Element => (
   <>
     {player.name}
+    {player.socketId === ownPlayerId && " (you)"}
     {player.isHost && " (host)"}
   </>
 );
