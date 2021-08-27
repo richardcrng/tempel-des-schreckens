@@ -13,48 +13,24 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
 
   return (
     <>
-      <h1>{nPlayers} players:</h1>
-      <div>
-        <Image
-          src="/assets/tds-adventurer.jpeg"
-          size="mini"
-          style={{ display: "inline-block" }}
-        />
-        <span style={{ fontSize: "2rem" }}>x {roleRange(nAdventurers)}</span>
-      </div>
-      <div>
-        <Image
-          src="/assets/tds-guardian.jpeg"
-          size="mini"
-          style={{ display: "inline-block" }}
-        />
-        <span style={{ fontSize: "2rem" }}>x {roleRange(nGuardians)}</span>
-      </div>
-      <div>
-        <Image
-          src="/assets/tds-gold.jpeg"
-          size="mini"
-          style={{ display: "inline-block" }}
-        />
-        <span style={{ fontSize: "2rem" }}>x {nGold}</span>
-      </div>
-      <div>
-        <Image
-          src="/assets/tds-fire.jpeg"
-          size="mini"
-          style={{ display: "inline-block" }}
-        />
-        <span style={{ fontSize: "2rem" }}>x {nFire}</span>
-      </div>
-      <div>
-        <Image
-          src="/assets/tds-empty.jpeg"
-          size="mini"
-          style={{ display: "inline-block" }}
-        />
-        <span style={{ fontSize: "2rem" }}>x {nEmpty}</span>
+      <p>With {nPlayers} players, the distribution is:</p>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <CardOverview slug="adventurer" count={roleRange(nAdventurers)} />
+        <CardOverview slug="guardian" count={roleRange(nGuardians)} />
+        <CardOverview slug="gold" count={nGold} />
+        <CardOverview slug="fire" count={nFire} />
+        <CardOverview slug="empty" count={nEmpty} />
       </div>
     </>
+  );
+}
+
+function CardOverview({ count, slug }: { count: number | string, slug: string }): JSX.Element {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <Image src={`/assets/tds-${slug}.jpeg`} size="mini" />
+      <span style={{ fontSize: "1.2rem" }}>{count}</span>
+    </div>
   );
 }
 
