@@ -12,6 +12,9 @@
     "start:server": "yarn workspace @tempel/server start",
     "start:server:compiled": "yarn workspace @tempel/server start:compiled",
     "start:server:dev": "yarn workspace @tempel/server start:dev",
+    "test": "yarn test:client && yarn test:server",
+    "test:client": "yarn workspace @tempel/client test",
+    "test:server": "yarn workspace @tempel/server test",
     "heroku-postbuild": "yarn build:server"
   }
 }
