@@ -31,6 +31,19 @@ function GameOngoing({ game, player, onCardClick }: Props) {
     flippee?: string;
   }>({ isOpen: false });
 
+  const handleCloseModal = () =>
+    setCardFlipModal((prev) => ({ ...prev, isOpen: false }));
+
+  useSocketListener(
+    ServerEvent.ROUND_COMPLETE,
+    (gameId) => {
+      console.log("Round is complete!")
+      if (gameId === game.id) {
+        setView(SectionView.GAME_STATS)
+      }
+    }
+  )
+
   useSocketListener(
     ServerEvent.CARD_FLIPPED,
     (gameId, keyholderId, targetPlayerId, cardIdx, card) => {
@@ -57,13 +70,14 @@ function GameOngoing({ game, player, onCardClick }: Props) {
         basic
         closeIcon
         open={cardFlipModal.isOpen}
-        onClose={() => setCardFlipModal((prev) => ({ ...prev, isOpen: false }))}
+        onClose={handleCloseModal}
       >
         <Header
           content={`${cardFlipModal.flipper} opened ${cardFlipModal.flippee} ${cardFlipModal.type}!`}
+          onClick={handleCloseModal}
         />
-        <Modal.Content>
-          <Image src={`/assets/tds-${cardFlipModal.type}.jpeg`} size="medium" />
+        <Modal.Content onClick={handleCloseModal}>
+          <Image onClick={handleCloseModal} src={`/assets/tds-${cardFlipModal.type}.jpeg`} size="medium" />
         </Modal.Content>
       </Modal>
       {view === SectionView.DISTRIBUTION && (

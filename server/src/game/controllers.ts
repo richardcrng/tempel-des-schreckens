@@ -48,7 +48,10 @@ export const dealCards = (game: GameBase): void => {
   game.rounds.push(nextRound);
 }
 
-export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): void => {
+/**
+ * @returns the number of turns
+ */
+export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): number => {
   const currentRound = getCurrentRound(game);
   const turnCreated: Turn = {
     keyholderId,
@@ -61,6 +64,7 @@ export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: {
   currentRound.turns.push(turnCreated);
   const cardToFlip = game.deck.cards[card.id];
   cardToFlip.isFlipped = true;
+  return currentRound.turns.length
 }
 
 export const resetGame = (gameId: string): GameBase => {

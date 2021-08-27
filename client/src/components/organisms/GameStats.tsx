@@ -1,4 +1,4 @@
-import { Button } from "semantic-ui-react";
+import { Button, Message } from "semantic-ui-react";
 import { countCardType, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
 import { CardType, Game } from "../../types/game.types";
 
@@ -18,6 +18,9 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
   return (
     <>
       <h2>Round {game.rounds.length} of 4</h2>
+      <Message info>
+        <p>{roundFlippedCards.length === 0 ? 'A new round has started!' : 'The round is ongoing!'}</p>
+      </Message>
       <h3>Round stats</h3>
       <p style={{ margin: 0 }}>
         {currentRound.turns.length} of {nPlayers} chests opened:

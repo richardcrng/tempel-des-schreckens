@@ -7,6 +7,7 @@ import {
 import { createGame, flipCard, resetGame, startGame } from "./controllers";
 import { getGameById } from "../db";
 import { joinPlayerToGame } from "../player/controllers";
+import { getIsRoundComplete } from "../../../client/src/selectors/game";
 
 export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.CREATE_GAME, (e) => {
@@ -17,9 +18,14 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.FLIP_CARD, (gameId, keyholderId, playerId, cardIdx, card) => {
     const game = getGameById(gameId);
     if (game) {
-      flipCard(game, { card, cardIdx, keyholderId, playerId });
+      const nTurns = flipCard(game, { card, cardIdx, keyholderId, playerId });
       io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, playerId, cardIdx, card);
       io.emit(ServerEvent.GAME_UPDATED, game.id, game)
+
+      // can't use selector since reference is identical
+      if (nTurns === Object.keys(game.players).length) {
+        io.emit(ServerEvent.ROUND_COMPLETE, game.id)
+      }
     }
   })
 

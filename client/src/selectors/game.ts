@@ -103,6 +103,11 @@ export const getCurrentRound = createSelector(
   }
 )
 
+export const getCurrentRoundTurns = createSelector(
+  getCurrentRound,
+  (round) => round.turns
+)
+
 export const getFlippedCardsInRound = createSelector(
   getCurrentRound,
   getGameCards,
@@ -117,9 +122,9 @@ export const getFlippedCardsInRound = createSelector(
 )
 
 export const getIsRoundComplete = createSelector(
-  getFlippedCardsInRound,
+  getCurrentRoundTurns,
   getNumberOfPlayers,
-  (cardsFlipped, nPlayers) => cardsFlipped.length === nPlayers
+  (turns, nPlayers) => turns.length === nPlayers
 )
 
 export const getAllFlippedCards = createSelector(
