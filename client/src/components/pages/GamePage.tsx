@@ -5,7 +5,7 @@ import GameOngoing from "../organisms/GameOngoing";
 
 interface Props {
   game: GameBase;
-  handleStartGame(customProbability?: number): void;
+  handleStartGame(): void;
   handleVote(vote: null): void;
   players: Player[];
   player: Player;

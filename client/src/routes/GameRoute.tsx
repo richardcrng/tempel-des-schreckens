@@ -52,7 +52,7 @@ function GameRoute() {
         {game.data && player.data && (
           <GamePage
             game={game.data}
-            handleStartGame={(customProbability) => {
+            handleStartGame={() => {
               socket.emit(
                 ClientEvent.START_GAME,
                 game.data!.id
