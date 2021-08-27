@@ -15,6 +15,7 @@
     "test": "yarn test:client && yarn test:server",
     "test:client": "yarn workspace @tempel/client test",
     "test:server": "yarn workspace @tempel/server test",
+    "test:server:watch": "yarn workspace @tempel/server test:watch",
     "heroku-postbuild": "yarn build:server"
   }
 }

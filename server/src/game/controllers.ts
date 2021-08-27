@@ -32,7 +32,7 @@ export const createGame = (data: CreateGameEvent): GameBase => {
   return game;
 };
 
-export const dealCards = (game: GameBase): GameBase => {
+export const dealCards = (game: GameBase): void => {
   const nextRoundNumber = game.rounds.length + 1 as Round['number'];
   // stack all flipped cards
   game.deck = stackFlippedCards(game.deck);
@@ -42,7 +42,6 @@ export const dealCards = (game: GameBase): GameBase => {
     cardsDealt: dealCardsToPlayers(getCardIdsToDeal(game.deck), Object.keys(game.players))
   }
   game.rounds.push(nextRound);
-  return game
 }
 
 export const resetGame = (gameId: string): GameBase => {
@@ -62,6 +61,7 @@ export const startGame = (
   if (game) {
     game.status = GameStatus.ONGOING;
     game.deck = generateDeck(Object.keys(game.players).length)
+    dealCards(game);
     return game;
   } else {
     throw new Error("Couldn't find game");
