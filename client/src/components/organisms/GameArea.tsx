@@ -1,8 +1,5 @@
-import { useState } from "react";
-import { Header, Image, Message, Modal } from "semantic-ui-react";
-import useSocketListener from "../../hooks/useSocketListener";
+import { Message } from "semantic-ui-react";
 import { countCardType, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
-import { ServerEvent } from "../../types/event.types";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
 
@@ -14,22 +11,9 @@ interface Props {
 
 function GameArea({ game, player, onCardClick }: Props): JSX.Element {
 
-  const [cardFlipModal, setCardFlipModal] = useState<{ isOpen: boolean, type?: CardType, flipper?: string, flippee?: string }>({ isOpen: false })
-
-  useSocketListener(ServerEvent.CARD_FLIPPED, (gameId, keyholderId, targetPlayerId, cardIdx, card) => {
-    if (gameId === game.id) {
-      setCardFlipModal({
-        isOpen: true,
-        type: card.type,
-        flipper: keyholderId === player.socketId ? "You" : game.players[keyholderId].name,
-        flippee: targetPlayerId === player.socketId ? "your" : game.players[targetPlayerId].name + "'s",
-      });
-    }
-  })
-
   const keyholder = getKeyholder(game);
 
-  const isKeyholder = keyholder.socketId === player.socketId;
+  const isKeyholder = keyholder.socketId === player.socketId
 
   const handleCardClick = (card: Card, idx: number, player: Player) => {
     if (isKeyholder && onCardClick) {
@@ -41,17 +25,6 @@ function GameArea({ game, player, onCardClick }: Props): JSX.Element {
 
   return (
     <>
-      <Modal
-        basic
-        closeIcon
-        open={cardFlipModal.isOpen}
-        onClose={() => setCardFlipModal(prev => ({ ...prev, isOpen: false }))}
-      >
-        <Header content={`${cardFlipModal.flipper} opened ${cardFlipModal.flippee} ${cardFlipModal.type}!`} />
-        <Modal.Content>
-          <Image src={`/assets/tds-${cardFlipModal.type}.jpeg`} size='medium' />
-        </Modal.Content>
-      </Modal>
       <Message info>
         <p>{isKeyholder ? "You have" : `${keyholder.name} has`} the key</p>
       </Message>

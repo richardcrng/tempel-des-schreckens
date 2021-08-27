@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Button } from "semantic-ui-react";
+import { Button, Header, Image, Modal } from "semantic-ui-react";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
-import RoleOverview from "../molecules/RoleOverview";
-import SetupOverview from "../molecules/SetupOverview";
-import { countCardType, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound } from "../../selectors/game";
-import { generateCardCount } from '../../selectors/game';
+import { getNumberOfPlayers } from '../../selectors/game';
+import GameDistribution from "./GameDistribution";
+import GameStats from "./GameStats";
+import useSocketListener from "../../hooks/useSocketListener";
+import { ServerEvent } from "../../types/event.types";
 
 interface Props {
   game: Game;
@@ -21,60 +22,75 @@ enum SectionView {
 
 function GameOngoing({ game, player, onCardClick }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
+  const handleBackToGame = () => setView(SectionView.MAIN_GAME)
 
-  if (view === SectionView.DISTRIBUTION) {
-    return (
-      <>
-        {player.role && <RoleOverview role={player.role} style={{ marginBottom: '20px' }} />}
-        <SetupOverview nPlayers={Object.keys(game.players).length} />
-        <Button
-          fluid
-          primary
-          onClick={() => setView(SectionView.MAIN_GAME)}
-        >
-          Back to game
-        </Button>
-      </>
-    );
-  }
-  
-  if (view === SectionView.GAME_STATS) {
-    const currentRound = getCurrentRound(game);
-    const roundFlippedCards = getFlippedCardsInRound(game);
-    const allFlippedCards = getAllFlippedCards(game);
-    const nPlayers = Object.keys(game.players).length;
-    const { nGold, nFire, nEmpty } = generateCardCount(nPlayers)
+  const [cardFlipModal, setCardFlipModal] = useState<{
+    isOpen: boolean;
+    type?: CardType;
+    flipper?: string;
+    flippee?: string;
+  }>({ isOpen: false });
 
-    return (
-      <>
-        <h2>Round {game.rounds.length} of 4</h2>
-        <h3>Round stats</h3>
-        <p style={{ margin: 0 }}>
-          {currentRound.turns.length} of {nPlayers} chests opened:
-        </p>
-        <ul style={{ marginTop: 0 }}>
-          <li>{countCardType(roundFlippedCards, CardType.GOLD)} gold</li>
-          <li>{countCardType(roundFlippedCards, CardType.FIRE)} fire</li>
-          <li>{countCardType(roundFlippedCards, CardType.EMPTY)} empty</li>
-        </ul>
-        <h2>Game stats</h2>
-        <ul style={{ marginTop: 0 }}>
-          <li>{countCardType(allFlippedCards, CardType.GOLD)} of {nGold} gold</li>
-          <li>{countCardType(allFlippedCards, CardType.FIRE)} of {nFire} fire</li>
-          <li>{countCardType(allFlippedCards, CardType.EMPTY)} of {nEmpty} empty</li>
-        </ul>
-        <Button fluid primary onClick={() => setView(SectionView.MAIN_GAME)}>
-          Back to game
-        </Button>
-      </>
-    );
-  }
+  useSocketListener(
+    ServerEvent.CARD_FLIPPED,
+    (gameId, keyholderId, targetPlayerId, cardIdx, card) => {
+      if (gameId === game.id) {
+        setCardFlipModal({
+          isOpen: true,
+          type: card.type,
+          flipper:
+            keyholderId === player.socketId
+              ? "You"
+              : game.players[keyholderId].name,
+          flippee:
+            targetPlayerId === player.socketId
+              ? "your"
+              : game.players[targetPlayerId].name + "'s",
+        });
+      }
+    }
+  );
 
   return (
     <>
-      <GameArea game={game} player={player} onCardClick={onCardClick} />
-      <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)} >Round stats</Button>
-      <Button fluid color='black' onClick={() => setView(SectionView.DISTRIBUTION)}>Game setup</Button>
+      <Modal
+        basic
+        closeIcon
+        open={cardFlipModal.isOpen}
+        onClose={() => setCardFlipModal((prev) => ({ ...prev, isOpen: false }))}
+      >
+        <Header
+          content={`${cardFlipModal.flipper} opened ${cardFlipModal.flippee} ${cardFlipModal.type}!`}
+        />
+        <Modal.Content>
+          <Image src={`/assets/tds-${cardFlipModal.type}.jpeg`} size="medium" />
+        </Modal.Content>
+      </Modal>
+      {view === SectionView.DISTRIBUTION && (
+        <GameDistribution
+          player={player}
+          nPlayers={getNumberOfPlayers(game)}
+          onBackToGame={handleBackToGame}
+        />
+      )}
+      {view === SectionView.GAME_STATS && (
+        <GameStats game={game} onBackToGame={handleBackToGame} />
+      )}
+      {view === SectionView.MAIN_GAME && (
+        <>
+          <GameArea game={game} player={player} onCardClick={onCardClick} />
+          <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)}>
+            Round stats
+          </Button>
+          <Button
+            fluid
+            color="black"
+            onClick={() => setView(SectionView.DISTRIBUTION)}
+          >
+            Game setup
+          </Button>
+        </>
+      )}
     </>
   );
 }

@@ -86,6 +86,11 @@ export const getGameCards = (game: Game): Record<number, Card> => game.deck.card
 export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
 
+export const getNumberOfPlayers = createSelector(
+  getGamePlayers,
+  (players) => Object.keys(players).length
+)
+
 export const getCurrentRound = createSelector(
   getGameRounds,
   (rounds) => {
@@ -102,13 +107,19 @@ export const getFlippedCardsInRound = createSelector(
   getCurrentRound,
   getGameCards,
   (currentRound, cards) => {
-  return currentRound.turns.reduce((acc, curr) => {
-    const cardIdsChosenFrom = currentRound.cardsDealt[curr.selected.playerId];
-    const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
-    const selectedCard = cards[chosenCardId];
-    return [...acc, selectedCard]
-  }, [] as Card[])
-}
+    return currentRound.turns.reduce((acc, curr) => {
+      const cardIdsChosenFrom = currentRound.cardsDealt[curr.selected.playerId];
+      const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
+      const selectedCard = cards[chosenCardId];
+      return [...acc, selectedCard]
+    }, [] as Card[])
+  }
+)
+
+export const getIsRoundComplete = createSelector(
+  getFlippedCardsInRound,
+  getNumberOfPlayers,
+  (cardsFlipped, nPlayers) => cardsFlipped.length === nPlayers
 )
 
 export const getAllFlippedCards = createSelector(

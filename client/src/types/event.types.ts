@@ -40,6 +40,7 @@ export enum ServerEvent {
   PLAYER_UPDATED = "player-updated",
   REDIRECT_TO_LOBBY = "redirect-to-lobby",
   RESULTS_SHOWN = "results-shown",
+  ROUND_COMPLETE = 'round-complete'
 }
 
 /**
@@ -83,6 +84,7 @@ export type ServerEventListeners = {
   [ServerEvent.PLAYER_NOT_FOUND]: () => void;
   [ServerEvent.REDIRECT_TO_LOBBY]: () => void;
   [ServerEvent.RESULTS_SHOWN]: (gameId: string) => void;
+  [ServerEvent.ROUND_COMPLETE]: (gameId: string) => void;
 };
 
 export interface GameCreatedEvent extends GameBase {}
