@@ -25,7 +25,7 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
   );
 }
 
-function CardOverview({ count, slug }: { count: number | string, slug: string }): JSX.Element {
+export function CardOverview({ count, slug }: { count: number | string, slug: string }): JSX.Element {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <Image src={`/assets/tds-${slug}.jpeg`} size="mini" />

@@ -1,5 +1,5 @@
 import { last } from 'lodash';
-import { Card, Game, GameBase, Player, Round, Turn } from "../types/game.types";
+import { Card, CardType, Game, GameBase, Player, Round, Turn } from "../types/game.types";
 
 export interface RoleCount {
   nAdventurers: number;
@@ -121,6 +121,8 @@ export const getPlayerCardsInRound = (game: Game): Record<string, Card[]> => {
   ])
   return Object.fromEntries(cardEntries);
 }
+
+export const countCardType = (cards: Card[], cardType: CardType): number => cards.reduce((acc, curr) => curr.type === cardType ? acc + 1 : acc, 0)
 
 export const hasConspiracy = (game: Game) => true;
 

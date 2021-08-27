@@ -1,6 +1,8 @@
-import { getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
-import { Game, Player } from "../../types/game.types";
+import { Message } from "semantic-ui-react";
+import { countCardType, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
+import { CardType, Game, Player } from "../../types/game.types";
 import PlayerCards from "./PlayerCards";
+import { CardOverview } from "./SetupOverview";
 
 interface Props {
   game: Game;
@@ -16,12 +18,9 @@ function GameArea({ game, player }: Props): JSX.Element {
 
   return (
     <>
-      <p>
-        {isKeyholder
-          ? "You have"
-          : `${keyholder.name} has`}{" "}
-        the key
-      </p>
+      <Message info>
+        <p>{isKeyholder ? "You have" : `${keyholder.name} has`} the key</p>
+      </Message>
       {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
         <PlayerCards
           key={playerId}
@@ -31,6 +30,12 @@ function GameArea({ game, player }: Props): JSX.Element {
         />
       ))}
       <hr />
+      <p style={{ margin: 0 }}>Your distribution (secret):</p>
+      <ul style={{ marginTop: 0 }}>
+        <li>{countCardType(ownCards, CardType.GOLD)} gold</li>
+        <li>{countCardType(ownCards, CardType.FIRE)} fire</li>
+        <li>{countCardType(ownCards, CardType.EMPTY)} empty</li>
+      </ul>
       <PlayerCards cards={ownCards} player={player} isKeyholder={isKeyholder} />
     </>
   );
