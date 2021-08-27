@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "yarn build:server && yarn build:client",
+    "build:client": "yarn workspace @tempel/client build",
+    "build:server": "yarn workspace @tempel/server build",
+    "start:client:dev": "yarn workspace @tempel/client start",
+    "start:server": "yarn workspace @tempel/server start",
+    "start:server:compiled": "yarn workspace @tempel/server start:compiled",
+    "start:server:dev": "yarn workspace @tempel/server start:dev",
+    "heroku-postbuild": "yarn build:server"
+  }
+}
