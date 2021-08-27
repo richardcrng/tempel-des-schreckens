@@ -58,10 +58,10 @@ function IndexRoute() {
         </>
       ) : (
         <>
-          <Button color='green' onClick={handleNewGame}>
+          <Button color='green'>
             JOIN
           </Button>
-          <Button primary>
+          <Button primary onClick={handleNewGame}>
             NEW
           </Button>
         </>
