@@ -5,11 +5,12 @@ import CardRow from "./CardRow";
 interface Props {
   player: Player;
   cards: Card[];
+  onCardClick?: (card: Card, idx: number, player: Player) => void;
   isKeyholder?: boolean;
   style?: React.CSSProperties;
 }
 
-function PlayerCards({ cards, player, isKeyholder, style }: Props): JSX.Element {
+function PlayerCards({ cards, onCardClick, player, isKeyholder, style }: Props): JSX.Element {
 
   return (
     <div style={{ display: "flex", justifyContent: "space-around", ...style }}>
@@ -18,7 +19,7 @@ function PlayerCards({ cards, player, isKeyholder, style }: Props): JSX.Element 
         <p>{player.name?.substr(0, 2)}</p>
       </div>
       {<span style={{ width: "5px" }}>{isKeyholder && "🗝️"}</span>}
-      <CardRow cards={cards} style={{ width: "calc(100% - 50px)" }} />
+      <CardRow cards={cards} style={{ width: "calc(100% - 50px)" }} onCardClick={(card, idx) => onCardClick && onCardClick(card, idx, player)} />
     </div>
   );
 }

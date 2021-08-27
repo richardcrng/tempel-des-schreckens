@@ -1,6 +1,6 @@
 import { Socket as TClientSocket } from "socket.io-client";
 import { Socket as TServerSocket, Server as TServer } from "socket.io";
-import { GameBase, Player } from "./game.types";
+import { Card, GameBase, Player } from "./game.types";
 
 export type ClientSocket = TClientSocket<
   ServerEventListeners,
@@ -47,7 +47,7 @@ export enum ServerEvent {
  */
 export type ClientEventListeners = {
   [ClientEvent.CREATE_GAME]: (e: CreateGameEvent) => void;
-  [ClientEvent.FLIP_CARD]: (gameId: string, targetPlayerId: string, cardIdx: string) => void;
+  [ClientEvent.FLIP_CARD]: (gameId: string, targetPlayerId: string, cardIdx: number, card: Card) => void;
   [ClientEvent.GET_GAME]: (gameId: string) => void;
   [ClientEvent.GET_PLAYER]: (
     gameId: string,
@@ -68,7 +68,8 @@ export type ServerEventListeners = {
   [ServerEvent.CARD_FLIPPED]: (
     gameId: string,
     targetPlayerId: string,
-    cardIdx: string
+    cardIdx: number,
+    card: Card
   ) => void;
   [ServerEvent.GAME_CREATED]: (e: GameCreatedEvent) => void;
   [ServerEvent.GAME_GOTTEN]: (gameId: string, game: GameBase) => void;

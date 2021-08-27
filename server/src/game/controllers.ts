@@ -1,11 +1,14 @@
 import { sample } from "lodash";
 import randomColor from 'randomColor';
+import { getCurrentRound, getKeyholder } from "../../../client/src/selectors/game";
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
+  Card,
   Game,
   GameBase,
   GameStatus,
   Round,
+  Turn,
 } from "../../../client/src/types/game.types";
 import { games, getGameById } from "../db";
 import { generateRandomGameId } from "../utils";
@@ -44,6 +47,22 @@ export const dealCards = (game: GameBase): void => {
     cardsDealt: dealCardsToPlayers(getCardIdsToDeal(game.deck), Object.keys(game.players))
   }
   game.rounds.push(nextRound);
+}
+
+export const flipCard = (game: Game, { card, cardIdx, playerId }: { card: Card, cardIdx: number, playerId: string }): void => {
+  const currentRound = getCurrentRound(game.rounds);
+  const currentKeyholder = getKeyholder(game);
+  const turnCreated: Turn = {
+    keyholderId: currentKeyholder.socketId,
+    selected: {
+      playerId,
+      cardIdx
+    },
+    flip: card.type
+  }
+  currentRound.turns.push(turnCreated);
+  const cardToFlip = game.deck.cards[card.id];
+  cardToFlip.isFlipped = true;
 }
 
 export const resetGame = (gameId: string): GameBase => {

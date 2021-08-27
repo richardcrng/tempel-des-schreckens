@@ -4,13 +4,19 @@ import CardItem from "../atoms/CardItem";
 interface Props {
   cards: Card[];
   style?: React.CSSProperties;
+  onCardClick?: (card: Card, idx: number) => void;
 }
 
-function CardRow({ cards, style }: Props): JSX.Element {
+function CardRow({ cards, style, onCardClick }: Props): JSX.Element {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-around', ...style }}>
-      {cards.map(card => (
-        <CardItem key={card.id} card={card} size='mini' />
+      {cards.map((card, idx) => (
+        <CardItem
+          key={card.id}
+          card={card}
+          size='mini'
+          onClick={(card) => onCardClick && onCardClick(card, idx)}
+        />
       ))}
     </div>
   )

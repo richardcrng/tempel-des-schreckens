@@ -1,18 +1,24 @@
 import { Message } from "semantic-ui-react";
 import { countCardType, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
-import { CardType, Game, Player } from "../../types/game.types";
-import PlayerCards from "./PlayerCards";
-import { CardOverview } from "./SetupOverview";
+import { Card, CardType, Game, Player } from "../../types/game.types";
+import PlayerCards from "../molecules/PlayerCards";
 
 interface Props {
   game: Game;
+  onCardClick?: (card: Card, idx: number, player: Player) => void;
   player: Player;
 }
 
-function GameArea({ game, player }: Props): JSX.Element {
+function GameArea({ game, player, onCardClick }: Props): JSX.Element {
   const keyholder = getKeyholder(game);
 
   const isKeyholder = keyholder.socketId === player.socketId;
+
+  const handleCardClick = (card: Card, idx: number, player: Player) => {
+    if (isKeyholder && onCardClick) {
+      onCardClick(card, idx, player)
+    }
+  }
 
   const { [player.socketId]: ownCards, ...otherPlayerCards } = getPlayerCardsInRound(game);
 
@@ -27,6 +33,7 @@ function GameArea({ game, player }: Props): JSX.Element {
           cards={cards}
           player={game.players[playerId]}
           isKeyholder={keyholder.socketId === playerId}
+          onCardClick={handleCardClick}
         />
       ))}
       <hr />

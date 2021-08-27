@@ -7,16 +7,16 @@ import {
   isConspiracyMember,
   isNewGame,
 } from "../../selectors/game";
-import { Game, Player } from "../../types/game.types";
+import { Card, Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
-import GameArea from "../molecules/GameArea";
+import GameArea from "./GameArea";
 import RoleOverview from "../molecules/RoleOverview";
 import SetupOverview from "../molecules/SetupOverview";
 
 interface Props {
   game: Game;
   player: Player;
-  handleVote(vote: null): void;
+  onCardClick?: (card: Card, idx: number, player: Player) => void;
 }
 
 enum SectionView {
@@ -25,7 +25,7 @@ enum SectionView {
   MAIN_GAME = 'main-game'
 }
 
-function GameOngoing({ game, player, handleVote }: Props) {
+function GameOngoing({ game, player, onCardClick }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
 
   if (view === SectionView.DISTRIBUTION) {
@@ -49,7 +49,7 @@ function GameOngoing({ game, player, handleVote }: Props) {
 
   return (
     <>
-      <GameArea game={game} player={player} />
+      <GameArea game={game} player={player} onCardClick={onCardClick} />
     </>
   );
 }

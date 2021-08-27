@@ -1,4 +1,4 @@
-import { GameBase, GameStatus, Player } from "../../types/game.types";
+import { Card, GameBase, GameStatus, Player } from "../../types/game.types";
 import GameComplete from "../organisms/GameComplete";
 import GameLobby from "../organisms/GameLobby";
 import GameOngoing from "../organisms/GameOngoing";
@@ -6,7 +6,7 @@ import GameOngoing from "../organisms/GameOngoing";
 interface Props {
   game: GameBase;
   handleStartGame(): void;
-  handleVote(vote: null): void;
+  onCardClick?: (card: Card, idx: number, player: Player) => void;
   players: Player[];
   player: Player;
 }
@@ -14,7 +14,7 @@ interface Props {
 function GamePage({
   game,
   handleStartGame,
-  handleVote,
+  onCardClick,
   players,
   player,
 }: Props) {
@@ -23,7 +23,7 @@ function GamePage({
   } else if (game.status === GameStatus.COMPLETE) {
     return <GameComplete {...{ game, player, players }} />;
   } else {
-    return <GameOngoing {...{ game, player, handleVote }} />;
+    return <GameOngoing {...{ game, player, onCardClick }} />;
   }
 }
 

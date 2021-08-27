@@ -59,13 +59,14 @@ function GameRoute() {
                 game.data!.id
               );
             }}
-            handleVote={(vote) => {
-              // socket.emit(
-              //   ClientEvent.MAKE_VOTE,
-              //   game.data!.id,
-              //   player.data?.socketId || "",
-              //   vote
-              // );
+            onCardClick={(card, idx, player) => {
+              socket.emit(
+                ClientEvent.FLIP_CARD,
+                game.data!.id,
+                player.socketId,
+                idx,
+                card
+              )
             }}
             players={Object.values(game.data.players)}
             player={player.data}
