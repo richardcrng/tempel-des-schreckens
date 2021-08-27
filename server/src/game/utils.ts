@@ -1,11 +1,6 @@
 import { shuffle } from 'lodash';
+import { generateTypeCount, TypeCount } from '../../../client/src/models/game';
 import { Card, CardType, Deck, Round } from "../../../client/src/types/game.types";
-
-interface TypeCount {
-  nGold: number;
-  nFire: number;
-  nEmpty: number;
-}
 
 const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card, 'id'>, startId: number): void => {
   for (let i = 0; i < nClones; i++) {
@@ -43,28 +38,6 @@ export const generateDeck = (nPlayers: number): Deck => {
 const generateDeckCards = (nPlayers: number): Deck["cards"] => {
   return buildDeckCards(generateTypeCount(nPlayers));
 };
-
-export const generateTypeCount = (nPlayers: number): TypeCount => {
-  switch (nPlayers) {
-    case 3:
-      return { nEmpty: 8, nGold: 5, nFire: 2 };
-    case 4:
-      return { nEmpty: 12, nGold: 6, nFire: 2 };
-    case 5:
-      return { nEmpty: 16, nGold: 7, nFire: 2 };
-    case 6:
-      return { nEmpty: 20, nGold: 8, nFire: 2 };
-    case 7:
-      return { nEmpty: 26, nGold: 7, nFire: 2 };
-    case 8:
-      return { nEmpty: 30, nGold: 8, nFire: 2 };
-    case 9:
-      return { nEmpty: 34, nGold: 9, nFire: 2 };
-    case 10:
-    default:
-      return { nEmpty: 37, nGold: 10, nFire: 3 };
-  }
-}
 
 export const getCardIdsToDeal = (deck: Deck): number[] => {
   const unStackedCards = Object.values(deck.cards).filter(card => !card.isStacked);

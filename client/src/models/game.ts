@@ -1,5 +1,11 @@
 import { Game, GameBase } from "../types/game.types";
 
+export interface TypeCount {
+  nGold: number;
+  nFire: number;
+  nEmpty: number;
+}
+
 export const gameLobbyReadiness = (
   game: GameBase
 ): { isReady: true } | { isReady: false; reason: string } => {
@@ -24,6 +30,29 @@ export const conspiracyVictimName = (game: Game): string | undefined => {
   }
 };
 
+
+export const generateTypeCount = (nPlayers: number): TypeCount => {
+  switch (nPlayers) {
+    case 3:
+      return { nEmpty: 8, nGold: 5, nFire: 2 };
+    case 4:
+      return { nEmpty: 12, nGold: 6, nFire: 2 };
+    case 5:
+      return { nEmpty: 16, nGold: 7, nFire: 2 };
+    case 6:
+      return { nEmpty: 20, nGold: 8, nFire: 2 };
+    case 7:
+      return { nEmpty: 26, nGold: 7, nFire: 2 };
+    case 8:
+      return { nEmpty: 30, nGold: 8, nFire: 2 };
+    case 9:
+      return { nEmpty: 34, nGold: 9, nFire: 2 };
+    case 10:
+    default:
+      return { nEmpty: 37, nGold: 10, nFire: 3 };
+  }
+};
+
 export const hasConspiracy = (game: Game) => true;
 
 export const isConspiracyMember = (game: Game, playerId: string) => {
@@ -33,6 +62,10 @@ export const isConspiracyMember = (game: Game, playerId: string) => {
 export const isConspiracyVictim = (game: Game, playerId: string): boolean => {
   return hasConspiracy(game) && 'hi' === playerId;
 };
+
+export const isNewGame = (game: Game): boolean => {
+  return game.rounds.length === 1 && game.rounds[0].turns.length === 0
+}
 
 export const isWinner = (game: Game, playerId: string): boolean => {
   if (isConspiracyMember(game, playerId)) {

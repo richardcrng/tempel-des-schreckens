@@ -4,9 +4,11 @@ import {
   getVote,
   hasVoted,
   isConspiracyMember,
+  isNewGame,
 } from "../../models/game";
 import { Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
+import SetupOverview from "../molecules/SetupOverview";
 
 interface Props {
   game: Game;
@@ -15,6 +17,10 @@ interface Props {
 }
 
 function GameOngoing({ game, player, handleVote }: Props) {
+  if (isNewGame(game)) {
+    return <SetupOverview nPlayers={Object.keys(game.players).length} />;
+  }
+
   const playerVote = getVote(game, player.socketId);
 
   return (
