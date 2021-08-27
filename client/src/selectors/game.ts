@@ -90,6 +90,16 @@ export const getCurrentRound = (rounds: Round[]): Round => {
   }
 }
 
+export const getFlippedCardsInRound = (game: Game): Card[] => {
+  const currentRound = getCurrentRound(game.rounds);
+  return currentRound.turns.reduce((acc, curr) => {
+    const cardIdsChosenFrom = currentRound.cardsDealt[curr.selected.playerId];
+    const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
+    const selectedCard = game.deck.cards[chosenCardId];
+    return [...acc, selectedCard]
+  }, [] as Card[])
+}
+
 export const getKeyholder = (game: Game): Player => {
   const lastTurn = getLastTurn(game.rounds);
   const keyholderId = lastTurn
