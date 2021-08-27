@@ -1,5 +1,5 @@
 import { shuffle } from 'lodash';
-import { generateTypeCount, TypeCount } from '../../../client/src/models/game';
+import { generateCardCount, CardCount } from '../../../client/src/models/game';
 import { Card, CardType, Deck, Round } from "../../../client/src/types/game.types";
 
 const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card, 'id'>, startId: number): void => {
@@ -8,7 +8,7 @@ const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card,
   }
 }
 
-const buildDeckCards = ({ nGold, nFire, nEmpty }: TypeCount): Deck['cards'] => {
+const buildDeckCards = ({ nGold, nFire, nEmpty }: CardCount): Deck['cards'] => {
   let cards: Card[] = []
   addCloneOfCards(cards, nEmpty, { type: CardType.EMPTY }, 0);
   addCloneOfCards(cards, nGold, { type: CardType.GOLD }, nEmpty);
@@ -36,7 +36,7 @@ export const generateDeck = (nPlayers: number): Deck => {
 }
 
 const generateDeckCards = (nPlayers: number): Deck["cards"] => {
-  return buildDeckCards(generateTypeCount(nPlayers));
+  return buildDeckCards(generateCardCount(nPlayers));
 };
 
 export const getCardIdsToDeal = (deck: Deck): number[] => {

@@ -1,6 +1,12 @@
 import { Game, GameBase } from "../types/game.types";
 
-export interface TypeCount {
+export interface RoleCount {
+  nAdventurers: number;
+  nGuardians: number;
+  isExact: boolean;
+}
+
+export interface CardCount {
   nGold: number;
   nFire: number;
   nEmpty: number;
@@ -30,8 +36,29 @@ export const conspiracyVictimName = (game: Game): string | undefined => {
   }
 };
 
+export const generateRoleCount = (nPlayers: number): RoleCount => {
+  switch (nPlayers) {
+    case 3:
+      return { nAdventurers: 2, nGuardians: 2, isExact: false };
+    case 4:
+      return { nAdventurers: 3, nGuardians: 2, isExact: false };
+    case 5:
+      return { nAdventurers: 3, nGuardians: 2, isExact: true };
+    case 6:
+      return { nAdventurers: 4, nGuardians: 4, isExact: true };
+    case 7:
+      return { nAdventurers: 5, nGuardians: 3, isExact: false };
+    case 8:
+      return { nAdventurers: 6, nGuardians: 3, isExact: false };
+    case 9:
+      return { nAdventurers: 6, nGuardians: 3, isExact: true };
+    case 10:
+    default:
+      return { nAdventurers: 7, nGuardians: 4, isExact: false };
+  }
+}
 
-export const generateTypeCount = (nPlayers: number): TypeCount => {
+export const generateCardCount = (nPlayers: number): CardCount => {
   switch (nPlayers) {
     case 3:
       return { nEmpty: 8, nGold: 5, nFire: 2 };
