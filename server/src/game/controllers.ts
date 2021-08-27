@@ -4,24 +4,11 @@ import {
   Game,
   GameBase,
   GameStatus,
+  Round,
 } from "../../../client/src/types/game.types";
 import { games, getGameById } from "../db";
 import { generateRandomGameId } from "../utils";
-
-const generateConspiracyState = (
-  game: Game,
-  customProbability?: number
-): void => {
-  const players = Object.values(game.players);
-  const nPlayers = players.length;
-  const probabilityOfConspiracy =
-    customProbability ?? nPlayers / (nPlayers + 1);
-  const isConspiracy = Math.random() < probabilityOfConspiracy;
-  if (isConspiracy) {
-    const conspiracyTarget = sample(players)!;
-  } else {
-  }
-};
+import { dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
 
 export const createGame = (data: CreateGameEvent): GameBase => {
   const gameId = generateRandomGameId();
@@ -38,13 +25,25 @@ export const createGame = (data: CreateGameEvent): GameBase => {
     status: GameStatus.LOBBY,
     deck: {
       cards: {},
-      dealt: [],
-      stacked: []
-    }
+    },
+    rounds: []
   };
   games[gameId] = game;
   return game;
 };
+
+export const dealCards = (game: GameBase): GameBase => {
+  const nextRoundNumber = game.rounds.length + 1 as Round['number'];
+  // stack all flipped cards
+  game.deck = stackFlippedCards(game.deck);
+  const nextRound: Round = {
+    number: nextRoundNumber,
+    turns: [],
+    cardsDealt: dealCardsToPlayers(getCardIdsToDeal(game.deck), Object.keys(game.players))
+  }
+  game.rounds.push(nextRound);
+  return game
+}
 
 export const resetGame = (gameId: string): GameBase => {
   const game = getGameById(gameId);
@@ -58,12 +57,11 @@ export const resetGame = (gameId: string): GameBase => {
 
 export const startGame = (
   gameId: string,
-  customProbability?: number
 ): GameBase => {
   const game = getGameById(gameId);
   if (game) {
     game.status = GameStatus.ONGOING;
-    generateConspiracyState(game, customProbability);
+    game.deck = generateDeck(Object.keys(game.players).length)
     return game;
   } else {
     throw new Error("Couldn't find game");

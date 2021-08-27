@@ -18,17 +18,19 @@ export enum Role {
 export interface Card {
   /** If not present, then the card has not been dealt (and is stacked) */
   holdingPlayerId?: string;
-  isFlipped: boolean;
+  id: number;
+  isFlipped?: boolean;
+  isStacked?: boolean;
   type: CardType;
 }
 
 export interface Deck {
   /** Cards keyed by a unique card id */
-  cards: Record<string, Card>;
-  /** Array of card ids */
-  dealt: string[];
-  /** Array of card ids */
-  stacked: string[];
+  cards: Record<number, Card>;
+  // /** Array of card ids */
+  // dealt: string[];
+  // /** Array of card ids */
+  // stacked: number[];
 }
 
 export interface Player {
@@ -37,7 +39,6 @@ export interface Player {
   name?: string;
   isHost?: boolean;
   role?: Role;
-  cardIds?: string[];
 }
 
 export interface Turn {
@@ -51,6 +52,10 @@ export interface Turn {
 
 export interface Round {
   number: 1 | 2 | 3 | 4;
+  cardsDealt: {
+    /** Card ids dealt to each player */
+    [playerId: string]: number[];
+  }
   turns: Turn[];
 }
 
@@ -62,6 +67,7 @@ export interface GameBase {
     [playerName: string]: Player;
   };
   deck: Deck;
+  rounds: Round[];
   status: GameStatus;
 }
 
