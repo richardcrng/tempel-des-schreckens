@@ -1,4 +1,5 @@
-import { Game, GameBase } from "../types/game.types";
+import { last } from 'lodash';
+import { Game, GameBase, Player, Turn } from "../types/game.types";
 
 export interface RoleCount {
   nAdventurers: number;
@@ -79,6 +80,29 @@ export const generateCardCount = (nPlayers: number): CardCount => {
       return { nEmpty: 37, nGold: 10, nFire: 3 };
   }
 };
+
+export const getKeyholder = (game: Game): Player => {
+  const lastTurn = getLastTurn(game.rounds);
+  const keyholderId = lastTurn
+    ? lastTurn.selected.playerId
+      // first player by socketId alphabetised (random-esque but stable)
+    : Object.keys(game.players).sort((a, b) => a < b ? -1 : 1)[0];
+  return game.players[keyholderId]
+}
+
+export const getLastTurn = (rounds: Game['rounds']): Turn | undefined => {
+  const currentRound = last(rounds)!;
+  const isLastTurnInCurrentRound = currentRound.turns.length > 0;
+  if (isLastTurnInCurrentRound) {
+    return last(currentRound.turns)
+  } else if (rounds.length >= 2) {
+    const previousRound = rounds[rounds.length - 2];
+    return last(previousRound.turns)
+  } else {
+    // there is no previous turn
+    return undefined
+  }
+}
 
 export const hasConspiracy = (game: Game) => true;
 

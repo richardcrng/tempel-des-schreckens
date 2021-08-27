@@ -9,6 +9,7 @@ import {
 } from "../../models/game";
 import { Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
+import GameArea from "../molecules/GameArea";
 import RoleOverview from "../molecules/RoleOverview";
 import SetupOverview from "../molecules/SetupOverview";
 
@@ -48,7 +49,7 @@ function GameOngoing({ game, player, handleVote }: Props) {
 
   return (
     <>
-      
+      <GameArea game={game} player={player} />
     </>
   );
 }

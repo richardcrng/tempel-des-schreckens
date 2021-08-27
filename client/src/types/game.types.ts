@@ -64,7 +64,7 @@ export type Game = GameBase | GameInLobby | GameOngoing | GameComplete;
 export interface GameBase {
   id: string;
   players: {
-    [playerName: string]: Player;
+    [playerSocketId: string]: Player;
   };
   deck: Deck;
   rounds: Round[];
