@@ -1,5 +1,5 @@
-import { Button, Message } from "semantic-ui-react";
-import { countCardType, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
+import { Button, Message, Table } from "semantic-ui-react";
+import { countCardType, findFlippedCardsFromRound, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
 import { CardType, Game } from "../../types/game.types";
 
 
@@ -19,29 +19,57 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
     <>
       <h2>Round {game.rounds.length} of 4</h2>
       <Message info>
-        <p>{roundFlippedCards.length === 0 ? 'A new round has started!' : 'The round is ongoing!'}</p>
+        <p>
+          {roundFlippedCards.length === 0
+            ? "A new round has started!"
+            : "The round is ongoing!"}
+        </p>
       </Message>
       <h3>Round stats</h3>
-      <p style={{ margin: 0 }}>
-        {currentRound.turns.length} of {nPlayers} chests opened:
-      </p>
-      <ul style={{ marginTop: 0 }}>
-        <li>{countCardType(roundFlippedCards, CardType.GOLD)} gold</li>
-        <li>{countCardType(roundFlippedCards, CardType.FIRE)} fire</li>
-        <li>{countCardType(roundFlippedCards, CardType.EMPTY)} empty</li>
-      </ul>
-      <h2>Game stats</h2>
-      <ul style={{ marginTop: 0 }}>
-        <li>
-          {countCardType(allFlippedCards, CardType.GOLD)} of {nGold} gold
-        </li>
-        <li>
-          {countCardType(allFlippedCards, CardType.FIRE)} of {nFire} fire
-        </li>
-        <li>
-          {countCardType(allFlippedCards, CardType.EMPTY)} of {nEmpty} empty
-        </li>
-      </ul>
+      <Table celled unstackable>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Round</Table.HeaderCell>
+            <Table.HeaderCell>Gold</Table.HeaderCell>
+            <Table.HeaderCell>Fire</Table.HeaderCell>
+            <Table.HeaderCell>Empty</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {game.rounds.map((round) => {
+            const cardsFlipped = findFlippedCardsFromRound(
+              round,
+              game.deck.cards
+            );
+            return (
+              <Table.Row key={round.number}>
+                <Table.Cell>{round.number}</Table.Cell>
+                <Table.Cell>
+                  {countCardType(cardsFlipped, CardType.GOLD)}
+                </Table.Cell>
+                <Table.Cell>
+                  {countCardType(cardsFlipped, CardType.FIRE)}
+                </Table.Cell>
+                <Table.Cell>
+                  {countCardType(cardsFlipped, CardType.EMPTY)}
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
+          <Table.Row active>
+            <Table.Cell>Total</Table.Cell>
+            <Table.Cell>
+              {countCardType(allFlippedCards, CardType.GOLD)}
+            </Table.Cell>
+            <Table.Cell>
+              {countCardType(allFlippedCards, CardType.FIRE)}
+            </Table.Cell>
+            <Table.Cell>
+              {countCardType(allFlippedCards, CardType.EMPTY)}
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
       <Button fluid primary onClick={onBackToGame}>
         Back to game
       </Button>

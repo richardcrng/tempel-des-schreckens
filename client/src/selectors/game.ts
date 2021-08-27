@@ -14,6 +14,18 @@ export interface CardCount {
   nEmpty: number;
 }
 
+export const findFlippedCardsFromRound = (
+  round: Round,
+  cards: Game["deck"]["cards"]
+): Card[] => {
+  return round.turns.reduce((acc, curr) => {
+    const cardIdsChosenFrom = round.cardsDealt[curr.selected.playerId];
+    const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
+    const selectedCard = cards[chosenCardId];
+    return [...acc, selectedCard];
+  }, [] as Card[]);
+};
+
 export const gameLobbyReadiness = (
   game: GameBase
 ): { isReady: true } | { isReady: false; reason: string } => {
@@ -111,14 +123,7 @@ export const getCurrentRoundTurns = createSelector(
 export const getFlippedCardsInRound = createSelector(
   getCurrentRound,
   getGameCards,
-  (currentRound, cards) => {
-    return currentRound.turns.reduce((acc, curr) => {
-      const cardIdsChosenFrom = currentRound.cardsDealt[curr.selected.playerId];
-      const chosenCardId = cardIdsChosenFrom[curr.selected.cardIdx];
-      const selectedCard = cards[chosenCardId];
-      return [...acc, selectedCard]
-    }, [] as Card[])
-  }
+  (currentRound, cards) => findFlippedCardsFromRound(currentRound, cards)
 )
 
 export const getIsRoundComplete = createSelector(
