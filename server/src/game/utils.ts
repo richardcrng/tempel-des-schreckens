@@ -1,10 +1,28 @@
 import { shuffle } from 'lodash';
-import { generateCardCount, CardCount } from '../../../client/src/models/game';
-import { Card, CardType, Deck, Round } from "../../../client/src/types/game.types";
+import { generateCardCount, CardCount, generateRoleCount } from '../../../client/src/models/game';
+import { Card, CardType, Deck, Game, Role, Round } from "../../../client/src/types/game.types";
 
 const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card, 'id'>, startId: number): void => {
   for (let i = 0; i < nClones; i++) {
     cards.push({ ...cardToClone, id: startId + i })
+  }
+}
+
+export const assignRoles = (players: Game['players']): void => {
+  const shuffledPlayerIds = shuffle(Object.keys(players));
+  const nPlayers = shuffledPlayerIds.length;
+
+  const { nAdventurers, isExact } = generateRoleCount(nPlayers);
+
+  const nAdventurersDealt = isExact
+    ? nAdventurers
+    : Math.random() < 0.5 ? nAdventurers - 1 : nAdventurers;
+  
+  for (let i = 0; i < nPlayers; i++) {
+    const playerBeingAssigned = shuffledPlayerIds[i];
+    players[playerBeingAssigned].role = i < nAdventurersDealt
+      ? Role.ADVENTURER
+      : Role.GUARDIAN;
   }
 }
 

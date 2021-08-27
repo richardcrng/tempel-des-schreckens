@@ -8,7 +8,7 @@ import {
 } from "../../../client/src/types/game.types";
 import { games, getGameById } from "../db";
 import { generateRandomGameId } from "../utils";
-import { dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
+import { assignRoles, dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
 
 export const createGame = (data: CreateGameEvent): GameBase => {
   const gameId = generateRandomGameId();
@@ -60,6 +60,7 @@ export const startGame = (
   const game = getGameById(gameId);
   if (game) {
     game.status = GameStatus.ONGOING;
+    assignRoles(game.players);
     game.deck = generateDeck(Object.keys(game.players).length)
     dealCards(game);
     return game;
