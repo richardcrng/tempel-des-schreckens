@@ -58,17 +58,11 @@ function IndexRoute() {
         </>
       ) : (
         <>
-          <Button primary onClick={handleNewGame}>
-            New game
+          <Button color='green' onClick={handleNewGame}>
+            JOIN
           </Button>
-          <Button
-            onClick={() => {
-              window.alert(
-                "Not implemented yet - get the game join link from your host"
-              );
-            }}
-          >
-            Join game
+          <Button primary>
+            NEW
           </Button>
         </>
       )}
