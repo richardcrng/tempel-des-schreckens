@@ -2176,6 +2176,11 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==
 
+"@types/randomcolor@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@types/randomcolor/-/randomcolor-0.5.6.tgz#c1085077c4ae0f6af60e0ad229d14721b9b3b58c"
+  integrity sha512-lKkW8DGUQpZldTrwa+HM5rY+7eTyaHOMTsnj9ewt7AAwXuMPwBmkLlfh8+SXdgOhBW9iNI4x4zRjQ/TQZkdycQ==
+
 "@types/range-parser@*":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
@@ -3312,6 +3317,11 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
+
+boring-avatars@^1.5.8:
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/boring-avatars/-/boring-avatars-1.5.8.tgz#736e4e99c2390724f31dbc9175a18ac6b52f8c55"
+  integrity sha512-Xy9+6UcdwLZ0JDrzY2r0hYZXnQS9ZJRHcW8TdfnBfFcjTq7UfCC7N8g7tu7GD90RCp6XHbzTuJ1QKoK4djcWPA==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -10286,6 +10296,11 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
+randomcolor@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/randomcolor/-/randomcolor-0.6.2.tgz#7a57362ae1a1278439aeed2c15e5deb8ea33f56d"
+  integrity sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==
+
 randomfill@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/randomfill/-/randomfill-1.0.4.tgz#c92196fc86ab42be983f1bf31778224931d61458"
@@ -10763,6 +10778,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+reselect@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
+  integrity sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==
 
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"

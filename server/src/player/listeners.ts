@@ -6,7 +6,7 @@ import {
 } from "../../../client/src/types/event.types";
 import { getPlayer } from "../db";
 import { makeVote, updatePlayer } from "./controllers";
-import { haveAllVoted } from "../../../client/src/models/game";
+import { haveAllVoted } from "../../../client/src/selectors/game";
 import { GameStatus } from "../../../client/src/types/game.types";
 
 export const addPlayerListeners = (

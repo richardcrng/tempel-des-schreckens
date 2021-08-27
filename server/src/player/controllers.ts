@@ -1,3 +1,4 @@
+import randomColor from 'randomcolor'
 import {
   Game,
   GameBase,
@@ -15,6 +16,7 @@ export const joinPlayerToGame = (
     const player: Player = {
       ...playerData,
       gameId,
+      colors: randomColor({ count: 5 })
     };
     game.players[playerData.socketId] = player;
     return [player, game];

@@ -3,7 +3,7 @@ import {
   hasConspiracy,
   isConspiracyMember,
   isWinner,
-} from "../../models/game";
+} from "../../selectors/game";
 import { Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
 

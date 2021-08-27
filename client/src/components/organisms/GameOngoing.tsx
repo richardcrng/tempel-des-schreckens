@@ -6,7 +6,7 @@ import {
   hasVoted,
   isConspiracyMember,
   isNewGame,
-} from "../../models/game";
+} from "../../selectors/game";
 import { Game, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
 import GameArea from "../molecules/GameArea";

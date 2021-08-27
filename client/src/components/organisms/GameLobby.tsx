@@ -2,9 +2,12 @@
 
 import { useCopyToClipboard } from "react-use";
 import { Button } from "semantic-ui-react";
-import { gameLobbyReadiness } from "../../models/game";
+import Avatar from "boring-avatars";
+import { gameLobbyReadiness } from "../../selectors/game";
 import { GameBase, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
+import PlayerAvatar from "../atoms/PlayerAvatar";
+import { Fragment } from "react";
 
 interface Props {
   game: GameBase;
@@ -33,7 +36,20 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
       >
         Copy game join link
       </a>
-      <PlayerList players={players} ownPlayerId={player.socketId} />
+      <PlayerList
+        players={players}
+        ownPlayerId={player.socketId}
+        renderPlayer={(player, ownPlayerId) => {
+          return (
+            <Fragment key={player.socketId}>
+              <PlayerAvatar player={player} />
+              {player.name}
+              {player.socketId === ownPlayerId && " (you)"}
+              {player.isHost && " (host)"}
+            </Fragment>
+          );
+        }}
+      />
       {player.isHost ? (
         <>
           <Button

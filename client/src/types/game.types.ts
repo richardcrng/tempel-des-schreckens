@@ -5,9 +5,9 @@ export enum GameStatus {
 }
 
 export enum CardType {
-  GOLD = 'GOLD',
-  FIRE = 'FIRE',
-  EMPTY = 'EMPTY'
+  GOLD = 'gold',
+  FIRE = 'fire',
+  EMPTY = 'empty'
 }
 
 export enum Role {
@@ -39,6 +39,7 @@ export interface Player {
   name?: string;
   isHost?: boolean;
   role?: Role;
+  colors?: string[]
 }
 
 export interface Turn {

@@ -1,5 +1,6 @@
-import { getKeyholder } from "../../models/game";
+import { getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
 import { Game, Player } from "../../types/game.types";
+import PlayerCards from "./PlayerCards";
 
 interface Props {
   game: Game;
@@ -9,9 +10,26 @@ interface Props {
 function GameArea({ game, player }: Props): JSX.Element {
   const keyholder = getKeyholder(game);
 
+  const isKeyholder = keyholder.socketId === player.socketId;
+
   return (
-    <p>{keyholder.socketId === player.socketId ? 'You have' : `${keyholder.name} has`} the key</p>
-  )
+    <>
+      <p>
+        {isKeyholder
+          ? "You have"
+          : `${keyholder.name} has`}{" "}
+        the key
+      </p>
+      {Object.entries(getPlayerCardsInRound(game)).map(([playerId, cards]) => (
+        <PlayerCards
+          key={playerId}
+          cards={cards}
+          player={game.players[playerId]}
+          isKeyholder={isKeyholder}
+        />
+      ))}
+    </>
+  );
 }
 
 export default GameArea

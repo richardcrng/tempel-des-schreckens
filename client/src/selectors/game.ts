@@ -1,5 +1,5 @@
 import { last } from 'lodash';
-import { Game, GameBase, Player, Turn } from "../types/game.types";
+import { Card, Game, GameBase, Player, Round, Turn } from "../types/game.types";
 
 export interface RoleCount {
   nAdventurers: number;
@@ -81,6 +81,15 @@ export const generateCardCount = (nPlayers: number): CardCount => {
   }
 };
 
+export const getCurrentRound = (rounds: Round[]): Round => {
+  const currentRound = last(rounds);
+  if (currentRound) {
+    return currentRound;
+  } else {
+    throw new Error("No round to get")
+  }
+}
+
 export const getKeyholder = (game: Game): Player => {
   const lastTurn = getLastTurn(game.rounds);
   const keyholderId = lastTurn
@@ -91,7 +100,7 @@ export const getKeyholder = (game: Game): Player => {
 }
 
 export const getLastTurn = (rounds: Game['rounds']): Turn | undefined => {
-  const currentRound = last(rounds)!;
+  const currentRound = getCurrentRound(rounds);
   const isLastTurnInCurrentRound = currentRound.turns.length > 0;
   if (isLastTurnInCurrentRound) {
     return last(currentRound.turns)
@@ -102,6 +111,15 @@ export const getLastTurn = (rounds: Game['rounds']): Turn | undefined => {
     // there is no previous turn
     return undefined
   }
+}
+
+export const getPlayerCardsInRound = (game: Game): Record<string, Card[]> => {
+  const currentRound = getCurrentRound(game.rounds);
+  const cardEntries = Object.entries(currentRound.cardsDealt).map(([playerId, cardIds]) => [
+    playerId,
+    cardIds.map(cardId => game.deck.cards[cardId])
+  ])
+  return Object.fromEntries(cardEntries);
 }
 
 export const hasConspiracy = (game: Game) => true;

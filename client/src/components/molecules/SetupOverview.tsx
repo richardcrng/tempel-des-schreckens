@@ -1,5 +1,5 @@
 import { Image } from 'semantic-ui-react';
-import { generateCardCount, generateRoleCount } from "../../models/game";
+import { generateCardCount, generateRoleCount } from "../../selectors/game";
 
 interface Props {
   nPlayers: number;

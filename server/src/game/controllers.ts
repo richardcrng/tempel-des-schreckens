@@ -1,4 +1,5 @@
 import { sample } from "lodash";
+import randomColor from 'randomColor';
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
   Game,
@@ -20,6 +21,7 @@ export const createGame = (data: CreateGameEvent): GameBase => {
         socketId: data.socketId,
         isHost: true,
         gameId,
+        colors: randomColor({ count: 5 })
       },
     },
     status: GameStatus.LOBBY,

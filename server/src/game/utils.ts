@@ -1,5 +1,5 @@
 import { shuffle } from 'lodash';
-import { generateCardCount, CardCount, generateRoleCount } from '../../../client/src/models/game';
+import { generateCardCount, CardCount, generateRoleCount } from '../../../client/src/selectors/game';
 import { Card, CardType, Deck, Game, Role, Round } from "../../../client/src/types/game.types";
 
 const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card, 'id'>, startId: number): void => {
