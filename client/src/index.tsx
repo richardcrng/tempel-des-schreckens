@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { socket, SocketContext } from "./socket";
 
 import "semantic-ui-css/semantic.min.css";
+import './styles.css';
 
 const queryClient = new QueryClient();
 

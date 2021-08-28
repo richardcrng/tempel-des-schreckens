@@ -14,16 +14,12 @@ function App() {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           padding: "5px",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <div
-          style={{
-            backgroundColor: 'white',
-            opacity: '0.8',
-            padding: '10px',
-            height: 'calc(100vh - 20px)'
-          }}
-        >
+        <div className='active-area'>
           <Switch>
             <Route exact path="/game/:gameId" component={GameRoute} />
             <Route path="/" component={IndexRoute} />

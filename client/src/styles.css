@@ -1,0 +1,9 @@
+.active-area {
+  background-color: white;
+  opacity: 0.8;
+  padding: 10px;
+  min-height: calc(100vh - 20px);
+  max-height: 700px;
+  min-width: min(1000px, calc(100vw - 20px));
+  max-width: 1000px;
+}
