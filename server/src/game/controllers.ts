@@ -1,3 +1,4 @@
+import { last } from 'lodash';
 import randomColor from 'randomColor';
 import { getCurrentRound } from "../../../client/src/selectors/game";
 import { CreateGameEvent } from "../../../client/src/types/event.types";
@@ -52,7 +53,7 @@ export const dealCards = (game: GameBase): void => {
  * @returns the number of turns
  */
 export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): number => {
-  const currentRound = getCurrentRound(game);
+  const currentRound = last(game.rounds)!;
   const turnCreated: Turn = {
     keyholderId,
     selected: {

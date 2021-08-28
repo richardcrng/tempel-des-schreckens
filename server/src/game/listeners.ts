@@ -7,7 +7,6 @@ import {
 import { createGame, dealCards, flipCard, resetGame, startGame } from "./controllers";
 import { getGameById } from "../db";
 import { joinPlayerToGame } from "../player/controllers";
-import { getIsRoundComplete } from "../../../client/src/selectors/game";
 
 export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.CREATE_GAME, (e) => {
