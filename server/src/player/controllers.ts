@@ -1,11 +1,11 @@
-import randomColor from 'randomcolor'
 import {
   Game,
   GameBase,
   GameStatus,
   Player,
 } from "../../../client/src/types/game.types";
-import { getGameById, getPlayer } from "../db";
+import { getGameById } from "../db";
+import { getColors } from "../utils";
 
 export const joinPlayerToGame = (
   gameId: string,
@@ -16,7 +16,7 @@ export const joinPlayerToGame = (
     const player: Player = {
       ...playerData,
       gameId,
-      colors: randomColor({ count: 5 })
+      colors: getColors(5)
     };
     game.players[playerData.socketId] = player;
     return [player, game];
