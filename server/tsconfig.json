@@ -4,6 +4,7 @@
     "target": "es5",
     "module": "commonjs",
     "allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "strict": true,
