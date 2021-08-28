@@ -111,14 +111,14 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
             gameOverReason={gameOverReason}
           />
           <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)}>
-            Round stats
+            Game stats
           </Button>
           <Button
             fluid
             color="black"
             onClick={() => setView(SectionView.DISTRIBUTION)}
           >
-            Game setup
+            Setup and role
           </Button>
           <Button fluid color='green' disabled={!(player.isHost && isRoundComplete)} onClick={onNextRound}>
             Next round
