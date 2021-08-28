@@ -45,7 +45,7 @@ function IndexRoute() {
       <div className='flex-center' style={{ textAlign: 'center' }}>
         <h1>Tempel des Schreckens</h1>
         <Image src="/assets/tds-box.png" size="small" />
-        <p style={{ margin: "5% 20%" }}>
+        <p style={{ margin: "5%" }}>
           A web app implementation of the quick-playing bluffing game for 3-10
           players.
         </p>
@@ -58,8 +58,7 @@ function IndexRoute() {
                 <p>We're loading the game for you.</p>
                 <p>
                   (This can take up to 30-40s when you are starting a new game
-                  for the first time in a while - sorry! Thanks for your
-                  patience.)
+                  for the first time in a while - sorry!)
                 </p>
               </Message.Content>
             </Message>
