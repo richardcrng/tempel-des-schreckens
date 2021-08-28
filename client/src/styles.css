@@ -21,6 +21,13 @@
   max-width: 990px;
 }
 
+.active-contents.flex-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .flex-center {
   display: flex;
   flex-direction: column;
