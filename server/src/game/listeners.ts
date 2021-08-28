@@ -7,6 +7,7 @@ import {
 import { createGame, dealCards, flipCard, resetGame, startGame } from "./controllers";
 import { getGameById } from "../db";
 import { joinPlayerToGame } from "../player/controllers";
+import { checkForGameEnd } from "./utils";
 
 export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
   socket.on(ClientEvent.CREATE_GAME, (e) => {
@@ -20,6 +21,11 @@ export const addGameListeners = (socket: ServerSocket, io: ServerIO): void => {
       flipCard(game, { card, cardIdx, keyholderId, playerId });
       io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, playerId, cardIdx, card);
       io.emit(ServerEvent.GAME_UPDATED, game.id, game)
+
+      const gameEnd = checkForGameEnd(game);
+      if (gameEnd.isEnded) {
+        io.emit(ServerEvent.GAME_OVER, gameId, gameEnd.reason, game)
+      }
     }
   })
 

@@ -65,6 +65,15 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
     }
   )
 
+  useSocketListener(
+    ServerEvent.GAME_OVER,
+    (gameId, reason) => {
+      if (gameId === game.id) {
+        window.alert(`game over! ${reason}`);
+      }
+    }
+  )
+
   return (
     <>
       <Modal

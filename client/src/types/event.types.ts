@@ -34,6 +34,7 @@ export enum ServerEvent {
   GAME_GOTTEN = "game-gotten",
   GAME_JOINED = "game-joined",
   GAME_NOT_FOUND = "game-not-found",
+  GAME_OVER = 'game-over',
   GAME_STARTED = 'game-started',
   GAME_UPDATED = "game-updated",
   PLAYER_GOTTEN = "player-gotten",
@@ -42,6 +43,12 @@ export enum ServerEvent {
   REDIRECT_TO_LOBBY = "redirect-to-lobby",
   RESULTS_SHOWN = "results-shown",
   ROUND_STARTED = 'round-started'
+}
+
+export enum GameOverReason {
+  ALL_GOLD_FLIPPED = 'all-gold-flipped',
+  ALL_FIRE_FLIPPED = 'all-fire-flipped',
+  ALL_ROUNDS_FINISHED = 'all-rounds-finished'
 }
 
 /**
@@ -76,6 +83,7 @@ export type ServerEventListeners = {
     card: Card
   ) => void;
   [ServerEvent.GAME_CREATED]: (e: GameCreatedEvent) => void;
+  [ServerEvent.GAME_OVER]: (gameId: string, reason: GameOverReason, game: GameBase) => void;
   [ServerEvent.GAME_GOTTEN]: (gameId: string, game: GameBase) => void;
   [ServerEvent.GAME_JOINED]: (e: GameJoinedEvent) => void;
   [ServerEvent.GAME_NOT_FOUND]: () => void;

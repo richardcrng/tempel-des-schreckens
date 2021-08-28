@@ -1,5 +1,6 @@
 import { shuffle } from 'lodash';
 import { generateCardCount, CardCount, generateRoleCount } from '../../../client/src/selectors/game';
+import { GameOverReason } from '../../../client/src/types/event.types';
 import { Card, CardType, Deck, Game, Role, Round } from "../../../client/src/types/game.types";
 
 const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card, 'id'>, startId: number): void => {
@@ -34,6 +35,20 @@ const buildDeckCards = ({ nGold, nFire, nEmpty }: CardCount): Deck['cards'] => {
   return Object.assign({}, cards)
 }
 
+type GameEndResult = { isEnded: false } | { isEnded: true, reason: GameOverReason }
+
+export const checkForGameEnd = (game: Game): GameEndResult => {
+  if (isAllOfTypeFlipped(game.deck, CardType.GOLD)) {
+    return { isEnded: true, reason: GameOverReason.ALL_GOLD_FLIPPED }
+  } else if (isAllOfTypeFlipped(game.deck, CardType.FIRE)) {
+    return { isEnded: true, reason: GameOverReason.ALL_FIRE_FLIPPED }
+  } else if (isTimeUp(game.rounds, Object.keys(game.players).length)) {
+    return { isEnded: true, reason: GameOverReason.ALL_ROUNDS_FINISHED }
+  } else {
+    return { isEnded: false }
+  }
+}
+
 export const dealCardsToPlayers = (cardIds: number[], playerIds: string[]): Round['cardsDealt'] => {
   const cardsPerPlayer = cardIds.length / playerIds.length;
   const remainingCardsToDeal = shuffle(cardIds);
@@ -60,6 +75,16 @@ const generateDeckCards = (nPlayers: number): Deck["cards"] => {
 export const getCardIdsToDeal = (deck: Deck): number[] => {
   const unStackedCards = Object.values(deck.cards).filter(card => !card.isStacked);
   return unStackedCards.map(card => card.id)
+}
+
+const isAllOfTypeFlipped = (deck: Deck, cardType: CardType): boolean => {
+  return Object.values(deck.cards).every((card) =>
+    card.type === cardType ? card.isFlipped : true
+  );
+};
+
+const isTimeUp = (rounds: Round[], nPlayers: number): boolean => {
+  return rounds.length === 4 && rounds.every(round => round.turns.length === nPlayers)
 }
 
 export const stackFlippedCards = (deck: Deck): Deck => {
