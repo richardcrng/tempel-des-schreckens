@@ -3,6 +3,7 @@
     "lib": ["es5", "es6", "ES2019"],
     "target": "es5",
     "module": "commonjs",
+    "allowJs": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "strict": true,
