@@ -1,6 +1,6 @@
-# Conspiracy - frontend
+# Tempel des Schreckens - frontend
 
-This is the frontend code for Conspiracy:
+This is the frontend code for Tempel des Schreckens:
 
 - TypeScript
 - React

@@ -16,7 +16,7 @@ function App() {
           padding: "5px",
         }}
       >
-        <div style={{ backgroundColor: 'white', opacity: '0.8' }}>
+        <div style={{ backgroundColor: 'white', opacity: '0.8', padding: '5px' }}>
           <Switch>
             <Route exact path="/game/:gameId" component={GameRoute} />
             <Route path="/" component={IndexRoute} />

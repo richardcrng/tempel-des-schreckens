@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
-import { Button, Icon, Message } from "semantic-ui-react";
+import { Button, Icon, Image, Message } from "semantic-ui-react";
 import useSocketListener from "../hooks/useSocketListener";
 import { socketUrl, useSocket } from "../socket";
 import {
@@ -33,9 +33,10 @@ function IndexRoute() {
   );
 
   return (
-    <>
-      <h1>👹 Tempel des Schreckens</h1>
-      <h3>A quick-playing bluffing game for 3-10 players.</h3>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <h1>Tempel des Schreckens</h1>
+      <Image src='/assets/tds-box.png' size='small' />
+      <p>A web app implementation of the quick-playing bluffing game for 3-10 players.</p>
       {isLoading ? (
         <>
           <Message icon>
@@ -52,15 +53,15 @@ function IndexRoute() {
         </>
       ) : (
         <>
-          <Button color='green' onClick={handleJoinGame}>
+          <Button fluid color='green' onClick={handleJoinGame}>
             JOIN
           </Button>
-          <Button primary onClick={handleNewGame}>
+          <Button fluid primary onClick={handleNewGame}>
             NEW
           </Button>
         </>
       )}
-    </>
+    </div>
   );
 }
 
