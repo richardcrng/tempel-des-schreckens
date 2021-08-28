@@ -1,5 +1,5 @@
 import { Button, Message, Table } from "semantic-ui-react";
-import { CardCount, countCardType, findFlippedCardsFromRound, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
+import { countCardType, findFlippedCardsFromRound, getFlippedCardsInRound, getFlippedTypeCount, getRemainingTypeCount } from "../../selectors/game";
 import { CardType, Game } from "../../types/game.types";
 
 
@@ -10,13 +10,8 @@ interface Props {
 
 function GameStats({ game, onBackToGame }: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
-  const allFlippedCards = getAllFlippedCards(game);
-  const nPlayers = getNumberOfPlayers(game);
-  const { nGold, nFire, nEmpty } = generateCardCount(nPlayers);
-  const totalFlippedGold = countCardType(allFlippedCards, CardType.GOLD);
-  const totalFlippedFire = countCardType(allFlippedCards, CardType.FIRE);
-  const totalFlippedEmpty = countCardType(allFlippedCards, CardType.EMPTY);
-
+  const flippedCount = getFlippedTypeCount(game);
+  const remaining = getRemainingTypeCount(game);
 
   return (
     <>
@@ -65,25 +60,25 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
           <Table.Row active>
             <Table.Cell>Total</Table.Cell>
             <Table.Cell>
-              {totalFlippedGold}
+              {flippedCount.nGold}
             </Table.Cell>
             <Table.Cell>
-              {totalFlippedFire}
+              {flippedCount.nFire}
             </Table.Cell>
             <Table.Cell>
-              {totalFlippedEmpty}
+              {flippedCount.nEmpty}
             </Table.Cell>
           </Table.Row>
           <Table.Row active>
             <Table.Cell>Left</Table.Cell>
             <Table.Cell>
-              {nGold - totalFlippedGold}
+              {remaining.nGold}
             </Table.Cell>
             <Table.Cell>
-              {nFire - totalFlippedFire}
+              {remaining.nFire}
             </Table.Cell>
             <Table.Cell>
-              {nEmpty - totalFlippedEmpty}
+              {remaining.nEmpty}
             </Table.Cell>
           </Table.Row>
         </Table.Body>

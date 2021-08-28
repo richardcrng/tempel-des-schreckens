@@ -137,6 +137,28 @@ export const getAllFlippedCards = createSelector(
   (cards) => Object.values(cards).filter(card => card.isFlipped)
 )
 
+export const getFlippedTypeCount = createSelector(
+  getAllFlippedCards,
+  (cards): CardCount => ({
+    nGold: countCardType(cards, CardType.GOLD),
+    nFire: countCardType(cards, CardType.FIRE),
+    nEmpty: countCardType(cards, CardType.EMPTY),
+  })
+);
+
+export const getRemainingTypeCount = createSelector(
+  getFlippedTypeCount,
+  getNumberOfPlayers,
+  (flippedCount, nPlayers): CardCount => {
+    const total = generateCardCount(nPlayers)
+    return {
+      nGold: total.nGold - flippedCount.nGold,
+      nFire: total.nFire - flippedCount.nFire,
+      nEmpty: total.nEmpty - flippedCount.nEmpty,
+    };
+  }
+);
+
 export const getLastTurn = createSelector(
   getGameRounds,
   getCurrentRound,
