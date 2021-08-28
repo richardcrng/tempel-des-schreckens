@@ -58,6 +58,7 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
       {player.isHost ? (
         <>
           <Button
+            fluid
             primary
             disabled={disableStart}
             onClick={() => {

@@ -33,33 +33,47 @@ function IndexRoute() {
   );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h1>Tempel des Schreckens</h1>
-      <Image src='/assets/tds-box.png' size='small' />
-      <p>A web app implementation of the quick-playing bluffing game for 3-10 players.</p>
-      {isLoading ? (
-        <>
-          <Message icon>
-            <Icon name="circle notched" loading />
-            <Message.Content>
-              <Message.Header>Please wait</Message.Header>
-              <p>We're loading the game for you.</p>
-              <p>
-                (This can take up to 30-40s when you are starting a new game for
-                the first time in a while - sorry! Thanks for your patience.)
-              </p>
-            </Message.Content>
-          </Message>
-        </>
-      ) : (
-        <>
-          <Button fluid color='green' onClick={handleJoinGame}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "100%",
+      }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <h1>Tempel des Schreckens</h1>
+        <Image src="/assets/tds-box.png" size="small" />
+        <p style={{ margin: "5% 20%" }}>
+          A web app implementation of the quick-playing bluffing game for 3-10
+          players.
+        </p>
+        {isLoading && (
+          <>
+            <Message icon>
+              <Icon name="circle notched" loading />
+              <Message.Content>
+                <Message.Header>Please wait</Message.Header>
+                <p>We're loading the game for you.</p>
+                <p>
+                  (This can take up to 30-40s when you are starting a new game for
+                  the first time in a while - sorry! Thanks for your patience.)
+                </p>
+              </Message.Content>
+            </Message>
+          </>
+        )}
+      </div>
+      {!isLoading && (
+        <div style={{ width: "100%" }}>
+          <Button fluid color="green" onClick={handleJoinGame}>
             JOIN
           </Button>
           <Button fluid primary onClick={handleNewGame}>
             NEW
           </Button>
-        </>
+        </div>
       )}
     </div>
   );
