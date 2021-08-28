@@ -18,7 +18,7 @@ function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
   return (
     <>
       <h2>Round {game.rounds.length} of 4</h2>
-      <Message info>
+      <Message info={!(gameOverReason)} warning={!!gameOverReason}>
         <p>
           {gameOverReason ? gameOverReason + '!' : roundFlippedCards.length === 0
             ? "A new round has started!"

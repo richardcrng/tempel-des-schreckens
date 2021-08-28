@@ -18,7 +18,7 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
   const isKeyholder = keyholder.socketId === player.socketId
 
   const handleCardClick = (card: Card, idx: number, player: Player) => {
-    if (isKeyholder && onCardClick) {
+    if (isKeyholder && onCardClick && !gameOverReason) {
       onCardClick(card, idx, player)
     }
   }

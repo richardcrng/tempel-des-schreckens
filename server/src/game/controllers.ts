@@ -1,6 +1,5 @@
 import { last } from 'lodash';
 import randomColor from 'randomColor';
-import { getCurrentRound } from "../../../client/src/selectors/game";
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
   Card,

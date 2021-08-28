@@ -80,7 +80,6 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
     (gameId, reason) => {
       if (gameId === game.id) {
         setGameOverReason(reason);
-        setView(SectionView.GAME_STATS);
       }
     }
   )
