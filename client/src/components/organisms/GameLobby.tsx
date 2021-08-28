@@ -38,20 +38,27 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
       <PlayerList
         players={players}
         ownPlayerId={player.socketId}
-        renderPlayer={(player, ownPlayerId) => {
+        listParent={({ children }) => (
+          <ol style={{ listStyle: 'none', paddingInlineStart: '20px' }}>{children}</ol>
+        )}
+        renderPlayer={(player, idx, ownPlayerId) => {
           return (
-            <Fragment key={player.socketId}>
-              <PlayerAvatar player={player} />
-              {player.name}
-              {player.socketId === ownPlayerId && " (you)"}
-              {player.isHost && " (host)"}
-            </Fragment>
+            <div key={player.socketId} style={{ display: 'flex', alignItems: 'center', fontSize: '1.2rem', paddingBottom: '10px' }}>
+              <span style={{ marginRight: '10px' }}>{idx + 1}.</span>
+              <PlayerAvatar player={player} size={32} />
+              <p style={{ marginLeft: '10px' }}>
+                {player.name}
+                {player.socketId === ownPlayerId && " (you)"}
+                {player.isHost && " (host)"}
+              </p>
+            </div>
           );
         }}
       />
       {player.isHost ? (
         <>
           <Button
+            fluid
             primary
             disabled={disableStart}
             onClick={() => {

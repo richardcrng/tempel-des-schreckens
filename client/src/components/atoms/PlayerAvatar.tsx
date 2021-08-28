@@ -3,12 +3,13 @@ import Avatar from 'boring-avatars';
 
 interface Props {
   player: Player;
+  size?: string | number;
 }
 
-function PlayerAvatar({ player }: Props): JSX.Element {
+function PlayerAvatar({ player, size = 40 }: Props): JSX.Element {
   return (
     <Avatar
-      size={40}
+      size={size}
       name={player.socketId}
       variant="beam"
       colors={

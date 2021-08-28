@@ -6,7 +6,7 @@ interface Props {
   players: Player[];
   listParent?: React.FunctionComponent<PropsWithChildren<{}>>;
   listItemParent?: React.FunctionComponent<PropsWithChildren<{}>>;
-  renderPlayer?(player: Player, ownPlayerId?: string): JSX.Element;
+  renderPlayer?(player: Player, idx: number, ownPlayerId?: string): JSX.Element;
 }
 
 function PlayerList({
@@ -18,8 +18,8 @@ function PlayerList({
 }: Props) {
   return (
     <List>
-      {players.map((player) => (
-        <ListItem key={player.socketId}>{renderPlayer(player, ownPlayerId)}</ListItem>
+      {players.map((player, idx) => (
+        <ListItem key={player.socketId}>{renderPlayer(player, idx, ownPlayerId)}</ListItem>
       ))}
     </List>
   );
@@ -33,7 +33,7 @@ function DefaultListItem({ children }: PropsWithChildren<{}>) {
   return <li>{children}</li>;
 }
 
-const defaultRenderPlayer = (player: Player, ownPlayerId?: string): JSX.Element => (
+const defaultRenderPlayer = (player: Player, _: number, ownPlayerId?: string): JSX.Element => (
   <>
     {player.name}
     {player.socketId === ownPlayerId && " (you)"}
