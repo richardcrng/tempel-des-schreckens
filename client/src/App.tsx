@@ -6,14 +6,12 @@ function App() {
   return (
     <Router>
       <main
+        className='background'
         style={{
-          height: "100vh",
-          width: "100vw",
           backgroundImage: "url('/assets/tds-main.jpeg')",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          padding: "5px",
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'
