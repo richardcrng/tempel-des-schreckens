@@ -17,8 +17,14 @@ function GameRoute() {
   const game = useGame(gameId);
   const player = usePlayer(socket.id, socketAliases);
 
+  const takenNames = Object.values(game.data?.players ?? {}).map(
+    (player) => player.name!
+  );
+
   if (game.data?.status === GameStatus.ONGOING && !player.data) {
     return <p>Can't join a game that is underway - sorry</p>;
+  } else if (takenNames.length >= 10) {
+    return <p>The game is full (10 players max) - sorry</p>
   } else if (!player.loading && !player.data?.name) {
     return (
       <>
@@ -43,7 +49,7 @@ function GameRoute() {
               });
             }
           }}
-          takenNames={Object.values(game.data?.players ?? {}).map(player => player.name!)}
+          takenNames={takenNames}
         />
       </>
     );
