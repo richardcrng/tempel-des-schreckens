@@ -34,18 +34,18 @@ function IndexRoute() {
 
   return (
     <div
+      className="active-contents"
       style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         alignItems: "center",
-        height: "100%",
       }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+      <div className='flex-center' style={{ textAlign: 'center' }}>
         <h1>Tempel des Schreckens</h1>
         <Image src="/assets/tds-box.png" size="small" />
-        <p style={{ margin: "5% 20%" }}>
+        <p style={{ margin: "5%" }}>
           A web app implementation of the quick-playing bluffing game for 3-10
           players.
         </p>
@@ -57,8 +57,8 @@ function IndexRoute() {
                 <Message.Header>Please wait</Message.Header>
                 <p>We're loading the game for you.</p>
                 <p>
-                  (This can take up to 30-40s when you are starting a new game for
-                  the first time in a while - sorry! Thanks for your patience.)
+                  (This can take up to 30-40s when you are starting a new game
+                  for the first time in a while - sorry!)
                 </p>
               </Message.Content>
             </Message>

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
+import styled from 'styled-components'
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
-import { getIsRoundComplete, getNumberOfPlayers } from '../../selectors/game';
+import { getIsRoundComplete, getNumberOfPlayers, getKeyholder, getPlayerCardsInRound } from '../../selectors/game';
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
 import { GameOverReason, ServerEvent } from "../../types/event.types";
+import OwnCards from "../molecules/OwnCards";
 
 interface Props {
   game: Game;
@@ -22,11 +24,25 @@ enum SectionView {
   MAIN_GAME = 'main-game'
 }
 
+const ActionArea = styled.div`
+  width: 100%;
+`
+
+const Container = styled.div`
+  width: 100%;
+`
+
 function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
   const [gameOverReason, setGameOverReason] = useState<GameOverReason>();
   const handleBackToGame = () => setView(SectionView.MAIN_GAME)
   const isRoundComplete = getIsRoundComplete(game);
+
+  const { [player.socketId]: ownCards } =
+    getPlayerCardsInRound(game);
+
+  const keyholder = getKeyholder(game);
+  const isKeyholder = keyholder.socketId === player.socketId
 
   const [cardFlipModal, setCardFlipModal] = useState<{
     isOpen: boolean;
@@ -85,7 +101,7 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
   )
 
   return (
-    <>
+    <Container className="active-contents flex-between">
       <Modal
         basic
         closeIcon
@@ -97,7 +113,11 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
           onClick={handleCloseModal}
         />
         <Modal.Content onClick={handleCloseModal}>
-          <Image onClick={handleCloseModal} src={`/assets/tds-${cardFlipModal.type}.jpeg`} size="medium" />
+          <Image
+            onClick={handleCloseModal}
+            src={`/assets/tds-${cardFlipModal.type}.jpeg`}
+            size="medium"
+          />
         </Modal.Content>
       </Modal>
       {view === SectionView.DISTRIBUTION && (
@@ -108,32 +128,56 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
         />
       )}
       {view === SectionView.GAME_STATS && (
-        <GameStats game={game} onBackToGame={handleBackToGame} gameOverReason={gameOverReason} />
+        <GameStats
+          game={game}
+          onBackToGame={handleBackToGame}
+          gameOverReason={gameOverReason}
+        />
       )}
       {view === SectionView.MAIN_GAME && (
         <>
           <GameArea
             game={game}
             player={player}
-            onCardClick={isRoundComplete ? () => window.alert("This round is complete - the host needs to start the next round first") : onCardClick}
+            onCardClick={
+              isRoundComplete
+                ? () =>
+                    window.alert(
+                      "This round is complete - the host needs to start the next round first"
+                    )
+                : onCardClick
+            }
             gameOverReason={gameOverReason}
           />
-          <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)}>
-            Game stats
-          </Button>
-          <Button
-            fluid
-            color="black"
-            onClick={() => setView(SectionView.DISTRIBUTION)}
-          >
-            Setup and role
-          </Button>
-          <Button fluid color='green' disabled={!(player.isHost && (isRoundComplete || gameOverReason))} onClick={handleProgression}>
-            {gameOverReason ? 'New game' : 'Next round'}
-          </Button>
+          <ActionArea>
+            <hr />
+            <OwnCards cards={ownCards} player={player} isKeyholder={isKeyholder} />
+            <Button
+              fluid
+              primary
+              onClick={() => setView(SectionView.GAME_STATS)}
+            >
+              Game stats
+            </Button>
+            <Button
+              fluid
+              color="black"
+              onClick={() => setView(SectionView.DISTRIBUTION)}
+            >
+              Setup and role
+            </Button>
+            <Button
+              fluid
+              color="green"
+              disabled={!(player.isHost && (isRoundComplete || gameOverReason))}
+              onClick={handleProgression}
+            >
+              {gameOverReason ? "New game" : "Next round"}
+            </Button>
+          </ActionArea>
         </>
       )}
-    </>
+    </Container>
   );
 }
 

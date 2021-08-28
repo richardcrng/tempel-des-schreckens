@@ -12,7 +12,7 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
   const roleRange = (n: number) => isExact ? `${n}` : `${n-1}-${n}`;
 
   return (
-    <>
+    <div>
       <p>With {nPlayers} players, the distribution is:</p>
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <CardOverview slug="adventurer" count={roleRange(nAdventurers)} />
@@ -21,7 +21,7 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
         <CardOverview slug="fire" count={nFire} />
         <CardOverview slug="empty" count={nEmpty} />
       </div>
-    </>
+    </div>
   );
 }
 

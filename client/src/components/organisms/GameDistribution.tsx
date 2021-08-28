@@ -14,7 +14,7 @@ function GameDistribution({ nPlayers, player, onBackToGame }: Props): JSX.Elemen
   return (
     <>
       {player.role && (
-        <RoleOverview role={player.role} style={{ marginBottom: "20px" }} />
+        <RoleOverview role={player.role} />
       )}
       <SetupOverview nPlayers={nPlayers} />
       <Button fluid primary onClick={onBackToGame}>

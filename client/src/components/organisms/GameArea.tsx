@@ -1,7 +1,7 @@
 import { Message } from "semantic-ui-react";
-import { countCardType, getIsRoundComplete, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
+import { getIsRoundComplete, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
 import { GameOverReason } from "../../types/event.types";
-import { Card, CardType, Game, Player } from "../../types/game.types";
+import { Card, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
 
 interface Props {
@@ -42,7 +42,7 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
       : "The round is ongoing.";
 
   return (
-    <>
+    <div style={{ width: '100%' }}>
       <Message info>
         <p><strong>{headlineMessage}</strong></p>
         <p>{subheadlineMessage}</p>
@@ -56,15 +56,7 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
           onCardClick={handleCardClick}
         />
       ))}
-      <hr />
-      <p style={{ margin: 0 }}>Your distribution (secret):</p>
-      <ul style={{ marginTop: 0 }}>
-        <li>{countCardType(ownCards, CardType.GOLD)} gold</li>
-        <li>{countCardType(ownCards, CardType.FIRE)} fire</li>
-        <li>{countCardType(ownCards, CardType.EMPTY)} empty</li>
-      </ul>
-      <PlayerCards cards={ownCards} player={player} isKeyholder={isKeyholder} />
-    </>
+    </div>
   );
 }
 

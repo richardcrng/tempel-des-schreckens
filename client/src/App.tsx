@@ -6,24 +6,18 @@ function App() {
   return (
     <Router>
       <main
+        className='background'
         style={{
-          height: "100vh",
-          width: "100vw",
           backgroundImage: "url('/assets/tds-main.jpeg')",
           backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          padding: "5px",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}
       >
-        <div
-          style={{
-            backgroundColor: 'white',
-            opacity: '0.8',
-            padding: '10px',
-            height: 'calc(100vh - 20px)'
-          }}
-        >
+        <div className='active-area'>
           <Switch>
             <Route exact path="/game/:gameId" component={GameRoute} />
             <Route path="/" component={IndexRoute} />

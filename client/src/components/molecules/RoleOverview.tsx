@@ -3,29 +3,29 @@ import { Role } from "../../types/game.types";
 
 interface Props {
   role: Role;
-  style?: React.CSSProperties;
 }
 
-function RoleOverview({ role, style }: Props): JSX.Element {
+function RoleOverview({ role }: Props): JSX.Element {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        ...style
-      }}
-    >
-      <p>You have drawn...</p>
-      <Image
-        src={`/assets/tds-${
-          role === Role.ADVENTURER ? "adventurer" : "guardian"
-        }.jpeg`}
-        size="small"
-      />
-      <p style={{ fontSize: '1.5rem' }}>{role}</p>
-    </div>
+    <>
+      <p style={{ marginBottom: 0 }}>You have drawn...</p>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          src={`/assets/tds-${
+            role === Role.ADVENTURER ? "adventurer" : "guardian"
+          }.jpeg`}
+          size="small"
+        />
+        <p style={{ fontSize: "1.5rem" }}>{role}</p>
+      </div>
+    </>
   );
 }
 
