@@ -1,5 +1,4 @@
 import { last } from 'lodash';
-import randomColor from 'randomColor';
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
   Card,
@@ -10,7 +9,7 @@ import {
   Turn,
 } from "../../../client/src/types/game.types";
 import { games, getGameById } from "../db";
-import { generateRandomGameId } from "../utils";
+import { generateRandomGameId, getColors } from "../utils";
 import { assignRoles, dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
 
 export const createGame = (data: CreateGameEvent): GameBase => {
@@ -23,7 +22,7 @@ export const createGame = (data: CreateGameEvent): GameBase => {
         socketId: data.socketId,
         isHost: true,
         gameId,
-        colors: randomColor({ count: 5 })
+        colors: getColors(5)
       },
     },
     status: GameStatus.LOBBY,
