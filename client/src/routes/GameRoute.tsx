@@ -61,14 +61,16 @@ function GameRoute() {
               );
             }}
             onCardClick={(card, idx, player) => {
-              socket.emit(
-                ClientEvent.FLIP_CARD,
-                game.data!.id,
-                getKeyholder(game.data!).socketId,
-                player.socketId,
-                idx,
-                card
-              )
+              if (!card.isFlipped) {
+                socket.emit(
+                  ClientEvent.FLIP_CARD,
+                  game.data!.id,
+                  getKeyholder(game.data!).socketId,
+                  player.socketId,
+                  idx,
+                  card
+                );
+              }
             }}
             onNextRound={() => {
               socket.emit(
