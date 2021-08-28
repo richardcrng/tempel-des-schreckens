@@ -46,9 +46,9 @@ export enum ServerEvent {
 }
 
 export enum GameOverReason {
-  ALL_GOLD_FLIPPED = 'all-gold-flipped',
-  ALL_FIRE_FLIPPED = 'all-fire-flipped',
-  ALL_ROUNDS_FINISHED = 'all-rounds-finished'
+  ALL_GOLD_FLIPPED = 'The adventurers found all the gold',
+  ALL_FIRE_FLIPPED = 'The adventurers ran into all the fire',
+  ALL_ROUNDS_FINISHED = 'The adventurers lost on time'
 }
 
 /**

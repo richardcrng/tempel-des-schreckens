@@ -6,7 +6,7 @@ import { getIsRoundComplete, getNumberOfPlayers } from '../../selectors/game';
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
-import { ServerEvent } from "../../types/event.types";
+import { GameOverReason, ServerEvent } from "../../types/event.types";
 
 interface Props {
   game: Game;
@@ -23,6 +23,7 @@ enum SectionView {
 
 function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
+  const [gameOverReason, setGameOverReason] = useState<GameOverReason>();
   const handleBackToGame = () => setView(SectionView.MAIN_GAME)
   const isRoundComplete = getIsRoundComplete(game);
 
@@ -69,7 +70,8 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
     ServerEvent.GAME_OVER,
     (gameId, reason) => {
       if (gameId === game.id) {
-        window.alert(`game over! ${reason}`);
+        setGameOverReason(reason);
+        setView(SectionView.GAME_STATS);
       }
     }
   )
@@ -98,7 +100,7 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
         />
       )}
       {view === SectionView.GAME_STATS && (
-        <GameStats game={game} onBackToGame={handleBackToGame} />
+        <GameStats game={game} onBackToGame={handleBackToGame} gameOverReason={gameOverReason} />
       )}
       {view === SectionView.MAIN_GAME && (
         <>

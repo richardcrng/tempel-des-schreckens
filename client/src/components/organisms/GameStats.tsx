@@ -1,14 +1,16 @@
 import { Button, Message, Table } from "semantic-ui-react";
 import { countCardType, findFlippedCardsFromRound, getFlippedCardsInRound, getFlippedTypeCount, getRemainingTypeCount } from "../../selectors/game";
+import { GameOverReason } from "../../types/event.types";
 import { CardType, Game } from "../../types/game.types";
 
 
 interface Props {
   game: Game;
+  gameOverReason?: GameOverReason;
   onBackToGame: () => void;
 }
 
-function GameStats({ game, onBackToGame }: Props): JSX.Element {
+function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
   const flippedCount = getFlippedTypeCount(game);
   const remaining = getRemainingTypeCount(game);
@@ -18,7 +20,7 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
       <h2>Round {game.rounds.length} of 4</h2>
       <Message info>
         <p>
-          {roundFlippedCards.length === 0
+          {gameOverReason ? gameOverReason + '!' : roundFlippedCards.length === 0
             ? "A new round has started!"
             : "The round is ongoing!"}
         </p>
