@@ -12,7 +12,7 @@ interface Props {
 
 function GameDistribution({ nPlayers, player, onBackToGame }: Props): JSX.Element {
   return (
-    <div className='active-contents flex-between'>
+    <>
       {player.role && (
         <RoleOverview role={player.role} />
       )}
@@ -20,7 +20,7 @@ function GameDistribution({ nPlayers, player, onBackToGame }: Props): JSX.Elemen
       <Button fluid primary onClick={onBackToGame}>
         Back to game
       </Button>
-    </div>
+    </>
   );
 }
 
