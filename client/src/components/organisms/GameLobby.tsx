@@ -2,7 +2,6 @@
 
 import { useCopyToClipboard } from "react-use";
 import { Button } from "semantic-ui-react";
-import Avatar from "boring-avatars";
 import { gameLobbyReadiness } from "../../selectors/game";
 import { GameBase, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
