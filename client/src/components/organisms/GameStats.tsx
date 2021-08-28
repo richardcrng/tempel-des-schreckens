@@ -1,5 +1,5 @@
 import { Button, Message, Table } from "semantic-ui-react";
-import { countCardType, findFlippedCardsFromRound, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
+import { CardCount, countCardType, findFlippedCardsFromRound, generateCardCount, getAllFlippedCards, getCurrentRound, getFlippedCardsInRound, getNumberOfPlayers } from "../../selectors/game";
 import { CardType, Game } from "../../types/game.types";
 
 
@@ -11,6 +11,12 @@ interface Props {
 function GameStats({ game, onBackToGame }: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
   const allFlippedCards = getAllFlippedCards(game);
+  const nPlayers = getNumberOfPlayers(game);
+  const { nGold, nFire, nEmpty } = generateCardCount(nPlayers);
+  const totalFlippedGold = countCardType(allFlippedCards, CardType.GOLD);
+  const totalFlippedFire = countCardType(allFlippedCards, CardType.FIRE);
+  const totalFlippedEmpty = countCardType(allFlippedCards, CardType.EMPTY);
+
 
   return (
     <>
@@ -33,13 +39,16 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {game.rounds.map((round) => {
+          {game.rounds.map((round, idx) => {
             const cardsFlipped = findFlippedCardsFromRound(
               round,
               game.deck.cards
             );
             return (
-              <Table.Row key={round.number}>
+              <Table.Row
+                key={round.number}
+                positive={idx === game.rounds.length - 1}
+              >
                 <Table.Cell>{round.number}</Table.Cell>
                 <Table.Cell>
                   {countCardType(cardsFlipped, CardType.GOLD)}
@@ -56,13 +65,25 @@ function GameStats({ game, onBackToGame }: Props): JSX.Element {
           <Table.Row active>
             <Table.Cell>Total</Table.Cell>
             <Table.Cell>
-              {countCardType(allFlippedCards, CardType.GOLD)}
+              {totalFlippedGold}
             </Table.Cell>
             <Table.Cell>
-              {countCardType(allFlippedCards, CardType.FIRE)}
+              {totalFlippedFire}
             </Table.Cell>
             <Table.Cell>
-              {countCardType(allFlippedCards, CardType.EMPTY)}
+              {totalFlippedEmpty}
+            </Table.Cell>
+          </Table.Row>
+          <Table.Row active>
+            <Table.Cell>Left</Table.Cell>
+            <Table.Cell>
+              {nGold - totalFlippedGold}
+            </Table.Cell>
+            <Table.Cell>
+              {nFire - totalFlippedFire}
+            </Table.Cell>
+            <Table.Cell>
+              {nEmpty - totalFlippedEmpty}
             </Table.Cell>
           </Table.Row>
         </Table.Body>
