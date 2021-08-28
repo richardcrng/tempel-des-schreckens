@@ -24,6 +24,10 @@ function IndexRoute() {
     socket.emit(ClientEvent.CREATE_GAME, data);
   };
 
+  const handleJoinGame = () => {
+    window.alert("This isn't implemented yet - get the join link from your host!")
+  }
+
   const { isLoading } = useQuery("server-ping", () =>
     fetch(`${socketUrl}/ping`).then((res) => res.json())
   );
@@ -48,7 +52,7 @@ function IndexRoute() {
         </>
       ) : (
         <>
-          <Button color='green'>
+          <Button color='green' onClick={handleJoinGame}>
             JOIN
           </Button>
           <Button primary onClick={handleNewGame}>
