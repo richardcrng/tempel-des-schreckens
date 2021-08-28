@@ -72,6 +72,12 @@ function GameRoute() {
                 );
               }
             }}
+            onGameRestart={() => {
+              socket.emit(
+                ClientEvent.RESET_GAME,
+                game.data!.id
+              )
+            }}
             onNextRound={() => {
               socket.emit(
                 ClientEvent.NEXT_ROUND,

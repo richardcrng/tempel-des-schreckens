@@ -72,6 +72,8 @@ export const resetGame = (gameId: string): GameBase => {
   const game = getGameById(gameId);
   if (game) {
     game.status = GameStatus.LOBBY;
+    game.deck.cards = {};
+    game.rounds = [];
     return game
   } else {
     throw new Error("Couldn't find game")

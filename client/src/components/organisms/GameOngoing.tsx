@@ -11,8 +11,9 @@ import { GameOverReason, ServerEvent } from "../../types/event.types";
 interface Props {
   game: Game;
   player: Player;
-  onCardClick?: (card: Card, idx: number, player: Player) => void;
-  onNextRound?: () => void;
+  onCardClick: (card: Card, idx: number, player: Player) => void;
+  onNextRound: () => void;
+  onGameRestart: () => void;
 }
 
 enum SectionView {
@@ -21,7 +22,7 @@ enum SectionView {
   MAIN_GAME = 'main-game'
 }
 
-function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
+function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
   const [gameOverReason, setGameOverReason] = useState<GameOverReason>();
   const handleBackToGame = () => setView(SectionView.MAIN_GAME)
@@ -36,6 +37,14 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
 
   const handleCloseModal = () =>
     setCardFlipModal((prev) => ({ ...prev, isOpen: false }));
+
+  const handleProgression = () => {
+    if (player.isHost && gameOverReason) {
+      onGameRestart();
+    } else if (player.isHost && isRoundComplete) {
+      onNextRound();
+    }
+  }
 
   useSocketListener(
     ServerEvent.CARD_FLIPPED,
@@ -120,8 +129,8 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
           >
             Setup and role
           </Button>
-          <Button fluid color='green' disabled={!(player.isHost && isRoundComplete)} onClick={onNextRound}>
-            Next round
+          <Button fluid color='green' disabled={!(player.isHost && (isRoundComplete || gameOverReason))} onClick={handleProgression}>
+            {gameOverReason ? 'New game' : 'Next round'}
           </Button>
         </>
       )}
