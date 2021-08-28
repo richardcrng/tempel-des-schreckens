@@ -104,7 +104,12 @@ function GameOngoing({ game, player, onCardClick, onNextRound }: Props) {
       )}
       {view === SectionView.MAIN_GAME && (
         <>
-          <GameArea game={game} player={player} onCardClick={isRoundComplete ? () => window.alert("This round is complete - the host needs to start the next round first") : onCardClick} />
+          <GameArea
+            game={game}
+            player={player}
+            onCardClick={isRoundComplete ? () => window.alert("This round is complete - the host needs to start the next round first") : onCardClick}
+            gameOverReason={gameOverReason}
+          />
           <Button fluid primary onClick={() => setView(SectionView.GAME_STATS)}>
             Round stats
           </Button>

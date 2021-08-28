@@ -1,15 +1,17 @@
 import { Message } from "semantic-ui-react";
 import { countCardType, getIsRoundComplete, getKeyholder, getPlayerCardsInRound } from "../../selectors/game";
+import { GameOverReason } from "../../types/event.types";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
 
 interface Props {
   game: Game;
+  gameOverReason?: GameOverReason;
   onCardClick?: (card: Card, idx: number, player: Player) => void;
   player: Player;
 }
 
-function GameArea({ game, player, onCardClick }: Props): JSX.Element {
+function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Element {
 
   const keyholder = getKeyholder(game);
 
@@ -23,11 +25,27 @@ function GameArea({ game, player, onCardClick }: Props): JSX.Element {
 
   const { [player.socketId]: ownCards, ...otherPlayerCards } = getPlayerCardsInRound(game);
 
+  const headlineMessage = gameOverReason
+    ? gameOverReason === GameOverReason.ALL_GOLD_FLIPPED
+      ? "Adventurers win!"
+      : "Guardians win!"
+    : isKeyholder
+    ? "You have the key."
+    : `${keyholder.name} has the key.`;
+
+  const subheadlineMessage = gameOverReason
+    ? gameOverReason + '!'
+    : getIsRoundComplete(game)
+      ? player.isHost
+        ? "Please start the next round."
+        : "Waiting for host to start the next round."
+      : "The round is ongoing.";
+
   return (
     <>
       <Message info>
-        <p><strong>{isKeyholder ? "You have" : `${keyholder.name} has`} the key.</strong></p>
-        <p>{getIsRoundComplete(game) ? player.isHost ? "Please start the next round." : "Waiting for host to start the next round." : "The round is ongoing." }</p>
+        <p><strong>{headlineMessage}</strong></p>
+        <p>{subheadlineMessage}</p>
       </Message>
       {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
         <PlayerCards
