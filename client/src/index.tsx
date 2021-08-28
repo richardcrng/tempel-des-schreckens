@@ -8,6 +8,17 @@ import { socket, SocketContext } from "./socket";
 import "semantic-ui-css/semantic.min.css";
 import './styles.css';
 
+// https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html#comment-4634921967
+function setDocHeight() {
+  document.documentElement.style.setProperty(
+    "--vh",
+    `${window.innerHeight / 100}px`
+  );
+}
+
+window.addEventListener("resize", setDocHeight);
+window.addEventListener("orientationchange", setDocHeight);
+
 const queryClient = new QueryClient();
 
 ReactDOM.render(
