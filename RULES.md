@@ -4,7 +4,7 @@
 
 **Welcome to the *Tempel des Schreckens*!**
 
-<img alt="Tempel des Schreckens" src="./client/public/assets/tds-box.png" width="250" />
+<img alt="Tempel des Schreckens box art" src="./client/public/assets/tds-box.png" width="250" />
 
 ## Thematic setup
 
@@ -54,6 +54,43 @@ Guardians will obstruct this by *pretending* to be Adventurers (remember: roles 
 - *Stalling:* leading Adventurers down rabbit holes so that time runs out
 
 However, if Guardians aren't subtle, Adventurers may be able to *deduce* their identity, and thus discount their misinformation.
+
+## Game mechanics
+
+### Chamber cards
+
+The *Tempel des Schreckens* is organised into distinct Chambers, each of which is represented by a **Chamber card**.
+
+As the game progresses, the temple gets explored, and more chambers get *opened* - represented by flipping the card from face-down (unopened) to face-up (opened).
+
+<div style="display: flex; justify-content: space-around;">
+  <div style="width: 150">
+    <img alt="Tempel des Schreckens - unopened chamber" src="./client/public/assets/tds-chamber.jpeg" width="150" />
+    <p>Unopened chamber (back)</p>
+  </div>
+  <div style="width: 150">
+    <img alt="Tempel des Schreckens - gold chamber" src="./client/public/assets/tds-gold.jpeg" width="150" />
+    <p>Gold chamber (opened, front)</p>
+  </div>
+  <div style="width: 150">
+    <img alt="Tempel des Schreckens - fire chamber" src="./client/public/assets/tds-fire.jpeg" width="150" />
+    <p>Fire chamber (opened, front)</p>
+  </div>
+  <div style="width: 150">
+    <img alt="Tempel des Schreckens - empty chamber" src="./client/public/assets/tds-empty.jpeg" width="150" />
+    <p>Empty chamber (opened, front)</p>
+  </div>
+</div>
+
+All unopened chambers look identical.
+
+When chambers are opened (flipped), they have three possible things they might reveal:
+- **Gold**: good news for Adventurers, that's one closer to victory!
+- **Fire**: bad news for Adventurers, that's one closer to defeat...
+- **Empty**: neutral-*ish*, at least it's not fire...
+
+Whilst empty chambers don't count towards either gold or fire (and so they are neutral-*ish*), they *do* count towards the ticking time clock, as discussed in the next section.
+
 
 
 
