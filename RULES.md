@@ -91,9 +91,15 @@ When chambers are opened (flipped), they have three possible things they might r
 
 Whilst empty chambers don't count towards either gold or fire (and so they are neutral-*ish*), they *do* count towards the ticking time clock, as discussed in the next section.
 
+### Round mechanics
 
+Every round works in the same basic way.
 
+Firstly, **un-opened Chamber cards are dealt out evenly** to each player. (Cards that are 'opened' in previous rounds are not dealt in subsequent rounds.)
 
+Secondly, **each player sees their own Chamber card distribution**. For example, a player dealt 5 x Chamber cards might see their distribution as 2 Gold, 1 Fire, 2 Empty.
+
+Thirdly, **each player shuffles their Chamber cards and places them face-down**. This means that, for example, they might know that there are 2 Gold hiding amongst the 5 face-down (unopened) Chambers - but they don't know precisely *which* of the 5 unopened chambers has the Gold in.
 
 
 
