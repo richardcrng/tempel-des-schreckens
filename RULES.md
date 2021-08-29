@@ -18,11 +18,23 @@ Can the Adventurers find all the temple's gold in time? Or will they be led astr
 
 ## Roles and win conditions
 
-There are two possible teams in *Tempel des Schreckens*, Adventurers and Guardians. Every game always has a single winning team.
+### Hidden roles and teams
 
-Firstly, **Adventurer**. There is only one way that you can win: if all of the temple's **Gold** is opened within four rounds.
+In *Tempel des Schreckens*, **roles are always secret**. You know your role, but you don't know anybody else's role - and so you don't know who is, or who is not, on your team.
 
-Secondly, **Guardian**. There are two different ways that you can win:
+But, like a lot of hidden role games, there is a large *social deduction* element of trying to identify who is on which team.
+
+There are exactly **two teams**: Adventurers and Guardians.
+- *Teams are in direct competition* - every game always has a single winning team.
+- *Teammates are non-competitive* - when a team wins, all of its members win together.
+
+### Team win conditions
+
+The two teams have different win conditions, which are directly opposed to each other.
+
+The **Adventurer** team wins in only one way: if all of the temple's **Gold** is opened within four rounds.
+
+The **Guardian** team wins in one of two ways:
 1. If four rounds pass to completion *without* all of the Gold being located; or
 2. If, at any time, all of the temple's **Fire** traps are opened.
 
@@ -31,11 +43,19 @@ The game ends in three ways:
 2. *All Fire has been opened* - Guardians win
 3. *Four rounds are complete* - Guardians win
 
-In other words:
-- Adventurers are in a race against time to find all the Gold before the end of four rounds
-- Guardians can try to obstruct Adventurers in two ways (not mutually exclusive):
-  - Leading them into dangerous Fire traps
-  - Stalling them so Adventurers run out of time
+There is always a winning team at the end of the game.
+
+### Basic team dynamics
+
+Adventurers are in a race against time to find all the Gold before the end of four rounds. They will try to cooperate with each other and share information to help them locate the Gold.
+
+Guardians will obstruct this by *pretending* to be Adventurers (remember: roles are secret), and spreading misinformation, with two methods of obstruction (non-mutually exclusive):
+- *Luring:* leading Adventurers into dangerous Fire traps
+- *Stalling:* leading Adventurers down rabbit holes so that time runs out
+
+However, if Guardians aren't subtle, Adventurers may be able to *deduce* their identity, and thus discount their misinformation.
+
+
 
 
 
