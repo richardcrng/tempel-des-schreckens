@@ -7,7 +7,7 @@
   <img alt="Tempel des Schreckens" src="./assets/round-progress.png" width="150" />
 </div>
 
-This is a web app implementation of the game, [Tempel des Schreckens](https://www.spiel-des-jahres.de/en/games/tempel-des-schreckens/) *(English: 'Temple of Terrors')*.
+This is a web app implementation of the game, [Tempel des Schreckens](https://www.spiel-des-jahres.de/en/games/tempel-des-schreckens/) *(English: 'Temple of Terrors')* - a party game that combines deduction, bluffing and probability.
 
 - [Game rules](RULES.md)
 
