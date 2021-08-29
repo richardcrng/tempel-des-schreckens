@@ -38,6 +38,8 @@ The **Guardian** team wins in one of two ways:
 1. If four rounds pass to completion *without* all of the Gold being located; or
 2. If, at any time, all of the temple's **Fire** traps are opened.
 
+The exact numbers on each team depends on the number of players, but there are almost always more Adventurers than Guardians.
+
 The game ends in three ways:
 1. *All Gold has been opened* - Adventurers win
 2. *All Fire has been opened* - Guardians win
@@ -49,7 +51,7 @@ There is always a winning team at the end of the game.
 
 Adventurers are in a race against time to find all the Gold before the end of four rounds. They will try to cooperate with each other and share information to help them locate the Gold.
 
-Guardians will obstruct this by *pretending* to be Adventurers (remember: roles are secret), and spreading misinformation, with two methods of obstruction (non-mutually exclusive):
+Guardians will typically obstruct this by *pretending* to be Adventurers (remember: roles are secret), and spreading misinformation, with two methods of obstruction (non-mutually exclusive):
 - *Luring:* leading Adventurers into dangerous Fire traps
 - *Stalling:* leading Adventurers down rabbit holes so that time runs out
 
@@ -66,7 +68,7 @@ As the game progresses, the temple gets explored, and more chambers get *opened*
 <div style="display: flex; justify-content: space-around;">
   <div style="width: 150">
     <img alt="Tempel des Schreckens - unopened chamber" src="./client/public/assets/tds-chamber.jpeg" width="150" />
-    <p>Unopened chamber (back)</p>
+    <p>Unknown chamber (unopened, back)</p>
   </div>
   <div style="width: 150">
     <img alt="Tempel des Schreckens - gold chamber" src="./client/public/assets/tds-gold.jpeg" width="150" />
@@ -87,13 +89,24 @@ All unopened chambers look identical.
 When chambers are opened (flipped), they have three possible things they might reveal:
 - **Gold**: good news for Adventurers, that's one closer to victory!
 - **Fire**: bad news for Adventurers, that's one closer to defeat...
-- **Empty**: neutral-*ish*, at least it's not fire...
+- **Empty**: neutral-*ish* for Adventurers, at least it's not fire...
 
 Whilst empty chambers don't count towards either gold or fire (and so they are neutral-*ish*), they *do* count towards the ticking time clock, as discussed in the next section.
 
+The exact number of Gold, Fire and Empty chambers in the game depends on the number of players, but it is always the case that *most chambers are Empty*, *Gold is rarer than Empty*, and *extremely few are Fire*.
+
 ### Round mechanics
 
-Every round works in the same basic way.
+Roles are randomly assigned before the first round, and then kept for the whole game.
+
+Every round works in the same basic way:
+- [*Setup*](#round-setup), where cards are dealt out to represent the temple's chambers; and
+- [*Discussion*](#discussion), where players reveal information (truthfully or not...); and
+- [*Opening*](#opening), where cards are flipped over to represent exploring the temple.
+
+(Discussion and Adventuring happen in parallel.)
+
+#### Round setup
 
 Firstly, **un-opened Chamber cards are dealt out evenly** to each player. (Cards that are 'opened' in previous rounds are not dealt in subsequent rounds.)
 
@@ -101,6 +114,25 @@ Secondly, **each player sees their own Chamber card distribution**. For example,
 
 Thirdly, **each player shuffles their Chamber cards and places them face-down**. This means that, for example, they might know that there are 2 Gold hiding amongst the 5 face-down (unopened) Chambers - but they don't know precisely *which* of the 5 unopened chambers has the Gold in.
 
+#### Discussion
 
+For an *N* player game, a round involves opening *N* chambers. (For example, in a 6 player game, every round invovles flipping over 6 face-down chamber cards.)
 
+Adventurers will generally be wanting to maximise the number of gold chambers flipped, as this helps them towards their win condition. Guardians, however, have different incentives...
+
+Before any chambers are opened, it is typical play for all players to share information about their distributions, to help input on which chamber should be opened. For example:
+- "In my four cards, I have 3 Gold and 1 Empty - odds are good here!"
+- "Ah, so in my four cards I have 1 Gold, 1 Fire and 2 Empty - probably best to look elsewhere."
+
+However, just like role assignment, *individual chamber distributions are secret* - which means that there's an element of deduction, since some people may be lying about what they have.
+
+(For example: a Guardian sitting on lots of Gold might artificially inflate their Fire count, to try to protect their Gold; conversely, a Guardian sitting on Fire might artificially inflate their Gold count, to try to draw the Adventurers towards the Fire. See [Strategy](STRATEGY.md) for more.)
+
+So, in a game, there are two (related) types of deduction that happen:
+1. *Chamber distribution* - e.g. where are the Fire cards in this round?
+2. *Role distribution* - e.g. who are the Guardians in this game?
+
+(Remember: **roles are kept between rounds**, so deducing that somebody is a Guardian in one round will help you in a future round.)
+
+#### Opening
 
