@@ -6,6 +6,10 @@
 
 <img alt="Tempel des Schreckens box art" src="./client/public/assets/tds-box.png" width="250" />
 
+- [Thematic setup](#thematic-setup)
+- [Roles and win conditions](#roles-and-win-conditions)
+- [Game mechanics](#game-mechanics)
+
 ## Thematic setup
 
 For decades, rumours have spread about a hidden temple of great treasures... and grave terrors.
@@ -143,7 +147,9 @@ It is usual for there to be player discussion over which chambers to visit. For 
 
 *etcetera*
 
-However, one player has the final say over which chamber to open - the **Keyholder**. The Keyholder ultimately has the final say on which Chamber to open (i.e. which card to flip) - they can choose to go with the discussion consensus, or they can choose to ignore it entirely.
+However, one player has the final say over which chamber to open - the **Keyholder**, a *temporary role* which passes between players (through a mechanic described below). The first Keyholder is randomly assigned at the start of the game.
+
+The Keyholder ultimately has the final say on which Chamber to open (i.e. which card to flip) - they can choose to go with the discussion consensus, or they can choose to ignore it entirely.
 
 (The Keyholder **cannot choose to open one of their own Chambers**, however.)
 
