@@ -43,7 +43,7 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
 
   return (
     <>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', paddingBottom: '5px' }}>
         <Message info>
           <p>
             <strong>{headlineMessage}</strong>
