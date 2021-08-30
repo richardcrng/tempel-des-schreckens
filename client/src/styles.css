@@ -11,7 +11,7 @@
   padding: 5px;
   min-height: calc(100vh - 20px);
   min-height: calc(calc(var(--vh, 1vh) * 100) - 20px);
-  max-height: 700px;
+  max-height: min(calc(calc(var(--vh, 1vh) * 100) - 20px), 700px);
   min-width: min(1000px, calc(100vw - 20px));
   max-width: 1000px;
 }
@@ -19,7 +19,7 @@
 .active-contents {
   min-height: calc(100vh - 30px);
   min-height: calc(calc(var(--vh, 1vh) * 100) - 30px);
-  max-height: 690px;
+  max-height: min(calc(calc(var(--vh, 1vh) * 100) - 30px), 690px);
   min-width: min(980px, calc(100vw - 30px));
   max-width: 990px;
 }

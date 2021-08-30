@@ -42,21 +42,27 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
       : "The round is ongoing.";
 
   return (
-    <div style={{ width: '100%' }}>
-      <Message info>
-        <p><strong>{headlineMessage}</strong></p>
-        <p>{subheadlineMessage}</p>
-      </Message>
-      {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
-        <PlayerCards
-          key={playerId}
-          cards={cards}
-          player={game.players[playerId]}
-          isKeyholder={keyholder.socketId === playerId}
-          onCardClick={handleCardClick}
-        />
-      ))}
-    </div>
+    <>
+      <div style={{ width: '100%' }}>
+        <Message info>
+          <p>
+            <strong>{headlineMessage}</strong>
+          </p>
+          <p>{subheadlineMessage}</p>
+        </Message>
+      </div>
+      <div style={{ width: "100%", overflowY: "scroll" }}>
+        {Object.entries(otherPlayerCards).map(([playerId, cards]) => (
+          <PlayerCards
+            key={playerId}
+            cards={cards}
+            player={game.players[playerId]}
+            isKeyholder={keyholder.socketId === playerId}
+            onCardClick={handleCardClick}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
