@@ -23,7 +23,7 @@ function GameRoute() {
 
   if (game.data?.status === GameStatus.ONGOING && !player.data) {
     return <p>Can't join a game that is underway - sorry</p>;
-  } else if (takenNames.length >= 10) {
+  } else if (!game.data?.players[player.data?.socketId ?? ''] && takenNames.length >= 10) {
     return <p>The game is full (10 players max) - sorry</p>
   } else if (!player.loading && !player.data?.name) {
     return (

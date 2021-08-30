@@ -1,5 +1,6 @@
 import { countCardType } from "../../selectors/game";
 import { Card, CardType, Player } from "../../types/game.types";
+import CardPreview from "../atoms/CardPreview";
 import PlayerCards from "./PlayerCards";
 
 interface Props {
@@ -11,15 +12,21 @@ interface Props {
 function OwnCards({ cards, isKeyholder, player }: Props): JSX.Element {
   return (
     <>
-      <p style={{ margin: 0 }}>Your distribution (secret):</p>
-      <ul style={{ marginTop: 0 }}>
-        <li>{countCardType(cards, CardType.GOLD)} gold</li>
-        <li>{countCardType(cards, CardType.FIRE)} fire</li>
-        <li>{countCardType(cards, CardType.EMPTY)} empty</li>
-      </ul>
+      <div style={{ paddingBottom: '5px' }}>
+        <span style={{ marginRight: '5px' }}>Your cards:</span>
+        {Object.values(CardType).map((cardType) => (
+          <CardPreview
+            key={cardType}
+            cardType={cardType}
+            n={countCardType(cards, cardType)}
+          />
+        ))}
+      </div>
       <PlayerCards cards={cards} player={player} isKeyholder={isKeyholder} />
     </>
   );
 }
+
+
 
 export default OwnCards
