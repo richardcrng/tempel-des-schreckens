@@ -14,3 +14,4 @@ It is for **3-10 players**, and games take **as little as 10 minutes**.
 This repo is is a web app implementation of it, primarily intended for use on group video calls, although it can also be used to play in-person when you don't have access to a deck. (You should buy the physical set, though - it's fun!)
 
 - [Game rules](RULES.md)
+- [Basic strategy](STRATEGY.md)
