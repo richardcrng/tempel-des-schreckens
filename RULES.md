@@ -102,7 +102,7 @@ Roles are randomly assigned before the first round, and then kept for the whole 
 Every round works in the same basic way:
 - [*Setup*](#round-setup), where cards are dealt out to represent the temple's chambers; and
 - [*Discussion*](#discussion), where players reveal information (truthfully or not...); and
-- [*Opening*](#opening), where cards are flipped over to represent exploring the temple.
+- [*Opening cards*](#opening-cards), where cards are flipped over to represent exploring the temple.
 
 (Discussion and Adventuring happen in parallel.)
 
@@ -124,7 +124,7 @@ Before any chambers are opened, it is typical play for all players to share info
 - "In my four cards, I have 3 Gold and 1 Empty - odds are good here!"
 - "Ah, so in my four cards I have 1 Gold, 1 Fire and 2 Empty - probably best to look elsewhere."
 
-However, just like role assignment, *individual chamber distributions are secret* - which means that there's an element of deduction, since some people may be lying about what they have.
+However, just like role assignment, *individual chamber distributions are secret* - which means that there's an element of deduction, since some people may be bluffing about what they have.
 
 (For example: a Guardian sitting on lots of Gold might artificially inflate their Fire count, to try to protect their Gold; conversely, a Guardian sitting on Fire might artificially inflate their Gold count, to try to draw the Adventurers towards the Fire. See [Strategy](STRATEGY.md) for more.)
 
@@ -134,5 +134,26 @@ So, in a game, there are two (related) types of deduction that happen:
 
 (Remember: **roles are kept between rounds**, so deducing that somebody is a Guardian in one round will help you in a future round.)
 
-#### Opening
+#### Opening cards
+
+It is usual for there to be player discussion over which chambers to visit. For example:
+- "So, Aaliya says she has three Gold in her five cards - which means odds are best there, let's open one of her chambers!"
+- "Hmm, I'm not sure I trust Aaliya. However, Carlo has proved himself reliable - so I trust him when he says there are two Gold there."
+- "No, don't chance it with Carlo, he says he has Fire, we can't risk that!"
+
+*etcetera*
+
+However, one player has the final say over which chamber to open - the **Keyholder**. The Keyholder ultimately has the final say on which Chamber to open (i.e. which card to flip) - they can choose to go with the discussion consensus, or they can choose to ignore it entirely.
+
+(The Keyholder **cannot choose to open one of their own Chambers**, however.)
+
+Once the Keyholder picks a Chamber to open, it is flipped, and everybody learns what it was - and **the key passes to the person whose Chamber was opened**, making them the next Keyholder.
+
+This process of *discussion*, *opening cards* and *passing the key* continues until *N* cards have been flipped, where *N* is the number of players in the game.
+
+(This need not be equally distributed between players - for example, in a 5 player game, 3/5 flips could be from a single player.)
+
+The person who holds the key at the end of a round holds onto it for the start of the next round.
+
+Play continues until one of the [team win conditions](#team-win-conditions) has been reached.
 
