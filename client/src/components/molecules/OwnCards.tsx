@@ -1,4 +1,3 @@
-import { Image } from "semantic-ui-react";
 import { countCardType } from "../../selectors/game";
 import { Card, CardType, Player } from "../../types/game.types";
 import CardPreview from "../atoms/CardPreview";
