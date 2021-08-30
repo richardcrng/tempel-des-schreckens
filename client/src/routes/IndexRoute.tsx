@@ -42,12 +42,12 @@ function IndexRoute() {
         alignItems: "center",
       }}
     >
-      <div className='flex-center' style={{ textAlign: 'center' }}>
+      <div className="flex-center" style={{ textAlign: "center" }}>
         <h1>Tempel des Schreckens</h1>
         <Image src="/assets/tds-box.png" size="small" />
         <p style={{ margin: "5%" }}>
-          A web app implementation of the quick-playing bluffing game for 3-10
-          players.
+          A quick-play party game that combines cooperative social deduction
+          with bluffing, luck and chance.
         </p>
         {isLoading && (
           <>
@@ -67,6 +67,17 @@ function IndexRoute() {
       </div>
       {!isLoading && (
         <div style={{ width: "100%" }}>
+          <Button
+            fluid
+            color="black"
+            onClick={() =>
+              window.open(
+                "https://github.com/richardcrng/tempel-des-schreckens"
+              )
+            }
+          >
+            LEARN
+          </Button>
           <Button fluid color="green" onClick={handleJoinGame}>
             JOIN
           </Button>
