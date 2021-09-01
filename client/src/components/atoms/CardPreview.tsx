@@ -11,7 +11,7 @@ function CardPreview({ cardType, n }: Props): JSX.Element {
   return (
     <>
       {range.map(n => (
-        <Image avatar src={`/assets/tds-${cardType}.jpeg`} />
+        <Image key={n} avatar src={`/assets/tds-${cardType}.jpeg`} />
       ))}
     </>
   )
