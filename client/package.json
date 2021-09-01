@@ -31,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --noWatch",
+    "test": "react-scripts test --no-watch",
     "test:watch": "react-scripts test",
     "eject": "react-scripts eject"
   },

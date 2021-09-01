@@ -1,6 +1,20 @@
 import { CardType, Game, GameStatus } from "../types/game.types"
 import { generateDeck } from '../../../server/src/game/utils';
-import { getCurrentRound } from "./game";
+import { generateRoleCount, getCurrentRound } from "./game";
+
+describe ('generateRoleCount', () => {
+  const possiblePlayerCounts = [3, 4, 5, 6, 7, 8, 9, 10];
+
+  it('generates a sensible number of roles', () => {
+    possiblePlayerCounts.forEach(playerCount => {
+      const roleCount = generateRoleCount(playerCount);
+      const expectedRoleTotal = roleCount.isExact
+        ? playerCount
+        : playerCount + 1
+      expect(roleCount.nAdventurers + roleCount.nGuardians).toBe(expectedRoleTotal);
+    })
+  })
+})
 
 describe('getCurrentRound', () => {
   it('fetches the latest round', () => {

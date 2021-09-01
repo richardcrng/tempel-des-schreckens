@@ -59,7 +59,7 @@ export const generateRoleCount = (nPlayers: number): RoleCount => {
     case 5:
       return { nAdventurers: 3, nGuardians: 2, isExact: true };
     case 6:
-      return { nAdventurers: 4, nGuardians: 4, isExact: true };
+      return { nAdventurers: 4, nGuardians: 2, isExact: true };
     case 7:
       return { nAdventurers: 5, nGuardians: 3, isExact: false };
     case 8:
