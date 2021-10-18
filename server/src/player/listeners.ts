@@ -5,9 +5,7 @@ import {
   ServerIO,
 } from "../../../client/src/types/event.types";
 import { getPlayer } from "../db";
-import { makeVote, updatePlayer } from "./controllers";
-import { haveAllVoted } from "../../../client/src/selectors/game";
-import { GameStatus } from "../../../client/src/types/game.types";
+import { updatePlayer } from "./controllers";
 
 export const addPlayerListeners = (
   socket: ServerSocket,
