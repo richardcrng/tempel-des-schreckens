@@ -1,5 +1,5 @@
 import { Message } from "semantic-ui-react";
-import { getIsRoundComplete, getKeyholder, getNumberOfCardsLeftToFlipInRound, getNumberOfSubsequentRounds, getPlayerCardsInRound } from "../../selectors/game";
+import { getIsRoundComplete, getKeyholder, getNumberOfCardsLeftToFlipInRound, getNumberOfSubsequentRounds, getPlayerCardsInRound, getRemainingTypeCount } from "../../selectors/game";
 import { GameOverReason } from "../../types/event.types";
 import { Card, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
@@ -27,10 +27,11 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
 
   const nRemainingRounds = getNumberOfSubsequentRounds(game);
   const roundsRemainingMessage = nRemainingRounds === 1
-    ? "1 round left."
-    : `${nRemainingRounds} rounds left.`
+    ? <><strong>1 round</strong> to go</>
+    : <><strong>{nRemainingRounds} rounds</strong> to go</>
 
   const cardsLeftToFlip = getNumberOfCardsLeftToFlipInRound(game);
+  const { nGold, nFire } = getRemainingTypeCount(game);
 
   const headlineMessage = gameOverReason
     ? gameOverReason === GameOverReason.ALL_GOLD_FLIPPED
@@ -40,22 +41,36 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
     ? "You have the key."
     : `${keyholder.name} has the key.`;
 
-  const subheadlineMessage = gameOverReason
-    ? gameOverReason + '!'
-    : getIsRoundComplete(game)
-      ? player.isHost
-        ? "Please start the next round."
-        : "Waiting for host to start the next round."
-      : `${cardsLeftToFlip} more flip${cardsLeftToFlip === 1 ? '' : 's'} this round, ${roundsRemainingMessage}`;
+  const subheadlineMessage = gameOverReason ? (
+    gameOverReason + "!"
+  ) : getIsRoundComplete(game) ? (
+    player.isHost ? (
+      "Please start the next round."
+    ) : (
+      "Waiting for host to start the next round."
+    )
+  ) : (
+    <>
+      <strong>
+        {cardsLeftToFlip} flip{cardsLeftToFlip === 1 ? "" : "s"}
+      </strong>{" "}
+      left this round, {roundsRemainingMessage}.
+    </>
+  );
 
   return (
     <>
-      <div style={{ width: '100%', paddingBottom: '5px' }}>
+      <div style={{ width: "100%", paddingBottom: "5px" }}>
         <Message info>
           <p>
             <strong>{headlineMessage}</strong>
           </p>
-          <p>{subheadlineMessage}</p>
+          <p style={{ marginBottom: 0 }}>{subheadlineMessage}</p>
+          {!gameOverReason && (
+            <p style={{ marginTop: 0 }}>
+              Still hidden: <strong>{nGold} gold</strong> and <strong>{nFire} fire</strong>.
+            </p>
+          )}
         </Message>
       </div>
       <div style={{ width: "100%", overflowY: "scroll" }}>
