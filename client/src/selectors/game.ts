@@ -89,6 +89,16 @@ export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
 export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
 
+export const getNumberOfRounds = createSelector(
+  getGameRounds,
+  (rounds) => rounds.length
+)
+
+export const getNumberOfSubsequentRounds = createSelector(
+  getNumberOfRounds,
+  (nRounds) => 4 - nRounds
+)
+
 export const getNumberOfPlayers = createSelector(
   getGamePlayers,
   (players) => Object.keys(players).length
@@ -98,11 +108,11 @@ export const getCurrentRound = createSelector(
   getGameRounds,
   (rounds) => {
     const currentRound = last(rounds);
-  if (currentRound) {
-    return currentRound;
-  } else {
-    throw new Error("No round to get")
-  }
+    if (currentRound) {
+      return currentRound;
+    } else {
+      throw new Error("No round to get")
+    }
   }
 )
 
