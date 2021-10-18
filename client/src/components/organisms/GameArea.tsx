@@ -1,5 +1,5 @@
 import { Message } from "semantic-ui-react";
-import { getIsRoundComplete, getKeyholder, getNumberOfCardsLeftToFlipInRound, getPlayerCardsInRound } from "../../selectors/game";
+import { getIsRoundComplete, getKeyholder, getNumberOfCardsLeftToFlipInRound, getNumberOfSubsequentRounds, getPlayerCardsInRound } from "../../selectors/game";
 import { GameOverReason } from "../../types/event.types";
 import { Card, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
@@ -25,6 +25,11 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
 
   const { [player.socketId]: ownCards, ...otherPlayerCards } = getPlayerCardsInRound(game);
 
+  const nRemainingRounds = getNumberOfSubsequentRounds(game);
+  const roundsRemainingMessage = nRemainingRounds === 1
+    ? "1 round left."
+    : `${nRemainingRounds} rounds left.`
+
   const cardsLeftToFlip = getNumberOfCardsLeftToFlipInRound(game);
 
   const headlineMessage = gameOverReason
@@ -41,7 +46,7 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
       ? player.isHost
         ? "Please start the next round."
         : "Waiting for host to start the next round."
-      : `${cardsLeftToFlip} flips left this round.`;
+      : `${cardsLeftToFlip} more flip${cardsLeftToFlip === 1 ? '' : 's'} this round, ${roundsRemainingMessage}`;
 
   return (
     <>
