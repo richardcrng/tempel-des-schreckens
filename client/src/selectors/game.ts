@@ -97,6 +97,7 @@ export const generateCardCount = (nPlayers: number): CardCount => {
 export const getGameCards = (game: Game): Record<number, Card> => game.deck.cards
 export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
+export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
 
 export const getNumberOfPlayers = createSelector(
   getGamePlayers,
@@ -169,31 +170,30 @@ export const getLastTurn = createSelector(
   getCurrentRound,
   (rounds, currentRound) => {
     const isLastTurnInCurrentRound = currentRound.turns.length > 0;
-  if (isLastTurnInCurrentRound) {
-      return last(currentRound.turns);
-    } else if (rounds.length >= 2) {
-      const previousRound = rounds[rounds.length - 2];
-      return last(previousRound.turns);
-    } else {
-      // there is no previous turn
-      return undefined;
-  }
+    if (isLastTurnInCurrentRound) {
+        return last(currentRound.turns);
+      } else if (rounds.length >= 2) {
+        const previousRound = rounds[rounds.length - 2];
+        return last(previousRound.turns);
+      } else {
+        // there is no previous turn
+        return undefined;
+    }
   }
 )
 
 export const getKeyholder = createSelector(
   getLastTurn,
   getGamePlayers,
-  (lastTurn, players) => {
+  getGameFirstKeyholder,
+  (lastTurn, players, firstKeyholder) => {
     const keyholderId = lastTurn
-    ? lastTurn.selected.playerId
-      // first player by socketId alphabetised (random-esque but stable)
-    : Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
+      ? lastTurn.selected.playerId
+        // first player by socketId alphabetised (random-esque but stable)
+      : firstKeyholder ?? Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
   return players[keyholderId]
   }
 )
-
-
 
 export const getPlayerCardsInRound = createSelector(
   getCurrentRound,

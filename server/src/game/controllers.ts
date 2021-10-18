@@ -1,4 +1,5 @@
 import { last } from 'lodash';
+import { getKeyholder } from '../../../client/src/selectors/game';
 import { CreateGameEvent } from "../../../client/src/types/event.types";
 import {
   Card,
@@ -69,6 +70,10 @@ export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: {
 export const resetGame = (gameId: string): GameBase => {
   const game = getGameById(gameId);
   if (game) {
+    const lastRound = last(game.rounds);
+    const lastTurn = last(lastRound?.turns);
+    const lastKeyholder = lastTurn?.selected.playerId;
+    game.firstKeyholderId = lastKeyholder;
     game.status = GameStatus.LOBBY;
     game.deck.cards = {};
     game.rounds = [];

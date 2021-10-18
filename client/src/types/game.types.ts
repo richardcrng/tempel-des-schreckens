@@ -70,6 +70,8 @@ export interface GameBase {
   deck: Deck;
   rounds: Round[];
   status: GameStatus;
+  /** If the first keyholder needs to be controlled, e.g. from a previous game */
+  firstKeyholderId?: string;
 }
 
 export interface GameInLobby extends GameBase {
