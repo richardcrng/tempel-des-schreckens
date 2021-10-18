@@ -40,16 +40,6 @@ export const gameLobbyReadiness = (
   }
 };
 
-export const conspiracyVictimId = (game: Game): string | null => {
-  return 'hi';
-};
-
-export const conspiracyVictimName = (game: Game): string | undefined => {
-  if (hasConspiracy(game)) {
-    return 'hi';
-  }
-};
-
 export const generateRoleCount = (nPlayers: number): RoleCount => {
   switch (nPlayers) {
     case 3:
@@ -209,39 +199,8 @@ export const getPlayerCardsInRound = createSelector(
 
 export const countCardType = (cards: Card[], cardType: CardType): number => cards.reduce((acc, curr) => curr.type === cardType ? acc + 1 : acc, 0)
 
-export const hasConspiracy = (game: Game) => true;
-
-export const isConspiracyMember = (game: Game, playerId: string) => {
-  return hasConspiracy(game) && !isConspiracyVictim(game, playerId);
-};
-
-export const isConspiracyVictim = (game: Game, playerId: string): boolean => {
-  return hasConspiracy(game) && 'hi' === playerId;
-};
-
 export const isNewGame = (game: Game): boolean => {
   return game.rounds.length === 1 && game.rounds[0].turns.length === 0
 }
 
-export const isWinner = (game: Game, playerId: string): boolean => {
-  if (isConspiracyMember(game, playerId)) {
-    return getVote(game, conspiracyVictimId(game)!) === 'hi';
-  } else {
-    const playerVote = getVote(game, playerId);
-    return hasConspiracy(game)
-      ? playerVote === 'whatever'
-      : playerVote === 'hi';
-  }
-};
 
-export const getVote = (game: Game, playerId: string): undefined => {
-  return undefined;
-};
-
-export const hasVoted = (game: Game, playerId: string): boolean =>
-  !!getVote(game, playerId);
-
-export const haveAllVoted = (game: Game): boolean =>
-  Object.values(game.players).every((player) =>
-    hasVoted(game, player.socketId)
-  );
