@@ -45,47 +45,41 @@ function IndexRoute() {
       <div className="flex-center" style={{ textAlign: "center" }}>
         <h1>Tempel des Schreckens</h1>
         <Image src="/assets/tds-box.png" size="small" />
-        <p style={{ margin: "5%" }}>
-          A quick-play party game that combines cooperative social deduction
-          with bluffing, luck and chance.
-        </p>
-        {isLoading && (
+
+        {isLoading ? (
           <>
             <Message icon>
               <Icon name="circle notched" loading />
               <Message.Content>
-                <Message.Header>Please wait</Message.Header>
-                <p>We're loading the game for you.</p>
-                <p>
-                  (This can take up to 30-40s when you are starting a new game
-                  for the first time in a while - sorry!)
-                </p>
+                <Message.Header>Loading...</Message.Header>
+                <p>This can be 30-40s on first boot. Thanks for waiting!</p>
               </Message.Content>
             </Message>
           </>
+        ) : (
+          <p style={{ margin: "5%" }}>
+            A quick-play party game that combines cooperative social deduction
+            with bluffing, luck and chance.
+          </p>
         )}
       </div>
-      {!isLoading && (
-        <div style={{ width: "100%" }}>
-          <Button
-            fluid
-            color="black"
-            onClick={() =>
-              window.open(
-                "https://github.com/richardcrng/tempel-des-schreckens"
-              )
-            }
-          >
-            LEARN
-          </Button>
-          <Button fluid color="green" onClick={handleJoinGame}>
-            JOIN
-          </Button>
-          <Button fluid primary onClick={handleNewGame}>
-            NEW
-          </Button>
-        </div>
-      )}
+      <div style={{ width: "100%" }}>
+        <Button
+          fluid
+          color="black"
+          onClick={() =>
+            window.open("https://github.com/richardcrng/tempel-des-schreckens")
+          }
+        >
+          LEARN
+        </Button>
+        <Button disabled={isLoading} fluid color="green" onClick={handleJoinGame}>
+          JOIN
+        </Button>
+        <Button disabled={isLoading} fluid primary onClick={handleNewGame}>
+          NEW
+        </Button>
+      </div>
     </div>
   );
 }
