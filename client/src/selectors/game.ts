@@ -40,16 +40,6 @@ export const gameLobbyReadiness = (
   }
 };
 
-export const conspiracyVictimId = (game: Game): string | null => {
-  return 'hi';
-};
-
-export const conspiracyVictimName = (game: Game): string | undefined => {
-  if (hasConspiracy(game)) {
-    return 'hi';
-  }
-};
-
 export const generateRoleCount = (nPlayers: number): RoleCount => {
   switch (nPlayers) {
     case 3:
@@ -97,6 +87,7 @@ export const generateCardCount = (nPlayers: number): CardCount => {
 export const getGameCards = (game: Game): Record<number, Card> => game.deck.cards
 export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
+export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
 
 export const getNumberOfPlayers = createSelector(
   getGamePlayers,
@@ -169,31 +160,30 @@ export const getLastTurn = createSelector(
   getCurrentRound,
   (rounds, currentRound) => {
     const isLastTurnInCurrentRound = currentRound.turns.length > 0;
-  if (isLastTurnInCurrentRound) {
-      return last(currentRound.turns);
-    } else if (rounds.length >= 2) {
-      const previousRound = rounds[rounds.length - 2];
-      return last(previousRound.turns);
-    } else {
-      // there is no previous turn
-      return undefined;
-  }
+    if (isLastTurnInCurrentRound) {
+        return last(currentRound.turns);
+      } else if (rounds.length >= 2) {
+        const previousRound = rounds[rounds.length - 2];
+        return last(previousRound.turns);
+      } else {
+        // there is no previous turn
+        return undefined;
+    }
   }
 )
 
 export const getKeyholder = createSelector(
   getLastTurn,
   getGamePlayers,
-  (lastTurn, players) => {
+  getGameFirstKeyholder,
+  (lastTurn, players, firstKeyholder) => {
     const keyholderId = lastTurn
-    ? lastTurn.selected.playerId
-      // first player by socketId alphabetised (random-esque but stable)
-    : Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
+      ? lastTurn.selected.playerId
+        // first player by socketId alphabetised (random-esque but stable)
+      : firstKeyholder ?? Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
   return players[keyholderId]
   }
 )
-
-
 
 export const getPlayerCardsInRound = createSelector(
   getCurrentRound,
@@ -209,39 +199,8 @@ export const getPlayerCardsInRound = createSelector(
 
 export const countCardType = (cards: Card[], cardType: CardType): number => cards.reduce((acc, curr) => curr.type === cardType ? acc + 1 : acc, 0)
 
-export const hasConspiracy = (game: Game) => true;
-
-export const isConspiracyMember = (game: Game, playerId: string) => {
-  return hasConspiracy(game) && !isConspiracyVictim(game, playerId);
-};
-
-export const isConspiracyVictim = (game: Game, playerId: string): boolean => {
-  return hasConspiracy(game) && 'hi' === playerId;
-};
-
 export const isNewGame = (game: Game): boolean => {
   return game.rounds.length === 1 && game.rounds[0].turns.length === 0
 }
 
-export const isWinner = (game: Game, playerId: string): boolean => {
-  if (isConspiracyMember(game, playerId)) {
-    return getVote(game, conspiracyVictimId(game)!) === 'hi';
-  } else {
-    const playerVote = getVote(game, playerId);
-    return hasConspiracy(game)
-      ? playerVote === 'whatever'
-      : playerVote === 'hi';
-  }
-};
 
-export const getVote = (game: Game, playerId: string): undefined => {
-  return undefined;
-};
-
-export const hasVoted = (game: Game, playerId: string): boolean =>
-  !!getVote(game, playerId);
-
-export const haveAllVoted = (game: Game): boolean =>
-  Object.values(game.players).every((player) =>
-    hasVoted(game, player.socketId)
-  );
