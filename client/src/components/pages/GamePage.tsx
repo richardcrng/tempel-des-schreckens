@@ -8,6 +8,7 @@ interface Props {
   onCardClick: (card: Card, idx: number, player: Player) => void;
   onGameRestart: () => void;
   onNextRound: () => void;
+  onPlayerKick(playerIdToKick: string): void;
   players: Player[];
   player: Player;
 }
@@ -18,11 +19,12 @@ function GamePage({
   onCardClick,
   onGameRestart,
   onNextRound,
+  onPlayerKick,
   players,
   player,
 }: Props) {
   if (game.status === GameStatus.LOBBY) {
-    return <GameLobby {...{ game, handleStartGame, players, player }} />;
+    return <GameLobby {...{ game, handleStartGame, onPlayerKick, players, player }} />;
   } else {
     return (
       <GameOngoing
