@@ -38,7 +38,6 @@ const StyledPlayerList = styled(PlayerList)`
   padding-inline-start: 20px;
 `;
 
-
 const PlayerListItemContents = styled.div`
   display: flex;
   align-items: center;
@@ -57,7 +56,13 @@ const PlayerListItemContents = styled.div`
   }
 `;
 
-function GameLobby({ game, handleStartGame, onPlayerKick, players, player }: Props) {
+function GameLobby({
+  game,
+  handleStartGame,
+  onPlayerKick,
+  players,
+  player,
+}: Props) {
   const readiness = gameLobbyReadiness(game);
   // eslint-disable-next-line
   const [_, copyToClipboard] = useCopyToClipboard();

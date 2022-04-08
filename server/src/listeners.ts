@@ -4,7 +4,13 @@ import {
   ServerSocket,
   ClientEventListeners,
 } from "../../client/src/types/event.types";
-import { flipCard, kickPlayer, nextRound, resetGame, startGame } from "./game/controllers";
+import {
+  flipCard,
+  kickPlayer,
+  nextRound,
+  resetGame,
+  startGame,
+} from "./game/controllers";
 import { joinPlayerToGame, updatePlayer } from "./player/controllers";
 import { GameManager } from "./game/model";
 

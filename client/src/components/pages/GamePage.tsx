@@ -24,7 +24,11 @@ function GamePage({
   player,
 }: Props) {
   if (game.status === GameStatus.LOBBY) {
-    return <GameLobby {...{ game, handleStartGame, onPlayerKick, players, player }} />;
+    return (
+      <GameLobby
+        {...{ game, handleStartGame, onPlayerKick, players, player }}
+      />
+    );
   } else {
     return (
       <GameOngoing

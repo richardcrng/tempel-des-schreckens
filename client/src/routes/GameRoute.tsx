@@ -85,7 +85,11 @@ function GameRoute() {
               socket.emit(ClientEvent.NEXT_ROUND, game.data!.id);
             }}
             onPlayerKick={(playerIdToKick) => {
-              socket.emit(ClientEvent.KICK_PLAYER, game.data!.id, playerIdToKick)
+              socket.emit(
+                ClientEvent.KICK_PLAYER,
+                game.data!.id,
+                playerIdToKick
+              );
             }}
             players={Object.values(game.data.players)}
             player={player.data}

@@ -47,12 +47,15 @@ export default function usePlayer(
     [...aliasIds, playerId].includes(id) && setPlayer(player);
   });
 
-  useSocketListener(ServerEvent.PLAYER_KICKED, (targetGameId, kickedPlayerId) => {
-    if (gameId === targetGameId && playerSocketId === kickedPlayerId) {
-      history.push("/");
-      window.alert("You have been kicked from the game by the host!");
+  useSocketListener(
+    ServerEvent.PLAYER_KICKED,
+    (targetGameId, kickedPlayerId) => {
+      if (gameId === targetGameId && playerSocketId === kickedPlayerId) {
+        history.push("/");
+        window.alert("You have been kicked from the game by the host!");
+      }
     }
-  })
+  );
 
   useSocketListener(ServerEvent.PLAYER_UPDATED, (id, player) => {
     [...aliasIds, playerId].includes(id) && setPlayer(player);

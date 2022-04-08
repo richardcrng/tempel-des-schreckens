@@ -37,7 +37,7 @@ export enum ServerEvent {
   GAME_STARTED = "game-started",
   GAME_UPDATED = "game-updated",
   PLAYER_GOTTEN = "player-gotten",
-  PLAYER_KICKED = 'player-kicked',
+  PLAYER_KICKED = "player-kicked",
   PLAYER_NOT_FOUND = "player-not-found",
   PLAYER_UPDATED = "player-updated",
   REDIRECT_TO_LOBBY = "redirect-to-lobby",

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 import { Card, Player } from "../../types/game.types";
 import CardRow from "./CardRow";
 
@@ -40,7 +40,7 @@ function PlayerCards({
           alignItems: "center",
         }}
       > */}
-        <PlayerName>{player.name}</PlayerName>
+      <PlayerName>{player.name}</PlayerName>
       {/* </div> */}
       {<span style={{ width: "5px" }}>{isKeyholder && "🗝️"}</span>}
       <CardRow
