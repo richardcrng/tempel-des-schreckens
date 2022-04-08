@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import { bundle, useRiducer } from "riduce";
 import { useSocket } from "../socket";
 import { ClientEvent, ServerEvent } from "../types/event.types";
@@ -24,6 +24,7 @@ export default function usePlayer(
 ): UsePlayerResult {
   const socket = useSocket();
   const { state, dispatch, actions } = useRiducer(initialState);
+  const history = useHistory();
   const { gameId } = useParams<{ gameId: string }>();
   const playerSocketId = playerId ?? socket.id;
 
@@ -43,9 +44,15 @@ export default function usePlayer(
   }, [socket, gameId, playerSocketId, aliasIds]);
 
   useSocketListener(ServerEvent.PLAYER_GOTTEN, (id, player) => {
-    console.log("received player", player);
     [...aliasIds, playerId].includes(id) && setPlayer(player);
   });
+
+  useSocketListener(ServerEvent.PLAYER_KICKED, (targetGameId, kickedPlayerId) => {
+    if (gameId === targetGameId && playerSocketId === kickedPlayerId) {
+      history.push("/");
+      window.alert("You have been kicked from the game by the host!");
+    }
+  })
 
   useSocketListener(ServerEvent.PLAYER_UPDATED, (id, player) => {
     [...aliasIds, playerId].includes(id) && setPlayer(player);
