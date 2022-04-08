@@ -41,11 +41,11 @@ function GameArea({
   const roundsRemainingMessage =
     nRemainingRounds === 1 ? (
       <>
-        <strong>1 round</strong> to go
+        <strong>1 round</strong> after this one
       </>
     ) : (
       <>
-        <strong>{nRemainingRounds} rounds</strong> to go
+        <strong>{nRemainingRounds} rounds</strong> after this one
       </>
     );
 
