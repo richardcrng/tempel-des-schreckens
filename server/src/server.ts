@@ -2,10 +2,10 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import { ServerSocket, ServerIO } from "../../client/src/types/event.types";
 import app from "./express";
-import { addGameListeners } from "./game/listeners";
-import { addPlayerListeners } from "./player/listeners";
+import { addListeners } from "./listeners";
 
 const httpServer = createServer(app);
+
 export const SERVER_IO: ServerIO = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -14,8 +14,7 @@ export const SERVER_IO: ServerIO = new Server(httpServer, {
 });
 
 SERVER_IO.on("connection", (socket: ServerSocket) => {
-  addGameListeners(socket, SERVER_IO);
-  addPlayerListeners(socket, SERVER_IO);
+  addListeners(socket);
 });
 
 export default httpServer;

@@ -62,6 +62,9 @@ export class PlayerManager {
     }
   }
 
+  public set(player: Player): void {
+    this._set(player);
+  }
 
   public snapshot(): Player | undefined {
     const operation = this._withPointer((pointer) => cloneDeep(pointer));

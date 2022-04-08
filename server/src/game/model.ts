@@ -10,6 +10,7 @@ import {
 import { PlayerManager } from "../player/model";
 import { SERVER_IO } from "../server";
 import { generateRandomGameId, getColors } from "../utils";
+import { checkForGameEnd, dealCardsToPlayers, getCardIdsToDeal, stackFlippedCards } from "./utils";
 
 const GAMES_DB: Record<Game["id"], Game> = {};
 
@@ -107,6 +108,22 @@ export class GameManager {
     }
   }
 
+  public dealNextRound(): void {
+    this.update((game) => {
+      const nextRoundNumber = (game.rounds.length + 1) as Round["number"];
+      game.deck = stackFlippedCards(game.deck);
+      const nextRound: Round = {
+        number: nextRoundNumber,
+        turns: [],
+        cardsDealt: dealCardsToPlayers(
+          getCardIdsToDeal(game.deck),
+          Object.keys(game.players)
+        ),
+      };
+      game.rounds.push(nextRound);
+    })
+    this.io.emit(ServerEvent.ROUND_STARTED, this.gameId)
+  }
 
   public getPlayer(playerId: string): Player | undefined {
     return this.managePlayer(playerId).snapshot();
@@ -118,6 +135,21 @@ export class GameManager {
       return player;
     } else {
       throw new Error(`Couldn't find player with id ${playerId}`);
+    }
+  }
+
+  public handlePossibleEnd(): void {
+    const snapshot = this.snapshot();
+    if (!snapshot) return;
+
+    const gameEndResult = checkForGameEnd(snapshot);
+    if (gameEndResult.isEnded) {
+      this.io.emit(
+        ServerEvent.GAME_OVER,
+        this.gameId,
+        gameEndResult.reason,
+        snapshot
+      );
     }
   }
 

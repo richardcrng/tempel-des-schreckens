@@ -15,7 +15,6 @@ export type ServerSocket = TServerSocket<
 export type ServerIO = TServer<ClientEventListeners, ServerEventListeners>;
 
 export enum ClientEvent {
-  ALIAS_SOCKET = "alias-socket",
   CREATE_GAME = "create-game",
   GET_GAME = "get-game",
   GET_PLAYER = "get-player",
@@ -24,7 +23,6 @@ export enum ClientEvent {
   NEXT_ROUND = "next-round",
   RESET_GAME = 'reset-game',
   START_GAME = "start-game",
-  SHOW_RESULTS = "show-results",
   UPDATE_PLAYER = "update-player",
 }
 
@@ -66,7 +64,6 @@ export type ClientEventListeners = {
   [ClientEvent.JOIN_GAME]: (gameId: string, player: Player) => void;
   [ClientEvent.NEXT_ROUND]: (gameId: string) => void;
   [ClientEvent.RESET_GAME]: (gameId: string) => void;
-  [ClientEvent.SHOW_RESULTS]: (gameId: string) => void;
   [ClientEvent.START_GAME]: (gameId: string,) => void;
   [ClientEvent.UPDATE_PLAYER]: (gameId: string, player: Player) => void;
 };
