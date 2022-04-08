@@ -17,6 +17,7 @@
     "test:client:watch": "yarn workspace @tempel/client test:watch",
     "test:server": "yarn workspace @tempel/server test",
     "test:server:watch": "yarn workspace @tempel/server test:watch",
+    "typecheck": "yarn workspaces run typecheck",
     "heroku-postbuild": "yarn build:server"
   },
   "devDependencies": {

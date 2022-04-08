@@ -1,20 +1,4 @@
-import { Game } from "../../../client/src/types/game.types";
-import { assignRoles, dealCardsToPlayers } from "./utils";
-
-describe('assignRoles', () => {
-  test('assigns roles to all players', () => {
-    const players: Game['players'] = {
-      idOne: { socketId: 'idOne' },
-      idTwo: { socketId: 'idTwo' },
-      idThree: { socketId: 'idThree' }
-    }
-    assignRoles(players);
-    for (let playerId in players) {
-      expect(players[playerId]).toHaveProperty('role')
-      expect(players[playerId].role).toMatch(/[adventurer|guardian]/i)
-    }
-  })
-})
+import { dealCardsToPlayers } from "./utils";
 
 describe('dealCardsToPlayers', () => {
   test('Given 10 card ids and 2 players, deals 5 cards to each player', () => {

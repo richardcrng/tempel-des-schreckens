@@ -32,6 +32,7 @@
     "start:compiled": "node build/server/src/index.js",
     "start:dev": "ts-node-dev src/index.ts",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "typecheck": "tsc --noEmit"
   }
 }
