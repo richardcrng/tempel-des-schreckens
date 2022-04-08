@@ -129,12 +129,15 @@ function GameOngoing({
           player={player}
           nPlayers={getNumberOfPlayers(game)}
           onBackToGame={handleBackToGame}
+          onGameReset={onGameRestart}
         />
       )}
       {view === SectionView.GAME_STATS && (
         <GameStats
           game={game}
+          isHost={player.isHost}
           onBackToGame={handleBackToGame}
+          onGameReset={onGameRestart}
           gameOverReason={gameOverReason}
         />
       )}
