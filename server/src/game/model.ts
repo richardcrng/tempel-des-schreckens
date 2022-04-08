@@ -10,7 +10,12 @@ import {
 import { PlayerManager } from "../player/model";
 import { SERVER_IO } from "../server";
 import { generateRandomGameId, getColors } from "../utils";
-import { checkForGameEnd, dealCardsToPlayers, getCardIdsToDeal, stackFlippedCards } from "./utils";
+import {
+  checkForGameEnd,
+  dealCardsToPlayers,
+  getCardIdsToDeal,
+  stackFlippedCards,
+} from "./utils";
 
 const GAMES_DB: Record<Game["id"], Game> = {};
 
@@ -121,8 +126,8 @@ export class GameManager {
         ),
       };
       game.rounds.push(nextRound);
-    })
-    this.io.emit(ServerEvent.ROUND_STARTED, this.gameId)
+    });
+    this.io.emit(ServerEvent.ROUND_STARTED, this.gameId);
   }
 
   public getPlayer(playerId: string): Player | undefined {

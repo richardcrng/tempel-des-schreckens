@@ -23,8 +23,11 @@ function GameRoute() {
 
   if (game.data?.status === GameStatus.ONGOING && !player.data) {
     return <p>Can't join a game that is underway - sorry</p>;
-  } else if (!game.data?.players[player.data?.socketId ?? ''] && takenNames.length >= 10) {
-    return <p>The game is full (10 players max) - sorry</p>
+  } else if (
+    !game.data?.players[player.data?.socketId ?? ""] &&
+    takenNames.length >= 10
+  ) {
+    return <p>The game is full (10 players max) - sorry</p>;
   } else if (!player.loading && !player.data?.name) {
     return (
       <>
@@ -61,10 +64,7 @@ function GameRoute() {
           <GamePage
             game={game.data}
             handleStartGame={() => {
-              socket.emit(
-                ClientEvent.START_GAME,
-                game.data!.id
-              );
+              socket.emit(ClientEvent.START_GAME, game.data!.id);
             }}
             onCardClick={(card, idx, player) => {
               if (!card.isFlipped) {
@@ -79,16 +79,10 @@ function GameRoute() {
               }
             }}
             onGameRestart={() => {
-              socket.emit(
-                ClientEvent.RESET_GAME,
-                game.data!.id
-              )
+              socket.emit(ClientEvent.RESET_GAME, game.data!.id);
             }}
             onNextRound={() => {
-              socket.emit(
-                ClientEvent.NEXT_ROUND,
-                game.data!.id
-              )
+              socket.emit(ClientEvent.NEXT_ROUND, game.data!.id);
             }}
             players={Object.values(game.data.players)}
             player={player.data}

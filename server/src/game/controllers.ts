@@ -1,5 +1,10 @@
-import { last } from 'lodash';
-import { ClientEvent, ClientEventListeners, CreateGameEvent, ServerEvent } from "../../../client/src/types/event.types";
+import { last } from "lodash";
+import {
+  ClientEvent,
+  ClientEventListeners,
+  CreateGameEvent,
+  ServerEvent,
+} from "../../../client/src/types/event.types";
 import {
   GameBase,
   GameStatus,
@@ -8,8 +13,13 @@ import {
 } from "../../../client/src/types/game.types";
 import { games } from "../db";
 import { generateRandomGameId, getColors } from "../utils";
-import { GameManager } from './model';
-import { createRoleAssignment, dealCardsToPlayers, generateDeck, getCardIdsToDeal } from "./utils";
+import { GameManager } from "./model";
+import {
+  createRoleAssignment,
+  dealCardsToPlayers,
+  generateDeck,
+  getCardIdsToDeal,
+} from "./utils";
 
 export const createGame = (data: CreateGameEvent): GameBase => {
   const gameId = generateRandomGameId();
@@ -21,14 +31,14 @@ export const createGame = (data: CreateGameEvent): GameBase => {
         socketId: data.socketId,
         isHost: true,
         gameId,
-        colors: getColors(5)
+        colors: getColors(5),
       },
     },
     status: GameStatus.LOBBY,
     deck: {
       cards: {},
     },
-    rounds: []
+    rounds: [],
   };
   games[gameId] = game;
   return game;
@@ -37,7 +47,13 @@ export const createGame = (data: CreateGameEvent): GameBase => {
 /**
  * @returns the number of turns
  */
-export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (gameId, keyholderId, targetPlayerId, cardIdx, card) => {
+export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (
+  gameId,
+  keyholderId,
+  targetPlayerId,
+  cardIdx,
+  card
+) => {
   const gameManager = GameManager.for(gameId);
   gameManager.update((game) => {
     const currentRound = last(game.rounds)!;
@@ -52,21 +68,32 @@ export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (gameId, ke
     currentRound.turns.push(turnCreated);
     const cardToFlip = game.deck.cards[card.id];
     cardToFlip.isFlipped = true;
-  })
-  gameManager.io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, targetPlayerId, cardIdx, card);
+  });
+  gameManager.io.emit(
+    ServerEvent.CARD_FLIPPED,
+    gameId,
+    keyholderId,
+    targetPlayerId,
+    cardIdx,
+    card
+  );
   gameManager.handlePossibleEnd();
-}
+};
 
-export const nextRound: ClientEventListeners[ClientEvent.NEXT_ROUND] = (gameId) => {
+export const nextRound: ClientEventListeners[ClientEvent.NEXT_ROUND] = (
+  gameId
+) => {
   GameManager.for(gameId).dealNextRound();
-}
+};
 
-export const resetGame: ClientEventListeners[ClientEvent.RESET_GAME] = (gameId) => {
+export const resetGame: ClientEventListeners[ClientEvent.RESET_GAME] = (
+  gameId
+) => {
   GameManager.for(gameId).resetGame();
-}
+};
 
 export const startGame: ClientEventListeners[ClientEvent.START_GAME] = (
-  gameId: string,
+  gameId: string
 ) => {
   const gameManager = GameManager.for(gameId);
 
@@ -87,5 +114,5 @@ export const startGame: ClientEventListeners[ClientEvent.START_GAME] = (
     gameManager.updateEachPlayer((player) => {
       player.role = roleAssignment[player.socketId];
     });
-  })
+  });
 };

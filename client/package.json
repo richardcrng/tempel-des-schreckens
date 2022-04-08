@@ -29,11 +29,15 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint src",
+    "lint:strict": "eslint src --max-warnings 0",
+    "format": "prettier --write src",
+    "format:check": "prettier --check src",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
-    "typecheck": "tsc --noEmit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -57,6 +61,9 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.13",
+    "eslint": "^7.28.0",
+    "eslint-plugin-react": "^7.24.0",
+    "prettier": "^2.5.1",
     "socket.io": "^4.0.0"
   }
 }

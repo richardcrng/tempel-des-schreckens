@@ -9,17 +9,17 @@ interface Props {
 
 function CardRow({ cards, style, onCardClick }: Props): JSX.Element {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around', ...style }}>
+    <div style={{ display: "flex", justifyContent: "space-around", ...style }}>
       {cards.map((card, idx) => (
         <CardItem
           key={card.id}
           card={card}
-          size='mini'
+          size="mini"
           onClick={(card) => onCardClick && onCardClick(card, idx)}
         />
       ))}
     </div>
-  )
+  );
 }
 
-export default CardRow
+export default CardRow;

@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
-import styled from 'styled-components'
+import styled from "styled-components";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
-import { getIsRoundComplete, getNumberOfPlayers, getKeyholder, getPlayerCardsInRound } from '../../selectors/game';
+import {
+  getIsRoundComplete,
+  getNumberOfPlayers,
+  getKeyholder,
+  getPlayerCardsInRound,
+} from "../../selectors/game";
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
@@ -19,30 +24,35 @@ interface Props {
 }
 
 enum SectionView {
-  DISTRIBUTION = 'distribution',
-  GAME_STATS = 'game-stats',
-  MAIN_GAME = 'main-game'
+  DISTRIBUTION = "distribution",
+  GAME_STATS = "game-stats",
+  MAIN_GAME = "main-game",
 }
 
 const ActionArea = styled.div`
   width: 100%;
-`
+`;
 
 const Container = styled.div`
   width: 100%;
-`
+`;
 
-function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: Props) {
-  const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION)
+function GameOngoing({
+  game,
+  player,
+  onCardClick,
+  onGameRestart,
+  onNextRound,
+}: Props) {
+  const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION);
   const [gameOverReason, setGameOverReason] = useState<GameOverReason>();
-  const handleBackToGame = () => setView(SectionView.MAIN_GAME)
+  const handleBackToGame = () => setView(SectionView.MAIN_GAME);
   const isRoundComplete = getIsRoundComplete(game);
 
-  const { [player.socketId]: ownCards } =
-    getPlayerCardsInRound(game);
+  const { [player.socketId]: ownCards } = getPlayerCardsInRound(game);
 
   const keyholder = getKeyholder(game);
-  const isKeyholder = keyholder.socketId === player.socketId
+  const isKeyholder = keyholder.socketId === player.socketId;
 
   const [cardFlipModal, setCardFlipModal] = useState<{
     isOpen: boolean;
@@ -60,7 +70,7 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
     } else if (player.isHost && isRoundComplete) {
       onNextRound();
     }
-  }
+  };
 
   useSocketListener(
     ServerEvent.CARD_FLIPPED,
@@ -82,23 +92,17 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
     }
   );
 
-  useSocketListener(
-    ServerEvent.ROUND_STARTED,
-    (gameId) => {
-      if (gameId === game.id) {
-        setView(SectionView.GAME_STATS)
-      }
+  useSocketListener(ServerEvent.ROUND_STARTED, (gameId) => {
+    if (gameId === game.id) {
+      setView(SectionView.GAME_STATS);
     }
-  )
+  });
 
-  useSocketListener(
-    ServerEvent.GAME_OVER,
-    (gameId, reason) => {
-      if (gameId === game.id) {
-        setGameOverReason(reason);
-      }
+  useSocketListener(ServerEvent.GAME_OVER, (gameId, reason) => {
+    if (gameId === game.id) {
+      setGameOverReason(reason);
     }
-  )
+  });
 
   return (
     <Container className="active-contents flex-between">
@@ -151,7 +155,11 @@ function GameOngoing({ game, player, onCardClick, onGameRestart, onNextRound }: 
           />
           <ActionArea>
             <hr />
-            <OwnCards cards={ownCards} player={player} isKeyholder={isKeyholder} />
+            <OwnCards
+              cards={ownCards}
+              player={player}
+              isKeyholder={isKeyholder}
+            />
             <Button
               fluid
               primary

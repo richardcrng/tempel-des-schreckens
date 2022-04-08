@@ -1,5 +1,5 @@
 import { Player } from "../../types/game.types";
-import Avatar from 'boring-avatars';
+import Avatar from "boring-avatars";
 
 interface Props {
   player: Player;
@@ -19,4 +19,4 @@ function PlayerAvatar({ player, size = 40 }: Props): JSX.Element {
   );
 }
 
-export default PlayerAvatar
+export default PlayerAvatar;

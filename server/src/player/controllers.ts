@@ -1,4 +1,7 @@
-import { ClientEvent, ClientEventListeners } from "../../../client/src/types/event.types";
+import {
+  ClientEvent,
+  ClientEventListeners,
+} from "../../../client/src/types/event.types";
 import {
   Game,
   GameBase,
@@ -38,8 +41,13 @@ export const makeVote = (
   }
 };
 
-export const updatePlayer: ClientEventListeners[ClientEvent.UPDATE_PLAYER] = (gameId, updatedPlayer) => {
-  GameManager.for(gameId).managePlayer(updatedPlayer.socketId).update((player) => {
-    Object.assign(player, updatedPlayer)
-  })
+export const updatePlayer: ClientEventListeners[ClientEvent.UPDATE_PLAYER] = (
+  gameId,
+  updatedPlayer
+) => {
+  GameManager.for(gameId)
+    .managePlayer(updatedPlayer.socketId)
+    .update((player) => {
+      Object.assign(player, updatedPlayer);
+    });
 };

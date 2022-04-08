@@ -12,8 +12,8 @@ interface Props {
 function OwnCards({ cards, isKeyholder, player }: Props): JSX.Element {
   return (
     <>
-      <div style={{ paddingBottom: '5px' }}>
-        <span style={{ marginRight: '5px' }}>Your cards:</span>
+      <div style={{ paddingBottom: "5px" }}>
+        <span style={{ marginRight: "5px" }}>Your cards:</span>
         {Object.values(CardType).map((cardType) => (
           <CardPreview
             key={cardType}
@@ -27,6 +27,4 @@ function OwnCards({ cards, isKeyholder, player }: Props): JSX.Element {
   );
 }
 
-
-
-export default OwnCards
+export default OwnCards;

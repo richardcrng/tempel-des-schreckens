@@ -29,4 +29,4 @@ function RoleOverview({ role }: Props): JSX.Element {
   );
 }
 
-export default RoleOverview
+export default RoleOverview;

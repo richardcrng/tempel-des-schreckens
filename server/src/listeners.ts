@@ -9,7 +9,6 @@ import { joinPlayerToGame, updatePlayer } from "./player/controllers";
 import { GameManager } from "./game/model";
 
 export const addListeners = (socket: ServerSocket): void => {
-
   const listeners: ClientEventListeners = {
     [ClientEvent.CREATE_GAME]: (createData) => {
       const gameManager = GameManager.hostNew(
@@ -48,7 +47,7 @@ export const addListeners = (socket: ServerSocket): void => {
 
     [ClientEvent.START_GAME]: startGame,
 
-    [ClientEvent.UPDATE_PLAYER]: updatePlayer
+    [ClientEvent.UPDATE_PLAYER]: updatePlayer,
   };
 
   for (const [event, listener] of Object.entries(listeners) as [

@@ -24,7 +24,11 @@ function GamePage({
   if (game.status === GameStatus.LOBBY) {
     return <GameLobby {...{ game, handleStartGame, players, player }} />;
   } else {
-    return <GameOngoing {...{ game, player, onCardClick, onGameRestart, onNextRound }} />;
+    return (
+      <GameOngoing
+        {...{ game, player, onCardClick, onGameRestart, onNextRound }}
+      />
+    );
   }
 }
 

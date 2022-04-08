@@ -1,5 +1,5 @@
-import { last } from 'lodash';
-import { createSelector } from 'reselect';
+import { last } from "lodash";
+import { createSelector } from "reselect";
 import { Card, CardType, Game, GameBase, Round } from "../types/game.types";
 
 export interface RoleCount {
@@ -60,7 +60,7 @@ export const generateRoleCount = (nPlayers: number): RoleCount => {
     default:
       return { nAdventurers: 7, nGuardians: 4, isExact: false };
   }
-}
+};
 
 export const generateCardCount = (nPlayers: number): CardCount => {
   switch (nPlayers) {
@@ -84,7 +84,8 @@ export const generateCardCount = (nPlayers: number): CardCount => {
   }
 };
 
-export const getGameCards = (game: Game): Record<number, Card> => game.deck.cards
+export const getGameCards = (game: Game): Record<number, Card> =>
+  game.deck.cards;
 export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
 export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
@@ -92,56 +93,52 @@ export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
 export const getNumberOfRounds = createSelector(
   getGameRounds,
   (rounds) => rounds.length
-)
+);
 
 export const getNumberOfSubsequentRounds = createSelector(
   getNumberOfRounds,
   (nRounds) => 4 - nRounds
-)
+);
 
 export const getNumberOfPlayers = createSelector(
   getGamePlayers,
   (players) => Object.keys(players).length
-)
+);
 
-export const getCurrentRound = createSelector(
-  getGameRounds,
-  (rounds) => {
-    const currentRound = last(rounds);
-    if (currentRound) {
-      return currentRound;
-    } else {
-      throw new Error("No round to get")
-    }
+export const getCurrentRound = createSelector(getGameRounds, (rounds) => {
+  const currentRound = last(rounds);
+  if (currentRound) {
+    return currentRound;
+  } else {
+    throw new Error("No round to get");
   }
-)
+});
 
 export const getCurrentRoundTurns = createSelector(
   getCurrentRound,
   (round) => round.turns
-)
+);
 
 export const getFlippedCardsInRound = createSelector(
   getCurrentRound,
   getGameCards,
   (currentRound, cards) => findFlippedCardsFromRound(currentRound, cards)
-)
+);
 
 export const getNumberOfCardsLeftToFlipInRound = createSelector(
   getCurrentRoundTurns,
   getNumberOfPlayers,
   (turns, nPlayers) => nPlayers - turns.length
-)
+);
 
 export const getIsRoundComplete = createSelector(
   getNumberOfCardsLeftToFlipInRound,
   (n) => n === 0
-)
+);
 
-export const getAllFlippedCards = createSelector(
-  getGameCards,
-  (cards) => Object.values(cards).filter(card => card.isFlipped)
-)
+export const getAllFlippedCards = createSelector(getGameCards, (cards) =>
+  Object.values(cards).filter((card) => card.isFlipped)
+);
 
 export const getFlippedTypeCount = createSelector(
   getAllFlippedCards,
@@ -156,7 +153,7 @@ export const getRemainingTypeCount = createSelector(
   getFlippedTypeCount,
   getNumberOfPlayers,
   (flippedCount, nPlayers): CardCount => {
-    const total = generateCardCount(nPlayers)
+    const total = generateCardCount(nPlayers);
     return {
       nGold: total.nGold - flippedCount.nGold,
       nFire: total.nFire - flippedCount.nFire,
@@ -171,16 +168,16 @@ export const getLastTurn = createSelector(
   (rounds, currentRound) => {
     const isLastTurnInCurrentRound = currentRound.turns.length > 0;
     if (isLastTurnInCurrentRound) {
-        return last(currentRound.turns);
-      } else if (rounds.length >= 2) {
-        const previousRound = rounds[rounds.length - 2];
-        return last(previousRound.turns);
-      } else {
-        // there is no previous turn
-        return undefined;
+      return last(currentRound.turns);
+    } else if (rounds.length >= 2) {
+      const previousRound = rounds[rounds.length - 2];
+      return last(previousRound.turns);
+    } else {
+      // there is no previous turn
+      return undefined;
     }
   }
-)
+);
 
 export const getKeyholder = createSelector(
   getLastTurn,
@@ -189,28 +186,30 @@ export const getKeyholder = createSelector(
   (lastTurn, players, firstKeyholder) => {
     const keyholderId = lastTurn
       ? lastTurn.selected.playerId
-        // first player by socketId alphabetised (random-esque but stable)
-      : firstKeyholder ?? Object.keys(players).sort((a, b) => a < b ? -1 : 1)[0];
-  return players[keyholderId]
+      : // first player by socketId alphabetised (random-esque but stable)
+        firstKeyholder ??
+        Object.keys(players).sort((a, b) => (a < b ? -1 : 1))[0];
+    return players[keyholderId];
   }
-)
+);
 
 export const getPlayerCardsInRound = createSelector(
   getCurrentRound,
   getGameCards,
   (currentRound, cards) => {
-    const cardEntries: [string, Card[]][] = Object.entries(currentRound.cardsDealt).map(([playerId, cardIds]) => [
+    const cardEntries: [string, Card[]][] = Object.entries(
+      currentRound.cardsDealt
+    ).map(([playerId, cardIds]) => [
       playerId,
-      cardIds.map(cardId => cards[cardId])
-    ])
+      cardIds.map((cardId) => cards[cardId]),
+    ]);
     return Object.fromEntries(cardEntries) as Record<string, Card[]>;
   }
-)
+);
 
-export const countCardType = (cards: Card[], cardType: CardType): number => cards.reduce((acc, curr) => curr.type === cardType ? acc + 1 : acc, 0)
+export const countCardType = (cards: Card[], cardType: CardType): number =>
+  cards.reduce((acc, curr) => (curr.type === cardType ? acc + 1 : acc), 0);
 
 export const isNewGame = (game: Game): boolean => {
-  return game.rounds.length === 1 && game.rounds[0].turns.length === 0
-}
-
-
+  return game.rounds.length === 1 && game.rounds[0].turns.length === 0;
+};
