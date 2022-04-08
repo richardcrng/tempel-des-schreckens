@@ -18,5 +18,8 @@
     "test:server": "yarn workspace @tempel/server test",
     "test:server:watch": "yarn workspace @tempel/server test:watch",
     "heroku-postbuild": "yarn build:server"
+  },
+  "devDependencies": {
+    "husky": "^7.0.0"
   }
 }
