@@ -82,7 +82,7 @@ export const dealCardsToPlayers = (
     cardsDealt[playerId] = [];
     for (let i = 0; i < cardsPerPlayer; i++) {
       const cardToDeal = remainingCardsToDeal.shift();
-      typeof cardToDeal === 'number' && cardsDealt[playerId].push(cardToDeal);
+      typeof cardToDeal === "number" && cardsDealt[playerId].push(cardToDeal);
     }
   }
   return cardsDealt;

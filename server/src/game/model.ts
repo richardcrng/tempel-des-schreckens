@@ -236,7 +236,10 @@ export class GameManager {
     }
   }
 
-  public updatePlayer(playerId: string, mutativeCb: (player: Player) => void): void {
+  public updatePlayer(
+    playerId: string,
+    mutativeCb: (player: Player) => void
+  ): void {
     this.managePlayer(playerId).update(mutativeCb);
   }
 }

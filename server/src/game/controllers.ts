@@ -4,11 +4,7 @@ import {
   ClientEventListeners,
   ServerEvent,
 } from "../../../client/src/types/event.types";
-import {
-  GameStatus,
-  Round,
-  Turn,
-} from "../../../client/src/types/game.types";
+import { GameStatus, Round, Turn } from "../../../client/src/types/game.types";
 import { GameManager } from "./model";
 import {
   createRoleAssignment,
@@ -16,7 +12,6 @@ import {
   generateDeck,
   getCardIdsToDeal,
 } from "./utils";
-
 
 /**
  * @returns the number of turns
