@@ -16,7 +16,8 @@
     "start:server:compiled": "yarn workspace @tempel/server start:compiled",
     "test": "yarn workspaces run test",
     "typecheck": "yarn workspaces run typecheck",
-    "heroku-postbuild": "yarn workspace @tempel/server build"
+    "heroku-postbuild": "yarn workspace @tempel/server build",
+    "prepare": "node ./prepare.js"
   },
   "devDependencies": {
     "husky": "^7.0.0"
