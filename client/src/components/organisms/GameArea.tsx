@@ -101,6 +101,7 @@ function GameArea({
             player={game.players[playerId]}
             isKeyholder={keyholder.socketId === playerId}
             onCardClick={handleCardClick}
+            style={{ margin: "15px 0" }}
           />
         ))}
       </div>

@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { gameLobbyReadiness } from "../../selectors/game";
 import { GameBase, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
-import PlayerAvatar from "../atoms/PlayerAvatar";
 
 interface Props {
   game: GameBase;
   handleStartGame(): void;
+  onPlayerKick(playerIdToKick: string): void;
   players: Player[];
   player: Player;
 }
@@ -32,14 +32,37 @@ const StyledA = styled.a`
   text-align: center;
 `;
 
+const StyledPlayerList = styled(PlayerList)`
+  grid-area: players;
+  overflow-y: scroll;
+  padding-inline-start: 20px;
+`;
+
 const PlayerListItemContents = styled.div`
   display: flex;
   align-items: center;
+  align-content: center;
   font-size: 1.2rem;
+  justify-content: space-between;
   padding-bottom: 10px;
+
+  p {
+    margin: 0;
+  }
+
+  button {
+    font-size: 0.9rem;
+    margin: 0;
+  }
 `;
 
-function GameLobby({ game, handleStartGame, players, player }: Props) {
+function GameLobby({
+  game,
+  handleStartGame,
+  onPlayerKick,
+  players,
+  player,
+}: Props) {
   const readiness = gameLobbyReadiness(game);
   // eslint-disable-next-line
   const [_, copyToClipboard] = useCopyToClipboard();
@@ -60,24 +83,25 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
         >
           Copy game join link
         </StyledA>
-        <PlayerList
+        <StyledPlayerList
           players={players}
           ownPlayerId={player.socketId}
-          listParent={({ children }) => (
-            <ol style={{ listStyle: "none", paddingInlineStart: "20px" }}>
-              {children}
-            </ol>
-          )}
-          renderPlayer={(player, idx, ownPlayerId) => {
+          renderPlayer={(playerToRender, idx, ownPlayerId) => {
             return (
               <PlayerListItemContents>
-                <span style={{ marginRight: "10px" }}>{idx + 1}.</span>
-                <PlayerAvatar player={player} size={32} />
                 <p style={{ marginLeft: "10px" }}>
-                  {player.name}
-                  {player.socketId === ownPlayerId && " (you)"}
-                  {player.isHost && " (host)"}
+                  {playerToRender.name}
+                  {playerToRender.socketId === ownPlayerId && " (you)"}
+                  {playerToRender.isHost && " (host)"}
                 </p>
+                {player.isHost &&
+                  playerToRender.socketId !== player.socketId && (
+                    <button
+                      onClick={() => onPlayerKick(playerToRender.socketId)}
+                    >
+                      x
+                    </button>
+                  )}
               </PlayerListItemContents>
             );
           }}
