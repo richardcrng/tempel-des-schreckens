@@ -1,18 +1,15 @@
 import { last } from 'lodash';
-import { getKeyholder } from '../../../client/src/selectors/game';
 import { ClientEvent, ClientEventListeners, CreateGameEvent } from "../../../client/src/types/event.types";
 import {
-  Card,
-  Game,
   GameBase,
   GameStatus,
   Round,
   Turn,
 } from "../../../client/src/types/game.types";
-import { games, getGameById } from "../db";
+import { games } from "../db";
 import { generateRandomGameId, getColors } from "../utils";
 import { GameManager } from './model';
-import { assignRoles, dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
+import { createRoleAssignment, dealCardsToPlayers, generateDeck, getCardIdsToDeal } from "./utils";
 
 export const createGame = (data: CreateGameEvent): GameBase => {
   const gameId = generateRandomGameId();
@@ -75,9 +72,19 @@ export const startGame: ClientEventListeners[ClientEvent.START_GAME] = (
   // initial setup
   gameManager.update((game) => {
     game.status = GameStatus.ONGOING;
-    assignRoles(game.players);
     game.deck = generateDeck(Object.keys(game.players).length);
+    const firstRound: Round = {
+      number: 1,
+      turns: [],
+      cardsDealt: dealCardsToPlayers(
+        getCardIdsToDeal(game.deck),
+        Object.keys(game.players)
+      ),
+    };
+    game.rounds.push(firstRound);
+    const roleAssignment = createRoleAssignment(Object.keys(game.players));
+    gameManager.updateEachPlayer((player) => {
+      player.role = roleAssignment[player.socketId];
+    });
   })
-
-  gameManager.dealNextRound();
 };

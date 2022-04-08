@@ -9,22 +9,22 @@ const addCloneOfCards = (cards: Card[], nClones: number, cardToClone: Omit<Card,
   }
 }
 
-export const assignRoles = (players: Game['players']): void => {
-  const shuffledPlayerIds = shuffle(Object.keys(players));
-  const nPlayers = shuffledPlayerIds.length;
+export const createRoleAssignment = (playerIds: string[]): Record<string, Role> => {
+  const shuffledPlayerIds = shuffle(playerIds);
+  const nPlayers = playerIds.length;
 
   const { nAdventurers, isExact } = generateRoleCount(nPlayers);
 
   const nAdventurersDealt = isExact
     ? nAdventurers
     : Math.random() < 0.5 ? nAdventurers - 1 : nAdventurers;
-  
-  for (let i = 0; i < nPlayers; i++) {
-    const playerBeingAssigned = shuffledPlayerIds[i];
-    players[playerBeingAssigned].role = i < nAdventurersDealt
-      ? Role.ADVENTURER
-      : Role.GUARDIAN;
-  }
+
+  return shuffledPlayerIds.reduce((acc, curr, idx) => {
+    return {
+      ...acc,
+      [curr]: idx < nAdventurersDealt ? Role.ADVENTURER : Role.GUARDIAN,
+    };
+  }, {} as Record<string, Role>)
 }
 
 const buildDeckCards = ({ nGold, nFire, nEmpty }: CardCount): Deck['cards'] => {
