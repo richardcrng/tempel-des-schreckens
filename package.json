@@ -10,13 +10,14 @@
     "lint": "yarn workspaces run lint",
     "lint:strict": "yarn workspaces run lint:strict",
     "build": "yarn workspaces run build",
-    "dev:client": "yarn workspace @2r1b/client dev",
-    "dev:server": "yarn workspace @2r1b/server dev",
-    "start:server": "yarn workspace @2r1b/server start",
-    "start:server:compiled": "yarn workspace @2r1b/server start:compiled",
+    "dev:client": "yarn workspace @tempel/client dev",
+    "dev:server": "yarn workspace @tempel/server dev",
+    "start:server": "yarn workspace @tempel/server start",
+    "start:server:compiled": "yarn workspace @tempel/server start:compiled",
     "test": "yarn workspaces run test",
     "typecheck": "yarn workspaces run typecheck",
-    "heroku-postbuild": "yarn build:server"
+    "heroku-postbuild": "yarn workspace @tempel/server build",
+    "prepare": "node ./prepare.js"
   },
   "devDependencies": {
     "husky": "^7.0.0"
