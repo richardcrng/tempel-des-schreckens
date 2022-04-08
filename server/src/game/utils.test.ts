@@ -7,7 +7,7 @@ describe("dealCardsToPlayers", () => {
     const dealResult = dealCardsToPlayers(cardIds, playerIds);
     // 2 players dealt to
     expect(Object.keys(dealResult).length).toBe(2);
-    for (let playerId in dealResult) {
+    for (const playerId in dealResult) {
       // 5 cards dealt to each
       expect(dealResult[playerId].length).toBe(5);
     }
@@ -21,7 +21,7 @@ describe("dealCardsToPlayers", () => {
     const dealResult = dealCardsToPlayers(cardIds, playerIds);
     // 6 players dealt to
     expect(Object.keys(dealResult).length).toBe(6);
-    for (let playerId in dealResult) {
+    for (const playerId in dealResult) {
       // 3 cards dealt to each
       expect(dealResult[playerId].length).toBe(3);
     }

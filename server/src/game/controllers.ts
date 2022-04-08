@@ -2,17 +2,13 @@ import { last } from "lodash";
 import {
   ClientEvent,
   ClientEventListeners,
-  CreateGameEvent,
   ServerEvent,
 } from "../../../client/src/types/event.types";
 import {
-  GameBase,
   GameStatus,
   Round,
   Turn,
 } from "../../../client/src/types/game.types";
-import { games } from "../db";
-import { generateRandomGameId, getColors } from "../utils";
 import { GameManager } from "./model";
 import {
   createRoleAssignment,
@@ -21,28 +17,6 @@ import {
   getCardIdsToDeal,
 } from "./utils";
 
-export const createGame = (data: CreateGameEvent): GameBase => {
-  const gameId = generateRandomGameId();
-  const game: GameBase = {
-    id: gameId,
-    players: {
-      [data.socketId]: {
-        name: data.playerName,
-        socketId: data.socketId,
-        isHost: true,
-        gameId,
-        colors: getColors(5),
-      },
-    },
-    status: GameStatus.LOBBY,
-    deck: {
-      cards: {},
-    },
-    rounds: [],
-  };
-  games[gameId] = game;
-  return game;
-};
 
 /**
  * @returns the number of turns
@@ -56,7 +30,6 @@ export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (
 ) => {
   const gameManager = GameManager.for(gameId);
   gameManager.update((game) => {
-    const currentRound = last(game.rounds)!;
     const turnCreated: Turn = {
       keyholderId,
       selected: {
@@ -65,7 +38,7 @@ export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (
       },
       flip: card.type,
     };
-    currentRound.turns.push(turnCreated);
+    last(game.rounds)?.turns.push(turnCreated);
     const cardToFlip = game.deck.cards[card.id];
     cardToFlip.isFlipped = true;
   });

@@ -21,7 +21,7 @@ export class PlayerManager {
     this.gameManager._broadcast();
   }
 
-  _mutate(mutativeCb: (player: Player) => void) {
+  _mutate(mutativeCb: (player: Player) => void): void {
     this._withPointer((pointer) => {
       mutativeCb(pointer);
       this._broadcast();
@@ -73,7 +73,7 @@ export class PlayerManager {
     }
   }
 
-  public update(mutativeCb: (player: Player) => void) {
+  public update(mutativeCb: (player: Player) => void): void {
     this._mutate(mutativeCb);
   }
 }

@@ -3,12 +3,8 @@ import {
   ClientEventListeners,
 } from "../../../client/src/types/event.types";
 import {
-  Game,
-  GameBase,
-  GameStatus,
   Player,
 } from "../../../client/src/types/game.types";
-import { getGameById } from "../db";
 import { GameManager } from "../game/model";
 import { getColors } from "../utils";
 
@@ -24,22 +20,6 @@ export const joinPlayerToGame: ClientEventListeners[ClientEvent.JOIN_GAME] = (
   });
 };
 
-export const makeVote = (
-  gameId: string,
-  playerId: string,
-  vote: null
-): Game => {
-  const game = getGameById(gameId);
-  if (game?.status === GameStatus.COMPLETE) return game;
-  if (game) {
-    if (vote) {
-    } else {
-    }
-    return game;
-  } else {
-    throw new Error("Couldn't find game");
-  }
-};
 
 export const updatePlayer: ClientEventListeners[ClientEvent.UPDATE_PLAYER] = (
   gameId,

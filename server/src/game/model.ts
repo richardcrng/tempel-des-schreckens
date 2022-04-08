@@ -1,4 +1,4 @@
-import { chunk, cloneDeep, last, partition, sample, shuffle } from "lodash";
+import { cloneDeep, last } from "lodash";
 import { ServerEvent, ServerIO } from "../../../client/src/types/event.types";
 import {
   Game,
@@ -134,7 +134,7 @@ export class GameManager {
     return this.managePlayer(playerId).snapshot();
   }
 
-  public getPlayerOrFail(playerId: string) {
+  public getPlayerOrFail(playerId: string): Player {
     const player = this.getPlayer(playerId);
     if (player) {
       return player;
@@ -158,7 +158,7 @@ export class GameManager {
     }
   }
 
-  public manageEachPlayer(cb: (playerManager: PlayerManager) => void) {
+  public manageEachPlayer(cb: (playerManager: PlayerManager) => void): void {
     for (const playerId in this.players()) {
       const playerManager = this.managePlayer(playerId);
       cb(playerManager);
@@ -226,7 +226,7 @@ export class GameManager {
    *  and broadcasts the update to sockets
    * @param mutativeCb - mutative callback function for the game data
    */
-  public update(mutativeCb: (game: Game) => void) {
+  public update(mutativeCb: (game: Game) => void): void {
     this._mutate(mutativeCb);
   }
 
@@ -236,7 +236,7 @@ export class GameManager {
     }
   }
 
-  public updatePlayer(playerId: string, mutativeCb: (player: Player) => void) {
+  public updatePlayer(playerId: string, mutativeCb: (player: Player) => void): void {
     this.managePlayer(playerId).update(mutativeCb);
   }
 }

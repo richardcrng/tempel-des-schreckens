@@ -48,7 +48,7 @@ export const createRoleAssignment = (
 };
 
 const buildDeckCards = ({ nGold, nFire, nEmpty }: CardCount): Deck["cards"] => {
-  let cards: Card[] = [];
+  const cards: Card[] = [];
   addCloneOfCards(cards, nEmpty, { type: CardType.EMPTY }, 0);
   addCloneOfCards(cards, nGold, { type: CardType.GOLD }, nEmpty);
   addCloneOfCards(cards, nFire, { type: CardType.FIRE }, nEmpty + nGold);
@@ -78,10 +78,11 @@ export const dealCardsToPlayers = (
   const cardsPerPlayer = cardIds.length / playerIds.length;
   const remainingCardsToDeal = shuffle(cardIds);
   const cardsDealt: Round["cardsDealt"] = {};
-  for (let playerId of playerIds) {
+  for (const playerId of playerIds) {
     cardsDealt[playerId] = [];
     for (let i = 0; i < cardsPerPlayer; i++) {
-      cardsDealt[playerId].push(remainingCardsToDeal.shift()!);
+      const cardToDeal = remainingCardsToDeal.shift();
+      cardToDeal && cardsDealt[playerId].push(cardToDeal);
     }
   }
   return cardsDealt;
@@ -118,7 +119,7 @@ const isTimeUp = (rounds: Round[], nPlayers: number): boolean => {
 };
 
 export const stackFlippedCards = (deck: Deck): Deck => {
-  for (let cardId in deck.cards) {
+  for (const cardId in deck.cards) {
     if (deck.cards[cardId].isFlipped && !deck.cards[cardId].isStacked) {
       deck.cards[cardId].isStacked = true;
     }
