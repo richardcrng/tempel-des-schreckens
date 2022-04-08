@@ -5,14 +5,14 @@
     "server"
   ],
   "scripts": {
-    "build": "yarn build:server && yarn build:client",
+    "build": "yarn workspaces run build",
     "build:client": "yarn workspace @tempel/client build",
     "build:server": "yarn workspace @tempel/server build",
     "start:client:dev": "yarn workspace @tempel/client start",
     "start:server": "yarn workspace @tempel/server start",
     "start:server:compiled": "yarn workspace @tempel/server start:compiled",
     "start:server:dev": "yarn workspace @tempel/server start:dev",
-    "test": "yarn test:client && yarn test:server",
+    "test": "yarn workspaces run test",
     "test:client": "yarn workspace @tempel/client test",
     "test:client:watch": "yarn workspace @tempel/client test:watch",
     "test:server": "yarn workspace @tempel/server test",
