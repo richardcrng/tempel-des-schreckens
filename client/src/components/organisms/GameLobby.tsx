@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { gameLobbyReadiness } from "../../selectors/game";
 import { GameBase, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
-import PlayerAvatar from "../atoms/PlayerAvatar";
 
 interface Props {
   game: GameBase;
