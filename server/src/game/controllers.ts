@@ -1,5 +1,5 @@
 import { last } from 'lodash';
-import { ClientEvent, ClientEventListeners, CreateGameEvent } from "../../../client/src/types/event.types";
+import { ClientEvent, ClientEventListeners, CreateGameEvent, ServerEvent } from "../../../client/src/types/event.types";
 import {
   GameBase,
   GameStatus,
@@ -53,6 +53,7 @@ export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (gameId, ke
     const cardToFlip = game.deck.cards[card.id];
     cardToFlip.isFlipped = true;
   })
+  gameManager.io.emit(ServerEvent.CARD_FLIPPED, gameId, keyholderId, targetPlayerId, cardIdx, card);
   gameManager.handlePossibleEnd();
 }
 
