@@ -13,12 +13,14 @@ import { CardType, Game } from "../../types/game.types";
 interface Props {
   game: Game;
   gameOverReason?: GameOverReason;
+  isHost?: boolean;
   onBackToGame: () => void;
+  onGameReset(): void;
 }
 
 const Container = styled.div``;
 
-function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
+function GameStats({ game, gameOverReason, isHost, onBackToGame, onGameReset }: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
   const flippedCount = getFlippedTypeCount(game);
   const remaining = getRemainingTypeCount(game);
@@ -85,9 +87,16 @@ function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
           </Table.Body>
         </Table>
       </div>
-      <Button fluid primary onClick={onBackToGame}>
-        Back to game
-      </Button>
+      <div style={{ width: '100%' }}>
+        {isHost && (
+          <Button fluid color='red' onClick={onGameReset} size='tiny'>
+            Reset game
+          </Button>
+        )}
+        <Button fluid primary onClick={onBackToGame} size='massive'>
+          Back to game
+        </Button>
+      </div>
     </Container>
   );
 }
