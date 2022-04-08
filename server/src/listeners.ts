@@ -4,7 +4,7 @@ import {
   ServerSocket,
   ClientEventListeners,
 } from "../../client/src/types/event.types";
-import { flipCard, nextRound, resetGame, startGame } from "./game/controllers";
+import { flipCard, kickPlayer, nextRound, resetGame, startGame } from "./game/controllers";
 import { joinPlayerToGame, updatePlayer } from "./player/controllers";
 import { GameManager } from "./game/model";
 
@@ -40,6 +40,8 @@ export const addListeners = (socket: ServerSocket): void => {
     },
 
     [ClientEvent.JOIN_GAME]: joinPlayerToGame,
+
+    [ClientEvent.KICK_PLAYER]: kickPlayer,
 
     [ClientEvent.NEXT_ROUND]: nextRound,
 

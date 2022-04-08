@@ -20,6 +20,7 @@ export enum ClientEvent {
   GET_PLAYER = "get-player",
   JOIN_GAME = "join",
   FLIP_CARD = "flip-card",
+  KICK_PLAYER = "kick-player",
   NEXT_ROUND = "next-round",
   RESET_GAME = "reset-game",
   START_GAME = "start-game",
@@ -36,6 +37,7 @@ export enum ServerEvent {
   GAME_STARTED = "game-started",
   GAME_UPDATED = "game-updated",
   PLAYER_GOTTEN = "player-gotten",
+  PLAYER_KICKED = 'player-kicked',
   PLAYER_NOT_FOUND = "player-not-found",
   PLAYER_UPDATED = "player-updated",
   REDIRECT_TO_LOBBY = "redirect-to-lobby",
@@ -68,6 +70,7 @@ export type ClientEventListeners = {
     aliasIds: string[]
   ) => void;
   [ClientEvent.JOIN_GAME]: (gameId: string, player: Player) => void;
+  [ClientEvent.KICK_PLAYER]: (gameId: string, playerIdToKick: string) => void;
   [ClientEvent.NEXT_ROUND]: (gameId: string) => void;
   [ClientEvent.RESET_GAME]: (gameId: string) => void;
   [ClientEvent.START_GAME]: (gameId: string) => void;
@@ -97,6 +100,7 @@ export type ServerEventListeners = {
   [ServerEvent.GAME_STARTED]: (gameId: string, game: GameBase) => void;
   [ServerEvent.GAME_UPDATED]: (gameId: string, game: GameBase) => void;
   [ServerEvent.PLAYER_GOTTEN]: (playerId: string, player: Player) => void;
+  [ServerEvent.PLAYER_KICKED]: (gameId: string, kickedPlayerId: string) => void;
   [ServerEvent.PLAYER_UPDATED]: (playerId: string, player: Player) => void;
   [ServerEvent.PLAYER_NOT_FOUND]: () => void;
   [ServerEvent.REDIRECT_TO_LOBBY]: () => void;

@@ -48,6 +48,17 @@ export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (
   gameManager.handlePossibleEnd();
 };
 
+export const kickPlayer: ClientEventListeners[ClientEvent.KICK_PLAYER] = (
+  gameId,
+  playerIdToKick
+) => {
+  const gameManager = GameManager.for(gameId);
+  gameManager.io.emit(ServerEvent.PLAYER_KICKED, gameId, playerIdToKick);
+  gameManager.update((game) => {
+    delete game.players[playerIdToKick];
+  });
+};
+
 export const nextRound: ClientEventListeners[ClientEvent.NEXT_ROUND] = (
   gameId
 ) => {
