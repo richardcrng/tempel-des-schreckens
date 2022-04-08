@@ -1,99 +1,91 @@
-import { last } from 'lodash';
-import { getKeyholder } from '../../../client/src/selectors/game';
-import { CreateGameEvent } from "../../../client/src/types/event.types";
+import { last } from "lodash";
 import {
-  Card,
-  Game,
-  GameBase,
+  ClientEvent,
+  ClientEventListeners,
+  ServerEvent,
+} from "../../../client/src/types/event.types";
+import {
   GameStatus,
   Round,
   Turn,
 } from "../../../client/src/types/game.types";
-import { games, getGameById } from "../db";
-import { generateRandomGameId, getColors } from "../utils";
-import { assignRoles, dealCardsToPlayers, generateDeck, getCardIdsToDeal, stackFlippedCards } from "./utils";
+import { GameManager } from "./model";
+import {
+  createRoleAssignment,
+  dealCardsToPlayers,
+  generateDeck,
+  getCardIdsToDeal,
+} from "./utils";
 
-export const createGame = (data: CreateGameEvent): GameBase => {
-  const gameId = generateRandomGameId();
-  const game: GameBase = {
-    id: gameId,
-    players: {
-      [data.socketId]: {
-        name: data.playerName,
-        socketId: data.socketId,
-        isHost: true,
-        gameId,
-        colors: getColors(5)
-      },
-    },
-    status: GameStatus.LOBBY,
-    deck: {
-      cards: {},
-    },
-    rounds: []
-  };
-  games[gameId] = game;
-  return game;
-};
-
-export const dealCards = (game: GameBase): void => {
-  const nextRoundNumber = game.rounds.length + 1 as Round['number'];
-  // stack all flipped cards
-  game.deck = stackFlippedCards(game.deck);
-  const nextRound: Round = {
-    number: nextRoundNumber,
-    turns: [],
-    cardsDealt: dealCardsToPlayers(getCardIdsToDeal(game.deck), Object.keys(game.players))
-  }
-  game.rounds.push(nextRound);
-}
 
 /**
  * @returns the number of turns
  */
-export const flipCard = (game: Game, { card, cardIdx, keyholderId, playerId }: { card: Card, cardIdx: number, keyholderId: string, playerId: string }): number => {
-  const currentRound = last(game.rounds)!;
-  const turnCreated: Turn = {
+export const flipCard: ClientEventListeners[ClientEvent.FLIP_CARD] = (
+  gameId,
+  keyholderId,
+  targetPlayerId,
+  cardIdx,
+  card
+) => {
+  const gameManager = GameManager.for(gameId);
+  gameManager.update((game) => {
+    const turnCreated: Turn = {
+      keyholderId,
+      selected: {
+        playerId: targetPlayerId,
+        cardIdx,
+      },
+      flip: card.type,
+    };
+    last(game.rounds)?.turns.push(turnCreated);
+    const cardToFlip = game.deck.cards[card.id];
+    cardToFlip.isFlipped = true;
+  });
+  gameManager.io.emit(
+    ServerEvent.CARD_FLIPPED,
+    gameId,
     keyholderId,
-    selected: {
-      playerId,
-      cardIdx
-    },
-    flip: card.type
-  }
-  currentRound.turns.push(turnCreated);
-  const cardToFlip = game.deck.cards[card.id];
-  cardToFlip.isFlipped = true;
-  return currentRound.turns.length
-}
+    targetPlayerId,
+    cardIdx,
+    card
+  );
+  gameManager.handlePossibleEnd();
+};
 
-export const resetGame = (gameId: string): GameBase => {
-  const game = getGameById(gameId);
-  if (game) {
-    const lastRound = last(game.rounds);
-    const lastTurn = last(lastRound?.turns);
-    const lastKeyholder = lastTurn?.selected.playerId;
-    game.firstKeyholderId = lastKeyholder;
-    game.status = GameStatus.LOBBY;
-    game.deck.cards = {};
-    game.rounds = [];
-    return game
-  } else {
-    throw new Error("Couldn't find game")
-  }
-}
+export const nextRound: ClientEventListeners[ClientEvent.NEXT_ROUND] = (
+  gameId
+) => {
+  GameManager.for(gameId).dealNextRound();
+};
 
-export const startGame = (
-  gameId: string,
-): GameBase => {
-  const game = getGameById(gameId);
-  if (game) {
+export const resetGame: ClientEventListeners[ClientEvent.RESET_GAME] = (
+  gameId
+) => {
+  GameManager.for(gameId).resetGame();
+};
+
+export const startGame: ClientEventListeners[ClientEvent.START_GAME] = (
+  gameId: string
+) => {
+  const gameManager = GameManager.for(gameId);
+
+  // initial setup
+  gameManager.update((game) => {
     game.status = GameStatus.ONGOING;
-    assignRoles(game.players);
-    game.deck = generateDeck(Object.keys(game.players).length)
-    dealCards(game);
-    return game;
-  } else {
-    throw new Error("Couldn't find game");
-  }
+    game.deck = generateDeck(Object.keys(game.players).length);
+    const firstRound: Round = {
+      number: 1,
+      turns: [],
+      cardsDealt: dealCardsToPlayers(
+        getCardIdsToDeal(game.deck),
+        Object.keys(game.players)
+      ),
+    };
+    game.rounds.push(firstRound);
+    const roleAssignment = createRoleAssignment(Object.keys(game.players));
+    gameManager.updateEachPlayer((player) => {
+      player.role = roleAssignment[player.socketId];
+    });
+  });
 };

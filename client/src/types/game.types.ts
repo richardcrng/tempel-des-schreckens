@@ -5,14 +5,14 @@ export enum GameStatus {
 }
 
 export enum CardType {
-  GOLD = 'gold',
-  FIRE = 'fire',
-  EMPTY = 'empty'
+  GOLD = "gold",
+  FIRE = "fire",
+  EMPTY = "empty",
 }
 
 export enum Role {
-  ADVENTURER = 'ADVENTURER',
-  GUARDIAN = 'GUARDIAN'
+  ADVENTURER = "ADVENTURER",
+  GUARDIAN = "GUARDIAN",
 }
 
 export interface Card {
@@ -39,7 +39,7 @@ export interface Player {
   name?: string;
   isHost?: boolean;
   role?: Role;
-  colors?: string[]
+  colors?: string[];
 }
 
 export interface Turn {
@@ -56,7 +56,7 @@ export interface Round {
   cardsDealt: {
     /** Card ids dealt to each player */
     [playerId: string]: number[];
-  }
+  };
   turns: Turn[];
 }
 

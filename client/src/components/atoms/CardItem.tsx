@@ -8,8 +8,13 @@ interface Props {
   onClick?: (card: Card) => void;
 }
 
-function CardItem({ card, onClick, size = 'medium', style }: Props): JSX.Element {
-  const imageSlug = card.isFlipped ? card.type : 'chamber';
+function CardItem({
+  card,
+  onClick,
+  size = "medium",
+  style,
+}: Props): JSX.Element {
+  const imageSlug = card.isFlipped ? card.type : "chamber";
 
   return (
     <div style={style}>
@@ -22,4 +27,4 @@ function CardItem({ card, onClick, size = 'medium', style }: Props): JSX.Element
   );
 }
 
-export default CardItem
+export default CardItem;

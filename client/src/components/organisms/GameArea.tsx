@@ -1,5 +1,12 @@
 import { Message } from "semantic-ui-react";
-import { getIsRoundComplete, getKeyholder, getNumberOfCardsLeftToFlipInRound, getNumberOfSubsequentRounds, getPlayerCardsInRound, getRemainingTypeCount } from "../../selectors/game";
+import {
+  getIsRoundComplete,
+  getKeyholder,
+  getNumberOfCardsLeftToFlipInRound,
+  getNumberOfSubsequentRounds,
+  getPlayerCardsInRound,
+  getRemainingTypeCount,
+} from "../../selectors/game";
 import { GameOverReason } from "../../types/event.types";
 import { Card, Game, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
@@ -11,24 +18,36 @@ interface Props {
   player: Player;
 }
 
-function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Element {
-
+function GameArea({
+  game,
+  gameOverReason,
+  player,
+  onCardClick,
+}: Props): JSX.Element {
   const keyholder = getKeyholder(game);
 
-  const isKeyholder = keyholder.socketId === player.socketId
+  const isKeyholder = keyholder.socketId === player.socketId;
 
   const handleCardClick = (card: Card, idx: number, player: Player) => {
     if (isKeyholder && onCardClick && !gameOverReason) {
-      onCardClick(card, idx, player)
+      onCardClick(card, idx, player);
     }
-  }
+  };
 
-  const { [player.socketId]: ownCards, ...otherPlayerCards } = getPlayerCardsInRound(game);
+  const { [player.socketId]: ownCards, ...otherPlayerCards } =
+    getPlayerCardsInRound(game);
 
   const nRemainingRounds = getNumberOfSubsequentRounds(game);
-  const roundsRemainingMessage = nRemainingRounds === 1
-    ? <><strong>1 round</strong> to go</>
-    : <><strong>{nRemainingRounds} rounds</strong> to go</>
+  const roundsRemainingMessage =
+    nRemainingRounds === 1 ? (
+      <>
+        <strong>1 round</strong> to go
+      </>
+    ) : (
+      <>
+        <strong>{nRemainingRounds} rounds</strong> to go
+      </>
+    );
 
   const cardsLeftToFlip = getNumberOfCardsLeftToFlipInRound(game);
   const { nGold, nFire } = getRemainingTypeCount(game);
@@ -68,7 +87,8 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
           <p style={{ marginBottom: 0 }}>{subheadlineMessage}</p>
           {!gameOverReason && (
             <p style={{ marginTop: 0 }}>
-              Still hidden: <strong>{nGold} gold</strong> and <strong>{nFire} fire</strong>.
+              Still hidden: <strong>{nGold} gold</strong> and{" "}
+              <strong>{nFire} fire</strong>.
             </p>
           )}
         </Message>
@@ -88,4 +108,4 @@ function GameArea({ game, gameOverReason, player, onCardClick }: Props): JSX.Ele
   );
 }
 
-export default GameArea
+export default GameArea;

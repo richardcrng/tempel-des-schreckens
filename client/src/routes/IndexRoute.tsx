@@ -25,8 +25,10 @@ function IndexRoute() {
   };
 
   const handleJoinGame = () => {
-    window.alert("This isn't implemented yet - get the join link from your host!")
-  }
+    window.alert(
+      "This isn't implemented yet - get the join link from your host!"
+    );
+  };
 
   const { isLoading } = useQuery("server-ping", () =>
     fetch(`${socketUrl}/ping`).then((res) => res.json())
@@ -73,7 +75,12 @@ function IndexRoute() {
         >
           LEARN
         </Button>
-        <Button disabled={isLoading} fluid color="green" onClick={handleJoinGame}>
+        <Button
+          disabled={isLoading}
+          fluid
+          color="green"
+          onClick={handleJoinGame}
+        >
           JOIN
         </Button>
         <Button disabled={isLoading} fluid primary onClick={handleNewGame}>

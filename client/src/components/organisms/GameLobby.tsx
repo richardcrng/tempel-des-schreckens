@@ -2,7 +2,7 @@
 
 import { useCopyToClipboard } from "react-use";
 import { Button } from "semantic-ui-react";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { gameLobbyReadiness } from "../../selectors/game";
 import { GameBase, Player } from "../../types/game.types";
 import PlayerList from "../atoms/PlayerList";
@@ -21,23 +21,23 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-`
+`;
 
 const ActionArea = styled.div`
   width: 100%;
-`
+`;
 
 const StyledA = styled.a`
   display: block;
   text-align: center;
-`
+`;
 
 const PlayerListItemContents = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.2rem;
   padding-bottom: 10px;
-`
+`;
 
 function GameLobby({ game, handleStartGame, players, player }: Props) {
   const readiness = gameLobbyReadiness(game);
@@ -47,7 +47,7 @@ function GameLobby({ game, handleStartGame, players, player }: Props) {
   const disableStart = !readiness.isReady;
 
   return (
-    <Container className='active-contents'>
+    <Container className="active-contents">
       <div style={{ width: "100%" }}>
         <h1 style={{ textAlign: "center" }}>Game id: {game.id}</h1>
         <StyledA

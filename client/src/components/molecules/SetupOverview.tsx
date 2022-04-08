@@ -1,4 +1,4 @@
-import { Image } from 'semantic-ui-react';
+import { Image } from "semantic-ui-react";
 import { generateCardCount, generateRoleCount } from "../../selectors/game";
 
 interface Props {
@@ -9,7 +9,7 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
   const { nGold, nFire, nEmpty } = generateCardCount(nPlayers);
   const { nAdventurers, nGuardians, isExact } = generateRoleCount(nPlayers);
 
-  const roleRange = (n: number) => isExact ? `${n}` : `${n-1}-${n}`;
+  const roleRange = (n: number) => (isExact ? `${n}` : `${n - 1}-${n}`);
 
   return (
     <div>
@@ -25,13 +25,26 @@ function SetupOverview({ nPlayers }: Props): JSX.Element {
   );
 }
 
-export function CardOverview({ count, slug }: { count: number | string, slug: string }): JSX.Element {
+export function CardOverview({
+  count,
+  slug,
+}: {
+  count: number | string;
+  slug: string;
+}): JSX.Element {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Image src={`/assets/tds-${slug}.jpeg`} size="mini" />
       <span style={{ fontSize: "1.2rem" }}>{count}</span>
     </div>
   );
 }
 
-export default SetupOverview
+export default SetupOverview;

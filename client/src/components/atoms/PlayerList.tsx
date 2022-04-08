@@ -19,7 +19,9 @@ function PlayerList({
   return (
     <List>
       {players.map((player, idx) => (
-        <ListItem key={player.socketId}>{renderPlayer(player, idx, ownPlayerId)}</ListItem>
+        <ListItem key={player.socketId}>
+          {renderPlayer(player, idx, ownPlayerId)}
+        </ListItem>
       ))}
     </List>
   );
@@ -33,7 +35,11 @@ function DefaultListItem({ children }: PropsWithChildren<{}>) {
   return <li>{children}</li>;
 }
 
-const defaultRenderPlayer = (player: Player, _: number, ownPlayerId?: string): JSX.Element => (
+const defaultRenderPlayer = (
+  player: Player,
+  _: number,
+  ownPlayerId?: string
+): JSX.Element => (
   <>
     {player.name}
     {player.socketId === ownPlayerId && " (you)"}

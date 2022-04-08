@@ -22,4 +22,4 @@ function useMobileVH() {
   });
 }
 
-export default useMobileVH
+export default useMobileVH;

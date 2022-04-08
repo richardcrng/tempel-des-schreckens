@@ -19,11 +19,11 @@ export function getColor(): string {
 }
 
 export function getColors(n: number): string[] {
-  const colors: string[] = []
+  const colors: string[] = [];
   for (let i = 0; i < n; i++) {
     colors.push(selectColor(Math.floor(Math.random() * 999)));
   }
-  return colors
+  return colors;
 }
 
 function selectColor(number: number): string {

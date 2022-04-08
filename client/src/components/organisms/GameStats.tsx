@@ -1,9 +1,14 @@
 import { Button, Message, Table } from "semantic-ui-react";
-import styled from 'styled-components'
-import { countCardType, findFlippedCardsFromRound, getFlippedCardsInRound, getFlippedTypeCount, getRemainingTypeCount } from "../../selectors/game";
+import styled from "styled-components";
+import {
+  countCardType,
+  findFlippedCardsFromRound,
+  getFlippedCardsInRound,
+  getFlippedTypeCount,
+  getRemainingTypeCount,
+} from "../../selectors/game";
 import { GameOverReason } from "../../types/event.types";
 import { CardType, Game } from "../../types/game.types";
-
 
 interface Props {
   game: Game;
@@ -11,8 +16,7 @@ interface Props {
   onBackToGame: () => void;
 }
 
-const Container = styled.div`
-`
+const Container = styled.div``;
 
 function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
@@ -21,7 +25,7 @@ function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
 
   return (
     <Container className="active-contents flex-between">
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         <h2>Round {game.rounds.length} of 4</h2>
         <Message info={!gameOverReason} warning={!!gameOverReason}>
           <p>
@@ -88,4 +92,4 @@ function GameStats({ game, gameOverReason, onBackToGame }: Props): JSX.Element {
   );
 }
 
-export default GameStats
+export default GameStats;

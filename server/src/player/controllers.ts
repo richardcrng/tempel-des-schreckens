@@ -1,58 +1,33 @@
 import {
-  Game,
-  GameBase,
-  GameStatus,
+  ClientEvent,
+  ClientEventListeners,
+} from "../../../client/src/types/event.types";
+import {
   Player,
 } from "../../../client/src/types/game.types";
-import { getGameById } from "../db";
+import { GameManager } from "../game/model";
 import { getColors } from "../utils";
 
-export const joinPlayerToGame = (
+export const joinPlayerToGame: ClientEventListeners[ClientEvent.JOIN_GAME] = (
   gameId: string,
   playerData: Player
-): [Player, GameBase] => {
-  const game = getGameById(gameId);
-  if (game) {
-    const player: Player = {
-      ...playerData,
-      gameId,
-      colors: getColors(5)
-    };
-    game.players[playerData.socketId] = player;
-    return [player, game];
-  } else {
-    throw new Error("Couldn't find game to join");
-  }
+): void => {
+  const gameManager = GameManager.for(gameId);
+  gameManager.managePlayer(playerData.socketId).set({
+    ...playerData,
+    gameId,
+    colors: getColors(5),
+  });
 };
 
-export const makeVote = (
-  gameId: string,
-  playerId: string,
-  vote: null
-): Game => {
-  const game = getGameById(gameId);
-  if (game?.status === GameStatus.COMPLETE) return game;
-  if (game) {
-    if (vote) {
-    } else {
-    }
-    return game;
-  } else {
-    throw new Error("Couldn't find game");
-  }
-};
 
-export const updatePlayer = (
-  gameId: string,
-  playerData: Player
-): [Player, GameBase] => {
-  const game = getGameById(gameId);
-  const extantPlayer = game?.players[playerData.socketId];
-  if (game && extantPlayer) {
-    const resultantPlayer = Object.assign(extantPlayer, playerData);
-    game.players[playerData.socketId] = resultantPlayer;
-    return [resultantPlayer, game];
-  } else {
-    throw new Error("Couldn't update player");
-  }
+export const updatePlayer: ClientEventListeners[ClientEvent.UPDATE_PLAYER] = (
+  gameId,
+  updatedPlayer
+) => {
+  GameManager.for(gameId)
+    .managePlayer(updatedPlayer.socketId)
+    .update((player) => {
+      Object.assign(player, updatedPlayer);
+    });
 };

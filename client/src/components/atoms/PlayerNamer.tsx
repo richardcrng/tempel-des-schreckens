@@ -11,7 +11,7 @@ function PlayerNamer({ handleSetName, takenNames }: Props) {
 
   const handleSetClick = () => {
     if (takenNames.includes(inputText)) {
-      window.alert("Somebody is already using that name")
+      window.alert("Somebody is already using that name");
     } else if (inputText.length > 0) {
       handleSetName(inputText);
     } else {

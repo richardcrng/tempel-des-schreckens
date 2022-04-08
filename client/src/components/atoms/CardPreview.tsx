@@ -10,11 +10,11 @@ function CardPreview({ cardType, n }: Props): JSX.Element {
   const range = Array.from(Array(n).keys());
   return (
     <>
-      {range.map(n => (
+      {range.map((n) => (
         <Image key={n} avatar src={`/assets/tds-${cardType}.jpeg`} />
       ))}
     </>
-  )
+  );
 }
 
-export default CardPreview
+export default CardPreview;
