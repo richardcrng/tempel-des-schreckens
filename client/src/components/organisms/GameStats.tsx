@@ -20,7 +20,13 @@ interface Props {
 
 const Container = styled.div``;
 
-function GameStats({ game, gameOverReason, isHost, onBackToGame, onGameReset }: Props): JSX.Element {
+function GameStats({
+  game,
+  gameOverReason,
+  isHost,
+  onBackToGame,
+  onGameReset,
+}: Props): JSX.Element {
   const roundFlippedCards = getFlippedCardsInRound(game);
   const flippedCount = getFlippedTypeCount(game);
   const remaining = getRemainingTypeCount(game);
@@ -87,13 +93,13 @@ function GameStats({ game, gameOverReason, isHost, onBackToGame, onGameReset }: 
           </Table.Body>
         </Table>
       </div>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         {isHost && (
-          <Button fluid color='red' onClick={onGameReset} size='tiny'>
+          <Button fluid color="red" onClick={onGameReset} size="tiny">
             Reset game
           </Button>
         )}
-        <Button fluid primary onClick={onBackToGame} size='massive'>
+        <Button fluid primary onClick={onBackToGame} size="massive">
           Back to game
         </Button>
       </div>

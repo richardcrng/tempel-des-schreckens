@@ -14,19 +14,19 @@ function GameDistribution({
   nPlayers,
   player,
   onBackToGame,
-  onGameReset
+  onGameReset,
 }: Props): JSX.Element {
   return (
     <>
       {player.role && <RoleOverview role={player.role} />}
       <SetupOverview nPlayers={nPlayers} />
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         {player.isHost && (
-          <Button fluid color="red" onClick={onGameReset} size='tiny'>
+          <Button fluid color="red" onClick={onGameReset} size="tiny">
             Reset game
           </Button>
         )}
-        <Button fluid primary onClick={onBackToGame} size='massive'>
+        <Button fluid primary onClick={onBackToGame} size="massive">
           Back to game
         </Button>
       </div>
