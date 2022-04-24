@@ -4,6 +4,14 @@
     "client",
     "server"
   ],
+  "packages": [
+    "client",
+    "server"
+  ],
+  "nohoist": [
+    "**/semantic-ui-react",
+    "**/semantic-ui-react/**"
+  ],
   "engines": {
     "node": "^16.13.0"
   },
@@ -20,9 +28,11 @@
     "test": "yarn workspaces run test",
     "typecheck": "yarn workspaces run typecheck",
     "heroku-postbuild": "yarn workspace @tempel/server build",
-    "prepare": "node ./prepare.js"
+    "prepare": "node ./prepare.js",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "husky": "^7.0.0"
-  }
+  },
+  "version": "0.0.0"
 }
