@@ -1,3 +1,52 @@
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/Table.d.ts b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/Table.d.ts
+index 296db71..8334dd0 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/Table.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/Table.d.ts
+@@ -115,7 +115,7 @@ export interface StrictTableProps {
+   verticalAlign?: SemanticVERTICALALIGNMENTS
+ }
+ 
+-interface TableComponent extends React.StatelessComponent<TableProps> {
++interface TableComponent extends React.FC<TableProps> {
+   Body: typeof TableBody
+   Cell: typeof TableCell
+   Footer: typeof TableFooter
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableBody.d.ts b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableBody.d.ts
+index 8d167c8..2b6b864 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableBody.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableBody.d.ts
+@@ -15,6 +15,6 @@ export interface StrictTableBodyProps {
+   className?: string
+ }
+ 
+-declare const TableBody: React.StatelessComponent<TableBodyProps>
++declare const TableBody: React.FC<TableBodyProps>
+ 
+ export default TableBody
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableCell.d.ts b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableCell.d.ts
+index ab08578..38bf96e 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableCell.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableCell.d.ts
+@@ -65,6 +65,6 @@ export interface StrictTableCellProps {
+   width?: SemanticWIDTHS
+ }
+ 
+-declare const TableCell: React.StatelessComponent<TableCellProps>
++declare const TableCell: React.FC<TableCellProps>
+ 
+ export default TableCell
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableFooter.d.ts b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableFooter.d.ts
+index 1d99544..d1b5856 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableFooter.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/collections/Table/TableFooter.d.ts
+@@ -10,6 +10,6 @@ export interface StrictTableFooterProps extends StrictTableHeaderProps {
+   as?: any
+ }
+ 
+-declare const TableFooter: React.StatelessComponent<TableFooterProps>
++declare const TableFooter: React.FC<TableFooterProps>
+ 
+ export default TableFooter
 diff --git a/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts b/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts
 index 917a4a6..d705716 100644
 --- a/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts
