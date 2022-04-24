@@ -1,0 +1,13 @@
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts b/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts
+index a22b90a..b6f5139 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts
+@@ -84,7 +84,7 @@ export interface StrictImageProps {
+   wrapped?: boolean
+ }
+ 
+-interface ImageComponent extends React.StatelessComponent<ImageProps> {
++interface ImageComponent extends React.FC<ImageProps> {
+   Group: typeof ImageGroup
+ }
+ 
