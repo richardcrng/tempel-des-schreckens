@@ -12,6 +12,7 @@ export default function useSocketListener<
     socket.on(event, listener);
 
     return function cleanup() {
+      // @ts-ignore
       socket.off(event, listener);
     };
   });
