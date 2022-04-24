@@ -1,3 +1,16 @@
+diff --git a/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts b/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts
+index 917a4a6..d705716 100644
+--- a/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts
++++ b/node_modules/semantic-ui-react/dist/commonjs/elements/Header/Header.d.ts
+@@ -61,7 +61,7 @@ export interface StrictHeaderProps {
+   textAlign?: SemanticTEXTALIGNMENTS
+ }
+ 
+-interface HeaderComponent extends React.StatelessComponent<HeaderProps> {
++interface HeaderComponent extends React.FC<HeaderProps> {
+   Content: typeof HeaderContent
+   Subheader: typeof HeaderSubHeader
+ }
 diff --git a/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts b/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts
 index a22b90a..b6f5139 100644
 --- a/node_modules/semantic-ui-react/dist/commonjs/elements/Image/Image.d.ts
