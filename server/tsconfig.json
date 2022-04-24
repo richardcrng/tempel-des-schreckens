@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6", "ES2019"],
+    "lib": ["es5", "es6", "ES2019", "DOM", "DOM.Iterable"],
     "target": "es5",
     "module": "commonjs",
     "esModuleInterop": true,

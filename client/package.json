@@ -7,11 +7,9 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "boring-avatars": "^1.5.8",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-query": "^3.21.0",
@@ -22,10 +20,9 @@
     "reselect": "^4.0.0",
     "riduce": "^0.0.15",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3",
+    "semantic-ui-react": "^2.1.2",
     "socket.io-client": "^4.0.0",
     "styled-components": "^5.3.1",
-    "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -39,7 +36,8 @@
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
     "typecheck": "tsc --noEmit",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "patch-package"
   },
   "eslintConfig": {
     "extends": [
@@ -60,11 +58,16 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.25",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.13",
     "eslint": "^7.28.0",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.5.1",
-    "socket.io": "^4.0.0"
+    "socket.io": "^4.0.0",
+    "typescript": "^4.6.3"
   }
 }
