@@ -4,6 +4,9 @@
     "client",
     "server"
   ],
+  "engines": {
+    "node": "^16.13.0"
+  },
   "scripts": {
     "format": "yarn workspaces run format",
     "format:check": "yarn workspaces run format:check",
