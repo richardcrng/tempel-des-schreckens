@@ -12,7 +12,7 @@ import {
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
-import { GameOverReason, ServerEvent } from "../../types/event.types";
+import { ServerEvent } from "../../types/event.types";
 import OwnCards from "../molecules/OwnCards";
 
 interface Props {
@@ -45,7 +45,6 @@ function GameOngoing({
   onNextRound,
 }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION);
-  const [gameOverReason, setGameOverReason] = useState<GameOverReason>();
   const handleBackToGame = () => setView(SectionView.MAIN_GAME);
   const isRoundComplete = getIsRoundComplete(game);
 

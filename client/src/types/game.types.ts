@@ -1,7 +1,12 @@
 export enum GameStatus {
   LOBBY = "LOBBY",
-  ONGOING = "ONGOING",
-  COMPLETE = "COMPLETE",
+  ONGOING = "ONGOING", // including complete
+}
+
+export enum GameOverReason {
+  ALL_GOLD_FLIPPED = "The adventurers found all the gold",
+  ALL_FIRE_FLIPPED = "The adventurers ran into all the fire",
+  ALL_ROUNDS_FINISHED = "The adventurers lost on time",
 }
 
 export enum CardType {
@@ -60,7 +65,7 @@ export interface Round {
   turns: Turn[];
 }
 
-export type Game = GameBase | GameInLobby | GameOngoing | GameComplete;
+export type Game = GameBase | GameInLobby | GameOngoing;
 
 export interface GameBase {
   id: string;
@@ -70,6 +75,7 @@ export interface GameBase {
   deck: Deck;
   rounds: Round[];
   status: GameStatus;
+  endReason?: GameOverReason;
   /** If the first keyholder needs to be controlled, e.g. from a previous game */
   firstKeyholderId?: string;
 }
@@ -80,8 +86,4 @@ export interface GameInLobby extends GameBase {
 
 export interface GameOngoing extends GameBase {
   status: GameStatus.ONGOING;
-}
-
-export interface GameComplete extends GameBase {
-  status: GameStatus.COMPLETE;
 }
