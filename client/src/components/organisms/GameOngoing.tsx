@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "semantic-ui-react";
 import styled from "styled-components";
-import { Card, CardType, Game, Player } from "../../types/game.types";
+import { Card, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
 import {
   getIsRoundComplete,
