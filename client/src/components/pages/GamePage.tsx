@@ -25,9 +25,7 @@ function GamePage({
 }: Props) {
   if (game.status === GameStatus.LOBBY) {
     return (
-      <GameLobby
-        {...{ game, onGameStart, onPlayerKick, players, player }}
-      />
+      <GameLobby {...{ game, onGameStart, onPlayerKick, players, player }} />
     );
   } else {
     return (

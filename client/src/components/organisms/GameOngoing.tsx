@@ -107,10 +107,7 @@ function GameOngoing({
 
   return (
     <Container className="active-contents flex-between">
-      <CardRevealModal
-        {...cardFlipModal}
-        onClose={handleCloseModal}
-      />
+      <CardRevealModal {...cardFlipModal} onClose={handleCloseModal} />
       {view === SectionView.DISTRIBUTION && (
         <GameDistribution
           player={player}
