@@ -7,8 +7,7 @@ import {
   getPlayerCardsInRound,
   getRemainingTypeCount,
 } from "../../selectors/game";
-import { GameOverReason } from "../../types/event.types";
-import { Card, Game, Player } from "../../types/game.types";
+import { Card, Game, GameOverReason, Player } from "../../types/game.types";
 import PlayerCards from "../molecules/PlayerCards";
 
 interface Props {

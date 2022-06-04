@@ -1,6 +1,6 @@
 import { Socket as TClientSocket } from "socket.io-client";
 import { Socket as TServerSocket, Server as TServer } from "socket.io";
-import { Card, GameBase, Player } from "./game.types";
+import { Card, GameBase, GameOverReason, Player } from "./game.types";
 
 export type ClientSocket = TClientSocket<
   ServerEventListeners,
@@ -43,12 +43,6 @@ export enum ServerEvent {
   REDIRECT_TO_LOBBY = "redirect-to-lobby",
   RESULTS_SHOWN = "results-shown",
   ROUND_STARTED = "round-started",
-}
-
-export enum GameOverReason {
-  ALL_GOLD_FLIPPED = "The adventurers found all the gold",
-  ALL_FIRE_FLIPPED = "The adventurers ran into all the fire",
-  ALL_ROUNDS_FINISHED = "The adventurers lost on time",
 }
 
 /**

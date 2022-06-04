@@ -4,12 +4,12 @@ import {
   CardCount,
   generateRoleCount,
 } from "../../../client/src/selectors/game";
-import { GameOverReason } from "../../../client/src/types/event.types";
 import {
   Card,
   CardType,
   Deck,
   Game,
+  GameOverReason,
   Role,
   Round,
 } from "../../../client/src/types/game.types";
