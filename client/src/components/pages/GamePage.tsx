@@ -6,6 +6,7 @@ interface Props {
   game: GameBase;
   onGameStart(): void;
   onCardClick: (card: Card, idx: number, player: Player) => void;
+  onFlipComplete(card: Card): void;
   onGameRestart: () => void;
   onNextRound: () => void;
   onPlayerKick(playerIdToKick: string): void;
@@ -15,8 +16,9 @@ interface Props {
 
 function GamePage({
   game,
-  onGameStart,
   onCardClick,
+  onFlipComplete,
+  onGameStart,
   onGameRestart,
   onNextRound,
   onPlayerKick,
@@ -30,7 +32,7 @@ function GamePage({
   } else {
     return (
       <GameOngoing
-        {...{ game, player, onCardClick, onGameRestart, onNextRound }}
+        {...{ game, player, onCardClick, onFlipComplete, onGameRestart, onNextRound }}
       />
     );
   }

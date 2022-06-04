@@ -20,8 +20,9 @@ interface Props {
   game: Game;
   player: Player;
   onCardClick: (card: Card, idx: number, player: Player) => void;
-  onNextRound: () => void;
+  onFlipComplete(card: Card): void;
   onGameRestart: () => void;
+  onNextRound: () => void;
 }
 
 enum SectionView {
@@ -42,6 +43,7 @@ function GameOngoing({
   game,
   player,
   onCardClick,
+  onFlipComplete,
   onGameRestart,
   onNextRound,
 }: Props) {
@@ -57,7 +59,7 @@ function GameOngoing({
 
   const [cardFlipModal, setCardFlipModal] = useState<{
     isOpen: boolean;
-    cardType?: CardType;
+    card?: Card;
     flipper?: string;
     flippee?: string;
   }>({ isOpen: false });
@@ -79,7 +81,7 @@ function GameOngoing({
       if (gameId === game.id) {
         setCardFlipModal({
           isOpen: true,
-          cardType: card.type,
+          card,
           flipper:
             keyholderId === player.socketId
               ? "You"
@@ -107,7 +109,7 @@ function GameOngoing({
 
   return (
     <Container className="active-contents flex-between">
-      <CardRevealModal {...cardFlipModal} onClose={handleCloseModal} />
+      <CardRevealModal {...cardFlipModal} onClose={handleCloseModal} onFlipComplete={onFlipComplete} />
       {view === SectionView.DISTRIBUTION && (
         <GameDistribution
           player={player}
