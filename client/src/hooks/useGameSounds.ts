@@ -1,7 +1,8 @@
 import useSound from "use-sound";
+import { ServerEvent } from "../types/event.types";
+import useSocketListener from './useSocketListener';
 
 interface GameSounds {
-  playOpenChamberSound(): void;
   playRevealEmptySound(): void;
   playRevealFireSound(): void;
   playRevealGoldSound(): void;
@@ -15,8 +16,11 @@ export default function useGameSounds(): GameSounds {
     "/assets/audio/flip-gold.mp3"
   );
 
+  useSocketListener(ServerEvent.CARD_FLIPPED, () => {
+    playOpenChamberSound();
+  })
+
   return {
-    playOpenChamberSound,
     playRevealEmptySound,
     playRevealFireSound,
     playRevealGoldSound,
