@@ -89,6 +89,7 @@ export const getGameCards = (game: Game): Record<number, Card> =>
 export const getGameRounds = (game: Game) => game.rounds;
 export const getGamePlayers = (game: Game) => game.players;
 export const getGameFirstKeyholder = (game: Game) => game.firstKeyholderId;
+export const getGameOverReason = (game: Game) => game.endReason;
 
 export const getNumberOfRounds = createSelector(
   getGameRounds,

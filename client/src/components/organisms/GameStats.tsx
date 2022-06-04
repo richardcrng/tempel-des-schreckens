@@ -7,8 +7,7 @@ import {
   getFlippedTypeCount,
   getRemainingTypeCount,
 } from "../../selectors/game";
-import { GameOverReason } from "../../types/event.types";
-import { CardType, Game } from "../../types/game.types";
+import { CardType, Game, GameOverReason } from "../../types/game.types";
 
 interface Props {
   game: Game;

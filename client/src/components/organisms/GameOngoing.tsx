@@ -8,6 +8,7 @@ import {
   getNumberOfPlayers,
   getKeyholder,
   getPlayerCardsInRound,
+  getGameOverReason,
 } from "../../selectors/game";
 import GameDistribution from "./GameDistribution";
 import GameStats from "./GameStats";
@@ -46,6 +47,7 @@ function GameOngoing({
 }: Props) {
   const [view, setView] = useState<SectionView>(SectionView.DISTRIBUTION);
   const handleBackToGame = () => setView(SectionView.MAIN_GAME);
+  const gameOverReason = getGameOverReason(game);
   const isRoundComplete = getIsRoundComplete(game);
 
   const { [player.socketId]: ownCards } = getPlayerCardsInRound(game);
@@ -94,12 +96,6 @@ function GameOngoing({
   useSocketListener(ServerEvent.ROUND_STARTED, (gameId) => {
     if (gameId === game.id) {
       setView(SectionView.GAME_STATS);
-    }
-  });
-
-  useSocketListener(ServerEvent.GAME_OVER, (gameId, reason) => {
-    if (gameId === game.id) {
-      setGameOverReason(reason);
     }
   });
 
