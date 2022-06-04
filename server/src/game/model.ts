@@ -149,9 +149,9 @@ export class GameManager {
 
     const gameEndResult = checkForGameEnd(snapshot);
     if (gameEndResult.isEnded) {
-      this.update(game => {
+      this.update((game) => {
         game.endReason = gameEndResult.reason;
-      })
+      });
 
       this.io.emit(
         ServerEvent.GAME_OVER,
