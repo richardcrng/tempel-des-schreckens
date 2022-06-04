@@ -7,7 +7,8 @@ import useSocketAliases from "../hooks/useSocketAliases";
 import { getKeyholder } from "../selectors/game";
 import { useSocket } from "../socket";
 import { ClientEvent } from "../types/event.types";
-import { GameStatus } from "../types/game.types";
+import { CardType, GameStatus } from "../types/game.types";
+import useGameSounds from "../hooks/useGameSounds";
 
 function GameRoute() {
   const { gameId } = useParams<{ gameId: string }>();
@@ -16,6 +17,8 @@ function GameRoute() {
 
   const game = useGame(gameId);
   const player = usePlayer(socket.id, socketAliases);
+
+  const sounds = useGameSounds();
 
   const takenNames = Object.values(game.data?.players ?? {}).map(
     (player) => player.name!
@@ -76,6 +79,16 @@ function GameRoute() {
                   idx,
                   card
                 );
+              }
+            }}
+            onFlipComplete={(card): void => {
+              switch (card.type) {
+                case CardType.EMPTY:
+                  return sounds.playRevealEmptySound();
+                case CardType.FIRE:
+                  return sounds.playRevealFireSound();
+                case CardType.GOLD:
+                  return sounds.playRevealGoldSound();
               }
             }}
             onGameRestart={() => {

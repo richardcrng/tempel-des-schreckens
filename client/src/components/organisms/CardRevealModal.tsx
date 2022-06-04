@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { Header, Image, Modal } from "semantic-ui-react";
 import CardFlip from "../../lib/card-flip/CardFlip";
-import { CardType } from "../../types/game.types";
+import { Card, CardType } from "../../types/game.types";
 
 interface CardRevealModalProps {
   className?: string;
   style?: React.CSSProperties;
-  cardType?: CardType;
+  card?: Card;
   flipper?: string;
   flippee?: string;
   isOpen?: boolean;
-  onFlipComplete?(): void;
+  onFlipComplete?(card: Card): void;
   onClose(): void;
 }
 
 function CardRevealModal({
   className,
   style,
-  cardType,
+  card,
   flipper,
   flippee,
   isOpen,
@@ -41,7 +41,7 @@ function CardRevealModal({
   }, [isOpen, flip, setFlip]);
 
   const header = flip.completed
-    ? `${flipper} opened ${flippee} ${cardType}!`
+    ? `${flipper} opened ${flippee} ${card?.type}!`
     : `${flipper} ${
         flipper?.match(/you/i) ? "are" : "is"
       } opening ${flippee} chamber...`;
@@ -57,9 +57,9 @@ function CardRevealModal({
       <Header content={header} onClick={onClose} />
       <Modal.Content onClick={flip.completed ? onClose : undefined}>
         <CardReveal
-          cardType={cardType}
+          cardType={card?.type}
           onFlipComplete={() => {
-            onFlipComplete && onFlipComplete();
+            card && onFlipComplete && onFlipComplete(card);
             setFlip((prev) => ({ ...prev, completed: true }));
           }}
           isFlipped={flip.started}
