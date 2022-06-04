@@ -22,7 +22,7 @@ function CardRevealModal({ className, style, cardType, flipper, flippee, isOpen,
     if (!flip.started) {
       setTimeout(() => {
         setFlip(prev => ({ ...prev, started: true }));
-      }, 500);
+      }, 1000);
     }
   }, [flip.started, setFlip]);
 
@@ -96,7 +96,7 @@ function CardReveal({ className, style, cardType, isFlipped, onClickFront, onFli
       isFlippedUp={isFlipped}
       onClickFront={onClickFront}
       onFlipComplete={onFlipComplete}
-      springConfig={{ ...config.molasses, clamp: true }}
+      springConfig={{ duration: 1000, clamp: true }}
     />
   );
 }
