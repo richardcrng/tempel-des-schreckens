@@ -32,7 +32,14 @@ function GamePage({
   } else {
     return (
       <GameOngoing
-        {...{ game, player, onCardClick, onFlipComplete, onGameRestart, onNextRound }}
+        {...{
+          game,
+          player,
+          onCardClick,
+          onFlipComplete,
+          onGameRestart,
+          onNextRound,
+        }}
       />
     );
   }

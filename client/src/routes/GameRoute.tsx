@@ -8,7 +8,7 @@ import { getKeyholder } from "../selectors/game";
 import { useSocket } from "../socket";
 import { ClientEvent } from "../types/event.types";
 import { CardType, GameStatus } from "../types/game.types";
-import useGameSounds from '../hooks/useGameSounds';
+import useGameSounds from "../hooks/useGameSounds";
 
 function GameRoute() {
   const { gameId } = useParams<{ gameId: string }>();
