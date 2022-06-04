@@ -9,7 +9,7 @@ import PlayerList from "../atoms/PlayerList";
 
 interface Props {
   game: GameBase;
-  handleStartGame(): void;
+  onGameStart(): void;
   onPlayerKick(playerIdToKick: string): void;
   players: Player[];
   player: Player;
@@ -58,7 +58,7 @@ const PlayerListItemContents = styled.div`
 
 function GameLobby({
   game,
-  handleStartGame,
+  onGameStart,
   onPlayerKick,
   players,
   player,
@@ -120,7 +120,7 @@ function GameLobby({
               primary
               disabled={disableStart}
               onClick={() => {
-                handleStartGame();
+                onGameStart();
               }}
             >
               Start game

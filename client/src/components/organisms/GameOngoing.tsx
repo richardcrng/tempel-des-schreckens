@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
+import { Button } from "semantic-ui-react";
 import styled from "styled-components";
 import { Card, CardType, Game, Player } from "../../types/game.types";
 import GameArea from "./GameArea";
@@ -14,6 +14,7 @@ import GameStats from "./GameStats";
 import useSocketListener from "../../hooks/useSocketListener";
 import { GameOverReason, ServerEvent } from "../../types/event.types";
 import OwnCards from "../molecules/OwnCards";
+import CardRevealModal from "./CardRevealModal";
 
 interface Props {
   game: Game;
@@ -56,7 +57,7 @@ function GameOngoing({
 
   const [cardFlipModal, setCardFlipModal] = useState<{
     isOpen: boolean;
-    type?: CardType;
+    cardType?: CardType;
     flipper?: string;
     flippee?: string;
   }>({ isOpen: false });
@@ -78,7 +79,7 @@ function GameOngoing({
       if (gameId === game.id) {
         setCardFlipModal({
           isOpen: true,
-          type: card.type,
+          cardType: card.type,
           flipper:
             keyholderId === player.socketId
               ? "You"
@@ -106,24 +107,7 @@ function GameOngoing({
 
   return (
     <Container className="active-contents flex-between">
-      <Modal
-        basic
-        closeIcon
-        open={cardFlipModal.isOpen}
-        onClose={handleCloseModal}
-      >
-        <Header
-          content={`${cardFlipModal.flipper} opened ${cardFlipModal.flippee} ${cardFlipModal.type}!`}
-          onClick={handleCloseModal}
-        />
-        <Modal.Content onClick={handleCloseModal}>
-          <Image
-            onClick={handleCloseModal}
-            src={`/assets/tds-${cardFlipModal.type}.jpeg`}
-            size="medium"
-          />
-        </Modal.Content>
-      </Modal>
+      <CardRevealModal {...cardFlipModal} onClose={handleCloseModal} />
       {view === SectionView.DISTRIBUTION && (
         <GameDistribution
           player={player}
