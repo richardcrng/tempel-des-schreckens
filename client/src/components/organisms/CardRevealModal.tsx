@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { config } from "react-spring";
 import { Header, Image, Modal } from "semantic-ui-react";
 import CardFlip from "../../lib/card-flip/CardFlip";
 import { CardType } from "../../types/game.types";
