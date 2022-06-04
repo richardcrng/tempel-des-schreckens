@@ -63,7 +63,7 @@ function GameRoute() {
         {game.data && player.data && (
           <GamePage
             game={game.data}
-            handleStartGame={() => {
+            onGameStart={() => {
               socket.emit(ClientEvent.START_GAME, game.data!.id);
             }}
             onCardClick={(card, idx, player) => {

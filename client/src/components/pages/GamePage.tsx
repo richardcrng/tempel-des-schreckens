@@ -4,7 +4,7 @@ import GameOngoing from "../organisms/GameOngoing";
 
 interface Props {
   game: GameBase;
-  handleStartGame(): void;
+  onGameStart(): void;
   onCardClick: (card: Card, idx: number, player: Player) => void;
   onGameRestart: () => void;
   onNextRound: () => void;
@@ -15,7 +15,7 @@ interface Props {
 
 function GamePage({
   game,
-  handleStartGame,
+  onGameStart,
   onCardClick,
   onGameRestart,
   onNextRound,
@@ -26,7 +26,7 @@ function GamePage({
   if (game.status === GameStatus.LOBBY) {
     return (
       <GameLobby
-        {...{ game, handleStartGame, onPlayerKick, players, player }}
+        {...{ game, onGameStart, onPlayerKick, players, player }}
       />
     );
   } else {
