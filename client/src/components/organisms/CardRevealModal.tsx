@@ -34,29 +34,32 @@ function CardRevealModal({ className, style, cardType, flipper, flippee, isOpen,
 
   const header = flip.completed
     ? `${flipper} opened ${flippee} ${cardType}!`
-    : `${flipper} is opening ${flippee} chamber...`;
+    : `${flipper} ${flipper?.match(/you/i) ? "are" : "is"} opening ${flippee} chamber...`;
 
   return (
     <Modal
-      basic
-      closeIcon
-      open={isOpen}
-      onClick={flip.completed ? onClose : undefined}
-      onClose={onClose}
-    >
-      <Header content={header} onClick={onClose} />
-      <Modal.Content onClick={flip.completed ? onClose : undefined}>
-        <CardReveal
-          cardType={cardType}
-          onFlipComplete={() => {
-            onFlipComplete && onFlipComplete();
-            setFlip((prev) => ({ ...prev, completed: true }));
-          }}
-          isFlipped={flip.started}
+        basic
+        closeIcon
+        open={isOpen}
+        onClick={flip.completed ? onClose : undefined}
+        onClose={onClose}
+      >
+        <Header
+          content={header}
+          onClick={onClose}
         />
-      </Modal.Content>
-    </Modal>
-  );
+        <Modal.Content onClick={flip.completed ? onClose : undefined}>
+          <CardReveal
+            cardType={cardType}
+            onFlipComplete={() => {
+              onFlipComplete && onFlipComplete();
+              setFlip(prev => ({ ...prev, completed: true }))
+            }}
+            isFlipped={flip.started}
+          />
+        </Modal.Content>
+      </Modal>
+  )
 }
 
 interface CardRevealProps {
