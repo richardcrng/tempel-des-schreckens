@@ -1,6 +1,6 @@
 FROM node:14 as base
 
-WORKDIR /home/node/app
+# WORKDIR /home/node/app
 
 # Default environment (build + run time)
 ARG NODE_ENV=production
