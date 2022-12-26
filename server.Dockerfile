@@ -9,6 +9,7 @@ EXPOSE 8080
 
 # App and dev dependencies
 COPY ["package.json", "yarn.lock", "./"]
+RUN yarn add patch-package -W
 RUN yarn install --production=false
 
 
