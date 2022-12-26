@@ -1,4 +1,5 @@
 {
   "schemaVersion": 2,
-  "templateId": "node/14"
+  "templateId": "node/14",
+  "dockerfilePath": "./server.Dockerfile"
 }
