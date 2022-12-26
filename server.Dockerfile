@@ -1,20 +1,16 @@
 FROM node:14 as base
 
-# WORKDIR /home/node/app
+WORKDIR /home/node/app
 
 # Default environment (build + run time)
 ARG NODE_ENV=production
 ENV NODE_ENV=$NODE_ENV
 EXPOSE 8080
 
-# App and dev dependencies
-COPY ["package.json", "yarn.lock", "./"]
+# App and dev dependencies, and source
+COPY . .
 RUN yarn add patch-package -W
 RUN yarn install --production=false
-
-
-# App source
-COPY . .
 
 # Build step for production
 FROM base
