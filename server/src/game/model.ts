@@ -201,7 +201,7 @@ export class GameManager {
       game.status = GameStatus.LOBBY;
       game.deck.cards = {};
       game.rounds = [];
-      delete game.endReason
+      delete game.endReason;
     });
 
     this.updateEachPlayer((player) => {
