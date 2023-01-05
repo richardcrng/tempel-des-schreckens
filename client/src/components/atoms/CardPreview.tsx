@@ -1,5 +1,5 @@
 import { Image } from "semantic-ui-react";
-import styled from 'styled-components'
+import styled from "styled-components";
 import { CardType } from "../../types/game.types";
 
 interface Props {
@@ -24,7 +24,13 @@ function CardPreview({ cardType, n }: Props): JSX.Element {
 }
 
 const CardPreviewImage = styled(Image)`
-  border: 3px solid ${({ cardType }: { cardType: CardType }) => cardType === CardType.FIRE ? 'red' : cardType === CardType.GOLD ? 'green' : 'black'};
-`
+  border: 3px solid
+    ${({ cardType }: { cardType: CardType }) =>
+      cardType === CardType.FIRE
+        ? "red"
+        : cardType === CardType.GOLD
+        ? "green"
+        : "black"};
+`;
 
 export default CardPreview;
