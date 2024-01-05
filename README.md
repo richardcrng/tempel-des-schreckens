@@ -7,11 +7,21 @@
   <img alt="Tempel des Schreckens app - round progress" src="./assets/round-progress.png" width="150" />
 </div>
 
-[**Tempel des Schreckens**](https://www.spiel-des-jahres.de/en/games/tempel-des-schreckens/) *(English: 'Temple of Terrors')*. is a quick-play party game that combines cooperative social deduction with bluffing, luck and chance.
+## Introduction
+
+[**Tempel des Schreckens**](https://tempel.rcr.dev/) *(English: 'Temple of Terrors')*. is a quick-play party game that combines cooperative social deduction with bluffing, luck and chance.
 
 It is for **3-10 players**, and games take **as little as 10 minutes**.
 
-This repo is is a web app implementation of it, primarily intended for use on group video calls, although it can also be used to play in-person when you don't have access to a deck. (You should buy the physical set, though - it's fun!)
+## Context
+
+The game is best played with the [official physical card set](https://www.spiel-des-jahres.de/en/games/tempel-des-schreckens/).
+
+If you can't play with a physical set - e.g. for remote play on group video calls - you can use this web app implementation.
+
+You can [**find the web app here**](https://tempel.rcr.dev/).
+
+## Guide to playing
 
 - [Game rules](RULES.md)
 - [Basic strategy](STRATEGY.md)
