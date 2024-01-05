@@ -1,8 +1,8 @@
 # Rules
 
-> 🇩🇪 *Tempel des Schreckens* has official rules that only exist in German - so my understanding of the game is significantly indebted to [this unofficial English translation](https://boardgamegeek.com/filepage/139993/tempel-des-schreckens-unofficial-rules-english) of the rules.
+> 🇩🇪 [*Tempel des Schreckens*](https://tempel.rcr.dev/) has official rules that only exist in German - so my understanding of the game is significantly indebted to [this unofficial English translation](https://boardgamegeek.com/filepage/139993/tempel-des-schreckens-unofficial-rules-english) of the rules.
 
-**Welcome to the *Tempel des Schreckens*!**
+**Welcome to the [*Tempel des Schreckens*](https://tempel.rcr.dev/)!**
 
 <img alt="Tempel des Schreckens box art" src="./client/public/assets/tds-box.png" width="250" />
 
@@ -163,3 +163,12 @@ The person who holds the key at the end of a round holds onto it for the start o
 
 Play continues until one of the [team win conditions](#team-win-conditions) has been reached.
 
+## Get started
+
+So, are you ready to enter the [*Tempel des Schreckens*](https://tempel.rcr.dev/)?
+
+The game is best played with the [official physical card set](https://www.spiel-des-jahres.de/en/games/tempel-des-schreckens/).
+
+If you can't play with a physical set - e.g. for remote play on group video calls - you can use this web app implementation, which uses identical rules.
+
+You can [**find the web app here**](https://tempel.rcr.dev/).
