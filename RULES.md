@@ -30,7 +30,7 @@ But, like a lot of hidden role games, there is a large *social deduction* elemen
 
 There are exactly **two teams**: Adventurers and Guardians.
 - *Teams are in direct competition* - every game always has a single winning team.
-- *Teammates are non-competitive* - when a team wins, all of its members win together.
+- *Teammates all win together* - you win alongside your fellow Adventurers/Guardians.
 
 ### Team win conditions
 
@@ -44,7 +44,7 @@ The **Guardian** team wins in one of two ways:
 
 The exact numbers on each team depends on the number of players, but there are almost always more Adventurers than Guardians.
 
-The game ends in three ways:
+Thus, the game ends in three ways:
 1. *All Gold has been opened* - Adventurers win
 2. *All Fire has been opened* - Guardians win
 3. *Four rounds are complete* - Guardians win
@@ -53,13 +53,13 @@ There is always a winning team at the end of the game.
 
 ### Basic team dynamics
 
-Adventurers are in a race against time to find all the Gold before the end of four rounds. They will try to cooperate with each other and share information to help them locate the Gold.
+Adventurers are in a race against time to find all the Gold before the end of four rounds. They will try to cooperate with other Adventurers and share information to help them locate the Gold.
 
-Guardians will typically obstruct this by *pretending* to be Adventurers (remember: roles are secret), and spreading misinformation, with two methods of obstruction (non-mutually exclusive):
-- *Luring:* leading Adventurers into dangerous Fire traps
-- *Stalling:* leading Adventurers down rabbit holes so that time runs out
+However, remember - roles are secret, and there are some Guardians in the midst!
 
-However, if Guardians aren't subtle, Adventurers may be able to *deduce* their identity, and thus discount their misinformation.
+Guardians will typically obstruct this by *pretending* to be Adventurers, so they can tactically spread misinformation, stop Gold from being opened, and potentially reveal the Fire.
+
+However, if Guardians aren't subtle, Adventurers may be able to *deduce* their identity, discount their misinformation and thwart the Guardians' plans.
 
 ## Game mechanics
 
@@ -97,7 +97,7 @@ When chambers are opened (flipped), they have three possible things they might r
 
 Whilst empty chambers don't count towards either gold or fire (and so they are neutral-*ish*), they *do* count towards the ticking time clock, as discussed in the next section.
 
-The exact number of Gold, Fire and Empty chambers in the game depends on the number of players, but it is always the case that *most chambers are Empty*, *Gold is rarer than Empty*, and *extremely few are Fire*.
+The exact number of Gold, Fire and Empty chambers in the game depends on the number of players, but it is always the case that *the vast majority of chambers are Empty*, *there will be a minority of chambers with Gold*, and *there will be extremely few Fire* (even fewer than Gold).
 
 ### Round mechanics
 
@@ -108,25 +108,30 @@ Every round works in the same basic way:
 - [*Discussion*](#discussion), where players reveal information (truthfully or not...); and
 - [*Opening cards*](#opening-cards), where cards are flipped over to represent exploring the temple.
 
-(Discussion and Adventuring happen in parallel.)
+For an *N* player game, a round involves opening *N* chambers. (For example, in a 6 player game, every round invovles flipping over 6 face-down chamber cards.)
+
+Discussion and Opening cards can happen in parallel, until all cards have been opened from the round.
 
 #### Round setup
 
 Firstly, **un-opened Chamber cards are dealt out evenly** to each player. (Cards that are 'opened' in previous rounds are not dealt in subsequent rounds.)
 
-Secondly, **each player sees their own Chamber card distribution**. For example, a player dealt 5 x Chamber cards might see their distribution as 2 Gold, 1 Fire, 2 Empty.
+Secondly, **each player sees their own Chamber card distribution**. For example, a player dealt 5 x Chamber cards might see their distribution such as:
+- 2 Gold, 1 Fire, 2 Empty
+- 3 Gold, 2 Empty (0 Fire)
+- 5 Empty (0 Gold, 0 Fire)
 
-Thirdly, **each player shuffles their Chamber cards and places them face-down**. This means that, for example, they might know that there are 2 Gold hiding amongst the 5 face-down (unopened) Chambers - but they don't know precisely *which* of the 5 unopened chambers has the Gold in.
+Thirdly, **each player shuffles their Chamber cards and places them face-down**. This means that they know their card *distribution*, but not *placement*. For example, if they have 2 Gold cards amongst 5 unopened Chambers, they will know that each of these face-down Chamber cards has a 2/5 probability of being Gold - but they won't know *which* face-down Chamber cards *is actually* Gold.
 
 #### Discussion
 
-For an *N* player game, a round involves opening *N* chambers. (For example, in a 6 player game, every round invovles flipping over 6 face-down chamber cards.)
+Adventurers will *generally* want to maximise the number of Gold chambers flipped, as this helps them towards their win condition. Guardians, however, have different incentives...
 
-Adventurers will generally be wanting to maximise the number of gold chambers flipped, as this helps them towards their win condition. Guardians, however, have different incentives...
-
-Before any chambers are opened, it is typical play for all players to share information about their distributions, to help input on which chamber should be opened. For example:
+Before any chambers are opened, it is *typical play* for all players to share information about their distributions, to help input on which chamber should be opened. For example:
 - "In my four cards, I have 3 Gold and 1 Empty - odds are good here!"
 - "Ah, so in my four cards I have 1 Gold, 1 Fire and 2 Empty - probably best to look elsewhere."
+
+*(There is no rule about declaring your cards in this way - it is simply common play. Adventurers have an interest in sharing information so that they can try to maximise the Gold cards they flip, and Guardians have an interest in pretending to be Adventurers, spreading misinformation and influencing the Adventurers.)*
 
 However, just like role assignment, *individual chamber distributions are secret* - which means that there's an element of deduction, since some people may be bluffing about what they have.
 
@@ -157,7 +162,7 @@ Once the Keyholder picks a Chamber to open, it is flipped, and everybody learns 
 
 This process of *discussion*, *opening cards* and *passing the key* continues until *N* cards have been flipped, where *N* is the number of players in the game.
 
-(This need not be equally distributed between players - for example, in a 5 player game, 3/5 flips could be from a single player.)
+(This need not be equally distributed between players - for example, the key might pass from Player A, to Player B, back to Player A, to Player C, then to Player D.)
 
 The person who holds the key at the end of a round holds onto it for the start of the next round.
 
